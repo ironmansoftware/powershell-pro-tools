@@ -1,3 +1,0 @@
-## PSScriptpad 
-
-- Reset layout option
