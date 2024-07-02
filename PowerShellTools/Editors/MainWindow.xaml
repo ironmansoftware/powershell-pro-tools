@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="PowerShellTools.Editors.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:helpEditorOs="clr-namespace:HelpEditorOS"
+        xmlns:editors="clr-namespace:PowerShellTools.Editors"
+        xml:lang="en-US"
+	    mc:Ignorable="d"
+        x:Name="CmdletHelpEditor"
+	
+	Width="1200" Height="1024" >
+
+    <Grid x:Name="GridContainer" Width="Auto" Height="Auto">
+        	<StackPanel x:Name="LocalControls" Orientation="Vertical" VerticalAlignment="Top">
+                <StackPanel x:Name="EditControls" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <editors:NavigationControl Visibility="{Binding NavigationVisiblity}" DataContext="{Binding NavigationViewModel}"> </editors:NavigationControl>
+                    <editors:DescriptionControl Visibility="{Binding DescriptionVisiblity}"></editors:DescriptionControl>
+                    <helpEditorOs:ParametersControl Visibility="{Binding ParametersVisiblity}"></helpEditorOs:ParametersControl>
+                    <editors:ExamplesControl Visibility="{Binding NavigationVisiblity}"></editors:ExamplesControl>
+                </StackPanel>
+                    		  	            
+        </StackPanel>
+        
+
+        <GridSplitter Visibility="Hidden" HorizontalAlignment="Left" Margin="0,0,0,3.14" x:Name="NavigationSplitter" Width="5" Grid.Column="1" Grid.Row="1"/>
+
+
+        </Grid>
+</UserControl>

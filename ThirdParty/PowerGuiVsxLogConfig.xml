@@ -1,0 +1,20 @@
+<!-- Configuration file for logging -->
+<!-- This file needs to be put into user's My Documents folder to enable logging -->
+<log4net>
+    <appender name="A1" type="log4net.Appender.RollingFileAppender">
+
+	<param name="File" value="c:\powergui.log" /> 
+        	<param name="AppendToFile" value="true" /> 
+
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern value="%-4timestamp [%thread] %-5level %logger %ndc - %message%newline" />
+        </layout>
+
+    </appender>
+    
+    <!-- Set root logger level to DEBUG and its only appender to A1 -->
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="A1" />
+    </root>
+</log4net>

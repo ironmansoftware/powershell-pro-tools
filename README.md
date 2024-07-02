@@ -1,7 +1,5 @@
 # PowerShell Pro Tools
 
-_This is the future home of the PowerShell Pro Tools source code_
-
 Powerful tools for PowerShell Developers.
 
 [Documentation](https://docs.poshtools.com)
@@ -11,9 +9,7 @@ Powerful tools for PowerShell Developers.
 - [PowerShell Tools for Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsVS2022)
 - [PowerShell Tools for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsforVisualStudio2017-18561)
 - [PowerShell Pro Tools for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ironmansoftware.powershell-pro-tools)
-- [PSScriptPad](https://github.com/ironmansoftware/powershell-pro-tools/releases)
-- [PSPackager](https://github.com/ironmansoftware/powershell-pro-tools/releases)
-- [Module](https://www.powershellgallery.com/packages/PowerShellProTools)
+- [PowerShell Pro Tools Module](https://www.powershellgallery.com/packages/PowerShellProTools)
 
 # Tools
 

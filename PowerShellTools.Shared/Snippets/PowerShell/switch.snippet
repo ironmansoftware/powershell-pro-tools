@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Switch</Title>
+            <Shortcut>Switch</Shortcut>
+            <Description>Code snippet for a switch statement.</Description>
+            <Author>Adam Driscoll</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal>
+                  <ID>param1</ID>
+                    <ToolTip>Value</ToolTip>
+                    <Default>$Value</Default>
+                </Literal>
+            </Declarations>
+            <References />
+          <Code Language="PowerShell">
+                <![CDATA[switch ($param1$)
+{
+    'value1' { }
+    {$_ -in 'A','B','C'} {}
+    'value3' {}
+    Default {}
+}]]>
+            </Code>  
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

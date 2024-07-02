@@ -1,0 +1,67 @@
+﻿<shell:VsShellDialogWindow x:Class="PowerShellTools.DebugEngine.PromptUI.ReadHostPromptForChoicesView"
+            x:ClassModifier="internal"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:shell="clr-namespace:PowerShellTools.Common"
+            xmlns:local="clr-namespace:PowerShellTools.DebugEngine.PromptUI"
+            mc:Ignorable="d" 
+            MinWidth="360"
+            Width="Auto"
+            ResizeMode="NoResize"
+            ShowInTaskbar="False"
+            Title="{Binding Path=Caption}"
+            TextBlock.TextAlignment="Center"
+            WindowStartupLocation="CenterOwner"
+            SizeToContent="WidthAndHeight"
+            d:DataContext="{x:Static local:ReadHostPromptForChoicesViewModel.DesignerViewModel}">
+    <shell:VsShellDialogWindow.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="MinHeight" Value="23" />
+            <Setter Property="MinWidth" Value="75" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="Margin" Value="5,5,5,0" />
+        </Style>
+    </shell:VsShellDialogWindow.Resources>
+        
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Margin="10,5,10,5">
+            <TextBlock Text="{Binding Path=Message}" TextWrapping="Wrap" TextAlignment="Left"/>
+        </Grid>
+        
+        <StackPanel Grid.Row="1" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Margin="5,5,10,10">
+            <ItemsControl ItemsSource="{Binding Path=Choices}" BorderThickness="0" IsTabStop="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="0" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=Choice.Label}"
+                                ToolTip="{Binding Path=Choice.HelpMessage}"
+                                IsDefault="{Binding Path=IsDefault}"
+                                IsTabStop="True"
+                                AutomationProperties.Name="{Binding Path=Choice.Label}"
+                                Click="OnButtonClick"
+                                CommandParameter="{Binding Path=Choice.Label}"
+                                Command ="{Binding DataContext.Command, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type StackPanel}}}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</shell:VsShellDialogWindow>

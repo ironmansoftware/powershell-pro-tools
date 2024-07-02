@@ -1,0 +1,1 @@
+Import-Module "$PSScriptRoot\..\PowerShellToolsPro.Cmdlets\out\PowerShellProTools.psd1" -Force

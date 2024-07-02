@@ -1,0 +1,888 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>112d4ae2-c8c8-4b7f-833d-46d4ff945180</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>PowerShellTools.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Arguments.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AstUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\ClassificationType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\Classifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\ClassifierServices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\HighlightMatchedBracesFormatDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\HighlightMatchedBracesTag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\IPowerShellTokenizationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellBraceMatchingTagger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellBraceMatchingTaggerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellClassifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellClassifierProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellEditorFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellErrorTagger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellErrorTaggerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellOutliningTagger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellOutliningTaggerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellParseUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\PowerShellTokenizationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\ProfilingTagger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classification\ScriptAnalysisTagger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExecuteAsScriptCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExecuteFromEditorContextMenuCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExecuteFromSolutionExplorerContextMenuCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExecuteSelectionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExecuteSelectionCommandToolbar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExecuteWithParametersAsScriptCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExecuteWithParametersAsScriptFromSolutionExplorerCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ICommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\OpenDebugReplCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\OpenExplorerCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\PacakgeScript.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\FormatCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ProfileScriptCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ScriptParameterResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SwitchPowerShellVersionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ConfigurableBoolToVisibilityConveter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\Converters\ByteValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\Converters\ErrorIconConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\Converters\IntValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\Converters\LongValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\DataTypeConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterEditorHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterEditorModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterEditorTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterEditorView.xaml.cs">
+      <DependentUpon>ParameterEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterValueComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ScriptParameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ScriptParameterViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ValidationResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewModelCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\WaterMark.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\WatermarkAdorner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CredentialUI\CredentialsDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CredentialUI\NativeCredentialsUI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CredentialUI\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CredentialUI\SecureStringDialog.xaml.cs">
+      <DependentUpon>SecureStringDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CredentialUI\SecureStringDialogViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\BreakpointManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\DebugEngineInternalException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\DebugEventManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\DebugServiceEventsHandlerProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Definitions\Com.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Definitions\Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Definitions\Guids.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Definitions\Hresult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Engine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\EngineEvents.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Engine\EngineUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Engine\OperationThread.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\HostUi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Impl\AD7Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\IRunspaceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\NativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PendingBreakpoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PInvoke.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PrivateReflectionDynamicObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PromptUI\ChoiceButtonItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PromptUI\ReadHostPromptDialog.xaml.cs">
+      <DependentUpon>ReadHostPromptDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PromptUI\ReadHostPromptDialogViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PromptUI\ReadHostPromptForChoicesView.xaml.cs">
+      <DependentUpon>ReadHostPromptForChoicesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\PromptUI\ReadHostPromptForChoicesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\IPowerShellToolsPortSupplier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\RemoteDebugPort.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\RemoteDebugPortSupplier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\RemoteEnumDebugProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\RemoteEnumDebugPrograms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\RemotePortPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\RemoteUnsecuredDebugPortSupplier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\Remote\RemoteUnsecuredPortPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ResourceStrings.Designer.cs">
+      <DependentUpon>ResourceStrings.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScirptProgramNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScriptBreakpoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScriptDebugger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScriptDebugProcess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScriptDocumentContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScriptProgramProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScriptProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DebugEngine\ScriptStackFrame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorImports.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExplorerServiceEventsHandlerProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\BindingProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\Command.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\CommandListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\CommandListViewItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\CommandPreview.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\HostControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\ObservableList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\ObservableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\OptionsPanel.xaml.cs">
+      <DependentUpon>OptionsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\OptionTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\ParameterEditorTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\ScrollViewerCorrector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\SearchableTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\ViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\ViewModelCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Controls\VsShellDialogWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Converters\ByteValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Converters\IntValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Converters\LongValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Converters\ModuleNameConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\DataProvider\DataProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Helpers\ClipboardHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Helpers\DragDropHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Helpers\DTEHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Helpers\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Helpers\MouseDoubleClickBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Helpers\NotifiyTaskCompletion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Helpers\WpfHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Interfaces\IDataProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Interfaces\IDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Interfaces\IHostWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Interfaces\IHostWindowContent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Interfaces\ISearchTaskTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Options\OptionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Options\OptionSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Options\OptionType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Options\PSParameterEditorOptionSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Parameter\CommandFormatStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Parameter\CommandFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Parameter\CommandFormatterOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Parameter\CommandModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Parameter\CommandModelFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Parameter\CommonParameterModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Parameter\ParameterModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Search\SearchTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\Themes\ThemeResources.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\ParameterEditor.xaml.cs">
+      <DependentUpon>ParameterEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\ParameterEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\PSCommandDetails.xaml.cs">
+      <DependentUpon>PSCommandDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\PSCommandDetailsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\PSCommandExplorer.xaml.cs">
+      <DependentUpon>PSCommandExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\PSCommandExplorerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\PSCommandExplorerWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\PSParameterEditor.xaml.cs">
+      <DependentUpon>PSParameterEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Explorer\UI\PSParameterEditorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormDesigner\DocDataExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormDesigner\PSCodeDomProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Guids.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\EdgeTrackingMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\IntellisenseController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\IntellisenseControllerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\IntelliSenseManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\PowerShellCompletionSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\PowerShellCompletionSourceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\ProvideBraceCompletion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\QuickInfoProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\TabCompleteSession.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Intellisense\Utilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IVisualStudio.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BraceCompletion\BraceCompletionContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BraceCompletion\BraceCompletionContextProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BraceCompletion\BraceKind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BreakpointValidation\AstDataTypeConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BreakpointValidation\BreakpointDisplayStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BreakpointValidation\BreakpointPositionInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BreakpointValidation\BreakpointValidationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BreakpointValidation\BreakpointValidationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\CodeWindowManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\DropDownBar\DropDownBarClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\DropDownBar\EntryInfoEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\DropDownBar\FunctionDefinitionEntryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\DropDownBar\IDropDownEntryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\DropDownBar\ScriptEntryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\EditFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\EditorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IndentUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\NavigationExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\PowerShellLanaguagePreferences.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\PowerShellLanguageInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\SmartIndent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\SmartIndentProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\TextViewFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\TodoWindowTaskProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MSBuild\ResourceSingleFileGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObservableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\AdvancedOptionsPane.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\AdvancedOptionsPaneControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Options\AdvancedOptionsPaneControl.Designer.cs">
+      <DependentUpon>AdvancedOptionsPaneControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Options\AnalysisOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\BaseOptionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\BaseOptionPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Options\BitnessEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\BitnessOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\DiagnosticOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\DialogPageProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\GeneralOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\GeneralOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Options\GeneralOptionsControl.Designer.cs">
+      <DependentUpon>GeneralOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PackageProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PowerShellConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PowerShellToolsPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\DeveloperActivityAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\ImageListIndex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\Images\PowerShellMonikers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\LocDisplayNameAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellCodeDomProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellConfigProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellFileNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellFileNodeProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellLibraryManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellNonCodeFileNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellProjectConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellProjectFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellProjectLauncher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellProjectNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellProjectNodeProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PowerShellProjectPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\ProjectConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\AdvancedPropertyPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\AdvancedPropertyPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\AdvanvedPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\AdvanvedPropertyPageControl.Designer.cs">
+      <DependentUpon>AdvanvedPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\BuildEventPropertyPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\BuildEventPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\BuildEventPropertyPageControl.Designer.cs">
+      <DependentUpon>BuildEventPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\DebugPropertyPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\DebugPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\DebugPropertyPageControl.Designer.cs">
+      <DependentUpon>DebugPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\GeneralPropertyPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\GeneralPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\GeneralPropertyPageControl.Designer.cs">
+      <DependentUpon>GeneralPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\ModuleManifestPropertyPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\ModuleManifestPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\ModuleManifestPropertyPageControl.Designer.cs">
+      <DependentUpon>ModuleManifestPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\AdvancedPropertyPage.xaml.cs">
+      <DependentUpon>AdvancedPropertyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PropertyPages\PropertyPageUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\ProvideCodeExpansionPathAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\PSBuildTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\ResourcesCategoryAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\ResourcesDescriptionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\AllFilesProjectElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\AssemblyReferenceNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Attributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\AutomationScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OABuildManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAFileItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAFolderItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OANavigableProjectItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OANullProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAProject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAProjectConfigurationProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAProjectItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAProjectItems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAReferenceFolderItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\OAReferenceItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\VSProject\OAAssemblyReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\VSProject\OAProjectReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\VSProject\OAReferenceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\VSProject\OAReferences.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\VSProject\OAVSProject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Automation\VSProject\OAVSProjectItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\BuildDependency.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\BuildPropertyPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ClipboardService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Command.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonConfigProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonEditorFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonFileNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonFolderNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonNonCodeFileNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonProjectConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonProjectNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonProjectNodeProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonProjectPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonPropertyPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonReferenceContainerNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\CommonUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ConfigProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DataObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DebugTimer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DependentFileNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DesignPropertyDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DeveloperActivityAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DialogWindowVersioningWorkaround.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DirtyChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\DocumentManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\EnumBSTR.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\EnumDependencies.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ExceptionExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ExtensibilityEventsDispatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\FileChangeManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\FileDocumentManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\FileNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\FileWatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\FlavoredProjectFactoryBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\FolderNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\HierarchyIdMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\HierarchyNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\HierarchyNodeFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IClipboardService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IDEBuildLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IDiskBasedNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IdleManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ImageHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Interfaces.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IProjectLauncher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IProjectLaunchProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IProjectPublisher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IPublishFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\IPublishProject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\LocalizableProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Misc\ConnectionPointContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Misc\ExternDll.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Misc\NativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Misc\UnsafeNativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\MsBuildProjectElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\CommonLibraryNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\HierarchyListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\ICustomSearchListProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\ILibraryManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\IScopeNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\ISimpleObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\Library.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\LibraryManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\LibraryNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\LibraryTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\ModuleId.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\ProjectLibraryNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\SimpleObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\SimpleObjectList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\SourceLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Navigation\TextLineEventListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\NodeProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ObservableCollectionExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\OleServiceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Output.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\OutputGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\OutputWindowRedirector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\OverwriteFileDialog.xaml.cs">
+      <DependentUpon>OverwriteFileDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProcessOutput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectDesignerDocumentManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectDocumentsListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectDocumentsListenerForStartupFileUpdates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectFileConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectNode.CopyPaste.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectNode.Events.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectNode.IOleCommandTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectReferenceNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectResources.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\PropertiesEditorLauncher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideCodeExpansionPathAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideCodeExpansionsAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideDebugEngineAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideDebugExceptionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideDebugLanguageAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideDebugPortPickerAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideDebugPortSupplierAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProvideTextEditorAutomationAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\PublishFailedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\PublishFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\PublishProject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\PublishProjectOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ReferenceContainerNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\ReferenceNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Resources.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SharedCommands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SingleFileGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SingleFileGeneratorFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SingleFileGeneratorNodeProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SolutionEventsListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SolutionListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SolutionListenerForBuildDependencyUpdate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SolutionListenerForProjectEvents.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SolutionListenerForProjectOpen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\StructuresEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\SuspendFileChanges.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\TaskDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\TaskProgressBar.xaml.cs">
+      <DependentUpon>TaskProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\TrackDocumentsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\UIThread.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\UIThreadBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\UIThreadSynchronizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\UpdateSolutionEventsListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Utilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\VirtualProjectElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\VsCommands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\VsExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\VSShellUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\VsTaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\WaitDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\WebPiComponentPickerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\WebPiComponentPickerControl.Designer.cs">
+      <DependentUpon>WebPiComponentPickerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\WebSocketStream.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\Commands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\ConfigurationControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\Controls.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\Dialogs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\LabelledButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\LabelledControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\LambdaConverter\ILambdaConverterProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\LambdaConverter\LambdaConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\LambdaConverter\LambdaExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\LambdaConverter\LambdaProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\NativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\Utils\DropDownListProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\Utils\DropDownListPropertyEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\Utils\FileListTypeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\Utils\VersionConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Project\XamlDesignerSupport.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProToolsPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProvideDiffSupportedContentTypeAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PSExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PSToken.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuickFix\RefactoringSuggestedAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuickFix\RefactoringSuggestedActionSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuickFix\RefactoringSuggestedActionSourceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuickFix\ScriptAnalysisSuggestedActionSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuickFix\ScriptAnalysisSuggestedActionsSourceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuickFix\ScriptAnalyzerSuggestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RegistrationAttributes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\IPowerShellEvaluator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\PowerShellReplEvaluator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\PowerShellReplEvaluatorProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\ReplGlobalSuppressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\ReplGuids.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\ReplMouseProcessor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\ReplPkgCmdID.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\ReplResources.Designer.cs">
+      <DependentUpon>ReplResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\ReplWindowPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Commands\CancelExecutionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Commands\ClearScreenReplCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Commands\EchoReplCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Commands\ResetReplCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Commands\WaitReplCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\CustomTrackingSpan.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\DialogWindows\RemoteSessionEnterWindow.xaml.cs">
+      <DependentUpon>RemoteSessionEnterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\DialogWindows\RemoteSessionWindowViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\DialogWindows\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ExecutionResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\History.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IContentTypeMetadata.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IMultipleScopeEvaluator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\InlineReplAdornment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\InlineReplAdornmentManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IReplCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IReplCommand2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IReplEvaluator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IReplEvaluatorProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IReplWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IReplWindowCreationListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\IReplWindowProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Margin\GlyphPrompts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Margin\PromptMargin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\Margin\PromptMarginVisualManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\OutputBuffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\OutputColors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplAggregateClassifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplAggregateClassifierProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplContentType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplInput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplOutputClassificationFormatDefinitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplOutputClassifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplOutputClassifierProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplOutputContentType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplRoleAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplWindowExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ReplWindowProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ResizingAdorner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repl\Repl\ZoomableInlineAdornment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)RunspaceRef.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SecureStringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\ConnectionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\Debugging\PowershellBreakpointRecord.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\Debugging\PowerShellDebuggingService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\Debugging\PowerShellDebuggingServiceAttachUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\Debugging\PowershellHost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\Debugging\PowerShellRawHost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\Explorer\PowerShellExplorerService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\IntelliSense\PowerShellIntelliSenseService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\PowerShellExplorerServiceProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\PowershellHostProcessException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\PowershellHostProcessHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceManagement\ServiceCommon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\AnalysisService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\AnalysisWatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\PowerShellHostClientService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Snippets\SnippetHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\IProject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\ISolution.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\ISolutionEventsListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\ISolutionProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\ITestFileAddRemoveListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\ITestFilesUpdateWatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\Project.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\Solution.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\SolutionEventsListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\SolutionEventsListenerEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\SolutionProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\TestFileAddRemoveListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\TestFileChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\TestFilesUpdateWatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\ValidateArg.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\Helpers\VsSolutionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\PowerShellTestContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestAdapter\PowerShellTestContainerDiscoverer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\Modules.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ModulesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ModulesControl.xaml.cs">
+      <DependentUpon>ModulesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ModuleTreeItemAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\PSObjectTreeItemAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\Variables.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\VariablesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\VariablesControl.xaml.cs">
+      <DependentUpon>VariablesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UiContextUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UpdateMargin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UpdateMarginControl.xaml.cs">
+      <DependentUpon>UpdateMarginControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)VisualStudio.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VsShellDialogWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Workspace\PowerShellFileIconProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Workspace\PowerShellLaunchConfigurationProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Workspace\PowerShellLaunchDebugTargetProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\PowerShellWpfEventBindingProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\WpfAssemblyReferenceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\WpfEventProviderFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\XamlUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)Commands\UserInterface\Resources\StatusAnnotations_Invalid_color_16x.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Commands\UserInterface\Resources\Warning_yellow_7231_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Commands\UserInterface\ParameterEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)CredentialUI\SecureStringDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DebugEngine\PromptUI\ReadHostPromptDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DebugEngine\PromptUI\ReadHostPromptForChoicesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Explorer\Controls\OptionsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Explorer\Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Explorer\UI\ParameterEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Explorer\UI\PSCommandDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Explorer\UI\PSCommandExplorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Explorer\UI\PSParameterEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Project\Images\Application.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Project\PropertyPages\AdvancedPropertyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Project\SharedProject\OverwriteFileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Project\SharedProject\TaskProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Project\SharedProject\Wpf\Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Repl\Repl\DialogWindows\RemoteSessionEnterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)ToolWindows\ModulesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)ToolWindows\VariablesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UpdateMarginControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)CredentialUI\Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)DebugEngine\ResourceStrings.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Options\AdvancedOptionsPaneControl.resx">
+      <DependentUpon>AdvancedOptionsPaneControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Options\GeneralOptionsControl.resx">
+      <DependentUpon>GeneralOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\PropertyPages\AdvanvedPropertyPageControl.resx">
+      <DependentUpon>AdvanvedPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\PropertyPages\BuildEventPropertyPageControl.resx">
+      <DependentUpon>BuildEventPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\PropertyPages\DebugPropertyPageControl.resx">
+      <DependentUpon>DebugPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\PropertyPages\GeneralPropertyPageControl.resx">
+      <DependentUpon>GeneralPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\PropertyPages\ModuleManifestPropertyPageControl.resx">
+      <DependentUpon>ModuleManifestPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\Resources\CommonImageList.bmp" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\Resources\ImageList.bmp" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\Resources\ProjectResources.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProjectResources.resx">
+      <DependentUpon>ProjectResources.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\SharedProject\Resources.resx">
+      <DependentUpon>Resources.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Project\SharedProject\WebPiComponentPickerControl.resx">
+      <DependentUpon>WebPiComponentPickerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ProToolsPackage.resx">
+      <DependentUpon>ProToolsPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Repl\ReplResources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Repl\Repl\DialogWindows\Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)WpfSupport\Remove-EventHandlers.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)DebugEngine\PowerShellTools.DebugEngine.csproj" />
+    <Content Include="$(MSBuildThisFileDirectory)PowerShellToolsColors.pkgdef">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)PowerShellToolsProcessHost.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Repl\Resources\PowerShellInteractiveWindow_16x.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Repl\Resources\ReplToolBarImages.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\advanced function.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\commentblock.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\dountil.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\dowhile.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\for.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\foreach.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\function.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\if.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\ifelse.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\switch.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\trycatchfinally.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\tryfinally.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\PowerShell\while.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Snippets\SnippetsIndex.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\Icons\HelpApplication_16x.png" />
+    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\Icons\Key_16x.png" />
+    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\Icons\Link_16x.png" />
+    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\Icons\Save_16x.png" />
+    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\Icons\ps-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Project\SharedProject\Debugger\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Project\SharedProject\ProcessOutput.cs.rej" />
+    <None Include="$(MSBuildThisFileDirectory)Project\SharedProject\SharedProject.proj" />
+    <None Include="$(MSBuildThisFileDirectory)Repl\ReplVSPackage.resx" />
+  </ItemGroup>
+</Project>

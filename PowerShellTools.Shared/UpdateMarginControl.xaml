@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="PowerShellTools.UpdateMarginControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PowerShellTools"
+             mc:Ignorable="d"
+             Background="#F5CC84">
+    <StackPanel Orientation="Horizontal">
+        <TextBlock Padding="5">A new version of PowerShell Tools for Visual Studio has been installed. Find out more by <Hyperlink NavigateUri="https://docs.poshtools.com/poshtools-changelog" RequestNavigate="Hyperlink_RequestNavigate">clicking here</Hyperlink>. </TextBlock>
+        <TextBlock Padding="5" Visibility="Hidden" x:Name="upgrade">Upgrade to <Hyperlink NavigateUri="https://store.ironmansoftware.com/pricing/powershell-pro-tools" RequestNavigate="Hyperlink_RequestNavigate">PowerShell Pro Tools</Hyperlink> to get the best experience with PowerShell in Visual Studio.</TextBlock>
+        <Button Margin="5" x:Name="close" Click="Close">Close</Button>
+    </StackPanel>
+</UserControl>

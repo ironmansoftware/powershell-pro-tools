@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <DefaultName>PowerShellTest</DefaultName>
+    <Name>PowerShell Test</Name>
+    <ProjectType>PowerShell</ProjectType>
+    <Description>Pester test fixture file.</Description>
+    <TemplateID>PowerShellTools.PowerShell.PowerShellTest</TemplateID>
+    <TemplateGroupID>PowerShellTools.PowerShell</TemplateGroupID>
+    <AppliesTo>PowerShell</AppliesTo>
+    <SortOrder>149</SortOrder>
+    <Icon>PowerShellTest.ico</Icon>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <ShowByDefault>true</ShowByDefault>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$.tests.ps1">Script.tests.ps1</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

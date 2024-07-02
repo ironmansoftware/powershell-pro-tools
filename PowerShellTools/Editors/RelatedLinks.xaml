@@ -1,0 +1,46 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="HelpEditorOS.RelatedLinks"
+	x:Name="RelatedLinks1"
+	d:DesignWidth="900" d:DesignHeight="900">
+
+	<Grid x:Name="RelatedLinksGrid" Visibility="Visible" Margin="0,0,0,0" >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="0.479*"/>
+				<ColumnDefinition Width="0.521*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="24"/>
+				<RowDefinition Height="48"/>
+				<RowDefinition Height="64"/>
+				<RowDefinition Height="40"/>
+				<RowDefinition Height="444"/>
+			</Grid.RowDefinitions>
+			<Label Margin="0,5.47,0,0" x:Name="RelatedLinkLabel" VerticalAlignment="Top" Height="24" Content="Related Link  *" Style="{DynamicResource LabelStyle1}" Grid.Row="2" HorizontalAlignment="Left" Width="108.032"/>
+			<TextBox Margin="8,29.47,8,10.53" x:Name="RelatedLinkTextBox" Text="" TextWrapping="Wrap" Grid.Row="2" SpellCheck.IsEnabled="True" LostFocus="AddRelatedLink_Click"/>
+			<Label Margin="8,19.838,28,4.829" Content="Add a related link. To add more related links, expand the cmdlet node, and click the Related Links node within it." x:Name="LinkHelpTextInfoLabel" Style="{DynamicResource LabelStyle1}" Grid.ColumnSpan="2" FontStyle="Italic" FontWeight="Bold" Foreground="{DynamicResource Brush2}" Grid.Row="1"/>
+			<TextBox Visibility="Hidden" Margin="178.016,34.47,96,37.53" x:Name="LinkIDTextBox" Text="" TextWrapping="Wrap" Grid.Row="2" Grid.RowSpan="2"/>
+			<StackPanel Orientation="Horizontal" x:Name="stackMenu_Examples1" Margin="16.004,0,127.872,6.863" d:LayoutOverrides="VerticalAlignment">
+				<Button Style="{DynamicResource MenuButtonStyle}" Content="_Add Link" Command="{Binding ResetImage, ElementName=roomControl, Mode=Default}" Click="AddRelatedLink_Click" x:Name="_SaveLinkButton"/>
+				<Button Style="{DynamicResource MenuButtonStyle}" Content="_New Link" Command="{Binding ResetImage, ElementName=roomControl, Mode=Default}" Click="NewRelatedLink_Click" x:Name="_NewLinkButton"/>
+				<Button Style="{DynamicResource MenuButtonStyle}" Content="_Delete Link" x:Name="_DeleteLink_Button" Click="DeleteLink_Click"/>
+			</StackPanel>
+			<Label x:Name="OldRelatedLinkLabel" Height="24" Content="Original Related Link " Style="{DynamicResource LabelStyle1}" HorizontalAlignment="Left" Margin="8,5.47,0,0" VerticalAlignment="Top" Width="143.744" Grid.Column="1" Grid.Row="2"/>
+			<TextBox Margin="8,29.47,28,10.53" x:Name="OldRelatedLinkTextBox" Grid.Column="1" Grid.Row="2" Text="" TextWrapping="Wrap" Background="{DynamicResource Brush2}" Foreground="{DynamicResource Brush1}" IsReadOnly="True"/>
+			<StackPanel Orientation="Horizontal" x:Name="stackMenu_Examples_Copy" Margin="0,6.47,0,10.39" Grid.Row="3" Opacity="0.5" HorizontalAlignment="Center" Width="219.124" Grid.ColumnSpan="2">
+				<StackPanel.Background>
+					<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+						<GradientStop Color="#FF000000" Offset="0.731"/>
+						<GradientStop Color="#FFFFFFFF" Offset="1"/>
+					</LinearGradientBrush>
+				</StackPanel.Background>
+				<Button Style="{DynamicResource MenuButtonStyle}" Content="_Add Link" Command="{Binding ResetImage, ElementName=roomControl, Mode=Default}" Click="AddRelatedLink_Click" x:Name="_SaveLinkButton1"/>
+				<Button Style="{DynamicResource MenuButtonStyle}" Content="_New Link" Command="{Binding ResetImage, ElementName=roomControl, Mode=Default}" Click="NewRelatedLink_Click" x:Name="_NewLinkButton1"/>
+				<Button Style="{DynamicResource MenuButtonStyle}" Content="_Delete Link" x:Name="_DeleteLink_Button1" Click="DeleteLink_Click"/>
+			</StackPanel>
+		</Grid>
+</UserControl>

@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <!--The Commands section is where the commands, menus and menu groups are defined.
+      This section uses a Guid to identify the package that provides the command defined inside it. -->
+  <Commands package="guidPoshToolsPckg">
+    <!-- Inside this section we have different sub-sections: one for the menus, another
+    for the menu groups, one for the buttons (the actual commands), one for the combos
+    and the last one for the bitmaps used. Each element is identified by a command id that
+    is a unique pair of guid and numeric identifier; the guid part of the identifier is usually
+    called "command set" and is used to group different command inside a logically related
+    group; your package should define its own command set in order to avoid collisions
+    with command ids defined by other packages. -->
+
+    <Menus>
+
+      <!--In this section you can define new menus. A menu in VS is the generic way of
+      refering to both menus (all types, including context menus and MenuControllers)
+      and toolbars (both toolwindow and top-level). A menu is a container for groups. -->
+      <Menu guid="guidPoshToolsCmdSet" id="PowerShellToolsMenu" priority="0x0000" type="Toolbar">
+        <Strings>
+          <ButtonText>PowerShell Tools</ButtonText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidPoshToolsCmdSet" id="SubMenu" priority="0x9000" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_VIEW_DEV_WINDOWS"/>
+        <Strings>
+          <ButtonText>PowerShell</ButtonText>
+          <CommandName>PowerShell</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+
+
+    <!-- Define a group - a section in the menu -->
+    <Groups>
+
+      <Group guid="guidPoshToolsCmdSet" id="toolbarGroup" priority="0xFF45">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      </Group>
+
+      <Group guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup" priority="0x0100">
+        <!-- These symbols are defined in GeneratedVSCT.vsct -->
+        <Parent guid="guidCmdSet" id="menuidContext" />
+      </Group>
+      <Group guid="guidPoshToolsCmdSet" id="grpidPoshToolsSolutionExplorerGroup" priority="0x0100">
+        <!-- These symbols are defined in GeneratedVSCT.vsct -->
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+      </Group>
+
+      <Group guid="guidPoshToolsCmdSet" id="SubMenuGroup" priority="0x0600">
+        <Parent guid="guidPoshToolsCmdSet" id="SubMenu"/>
+      </Group>
+    </Groups>
+    <!-- Define a button - a menu item - inside the Group -->
+    <Buttons>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidConvertToPowerShell" priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ConvertToPowerShell</LocCanonicalName>
+          <CanonicalName>PowerShell.ConvertToPowerShell</CanonicalName>
+          <ButtonText>Convert to PowerShell</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidPoshToolsCmdSet" id="cmdidExecuteAsScript"
+        priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ExecuteAsScript</LocCanonicalName>
+          <CanonicalName>PowerShell.ExecuteAsScript</CanonicalName>
+          <ButtonText>Execute as Script</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidExecuteWithParametersAsScript"
+        priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ExecuteAsScript</LocCanonicalName>
+          <CanonicalName>PowerShell.ExecuteAsScript</CanonicalName>
+          <ButtonText>Execute as Script with Parameters</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidExecuteAsScriptSolution"
+          priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsSolutionExplorerGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ExecuteAsScript</LocCanonicalName>
+          <CanonicalName>PowerShell.ExecuteAsScript</CanonicalName>
+          <ButtonText>Execute as Script</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidExecuteWithParametersAsScriptFromSolutionExplorer"
+        priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsSolutionExplorerGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ExecuteAsScript</LocCanonicalName>
+          <CanonicalName>PowerShell.ExecuteAsScript</CanonicalName>
+          <ButtonText>Execute as Script with Parameters</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidProfileScript"
+      priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ProfileScript</LocCanonicalName>
+          <CanonicalName>PowerShell.ProfileScript</CanonicalName>
+          <ButtonText>Profile Script</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidExecuteSelection"
+        priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ExecuteSelection</LocCanonicalName>
+          <CanonicalName>PowerShell.ExecuteSelection</CanonicalName>
+          <ButtonText>Execute Selection</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidExecuteSelectionToolbar"
+          priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="toolbarGroup"/>
+
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.ExecuteSelection</LocCanonicalName>
+          <CanonicalName>PowerShell.ExecuteSelection</CanonicalName>
+          <ButtonText>Execute Selection</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidGenerateWinForm"
+        priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.GenerateWinForm</LocCanonicalName>
+          <CanonicalName>PowerShell.GenerateWinForm</CanonicalName>
+          <ButtonText>Generate Windows Form</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidSnippet" priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.Snippet</LocCanonicalName>
+          <CanonicalName>PowerShell.Snippet</CanonicalName>
+          <ButtonText>Insert Snippet</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidPoshToolsCmdSet" id="cmdidReplWindow" priority="0x7f00" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="SubMenuGroup"/>
+        <Icon guid="guidReplImage" id="1"/>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <CommandName>cmdidReplWindow</CommandName>
+          <ButtonText>PowerShell Interactive Window</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidPoshToolsCmdSet" id="cmdidPasteAsCommand"
+              priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.PasteAsCommand</LocCanonicalName>
+          <CanonicalName>PowerShell.PasteAsCommand</CanonicalName>
+          <ButtonText>Paste As C#</ButtonText>
+        </Strings>
+      </Button>
+
+        <Button guid="guidPoshToolsCmdSet" id="cmdidExplorerWindow" priority="0x0101" type="Button">
+            <Parent guid="guidPoshToolsCmdSet" id="SubMenuGroup"/>
+            <Icon guid="guidExplorerImage" id="1"/>
+            <Strings>
+                <ButtonText>PowerShell Command Explorer</ButtonText>
+            </Strings>
+        </Button>
+
+      <Button guid="guidPoshToolsCmdSet" id="cmdidCompileScriptSolution"
+        priority="0x0100" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="grpidPoshToolsSolutionExplorerGroup"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <LocCanonicalName>PowerShell.PackageScript</LocCanonicalName>
+          <CanonicalName>PowerShell.PackageScript</CanonicalName>
+          <ButtonText>Package as executable</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidPoshToolsCmdSet" id="VariablesCommandId" priority="0x7f02" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="SubMenuGroup"/>
+        <Icon guid="guidExplorerImage" id="1"/>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>PowerShell Variables</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidPoshToolsCmdSet" id="ModulesCommandId" priority="0x7f01" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="SubMenuGroup"/>
+        <Icon guid="guidExplorerImage" id="1"/>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>PowerShell Modules</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidPoshToolsCmdSet" id="SettingsCommandId" priority="0x7f03" type="Button">
+        <Parent guid="guidPoshToolsCmdSet" id="SubMenuGroup"/>
+        <Icon guid="guidSettingsImage" id="1"/>
+        <Strings>
+          <ButtonText>Settings</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\Images.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
+      <Bitmap guid="guidReplImage" href="Resources\PowershellInteractiveWindow_16x.png"/>
+      <Bitmap guid="guidExplorerImage" href="Resources\powershell_icon.png"/>
+      <Bitmap guid="guidSettingsImage" href="Resources\settings.png"/>
+      <Bitmap guid="guidImages" href="Resources\VariablesCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+    </Bitmaps>
+
+    <Combos>
+      <Combo guid="guidPoshToolsCmdSet" id="cmdidSelectPowerShellVersion" priority="0x0500" type="DynamicCombo" defaultWidth="150" idCommandList="cmdidPowerShellVersionList">
+        <Parent guid="guidPoshToolsCmdSet" id="toolbarGroup"/>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <Strings>
+          <ButtonText>PowerShell Version: </ButtonText>
+          <MenuText>PowerShell Version: </MenuText>
+          <ToolTipText>Select PowerShell Version</ToolTipText>
+          <CanonicalName>PowerShell Version</CanonicalName>
+          <LocCanonicalName>PowerShell Version</LocCanonicalName>
+          <CommandName>PowerShell Version</CommandName>
+        </Strings>
+      </Combo>
+    </Combos>
+
+  </Commands>
+
+  <KeyBindings>
+    <KeyBinding guid="guidPoshToolsCmdSet" id="cmdidExecuteAsScript" editor="guidVSStd97" key1="VK_F5" mod1="Alt Shift"/>
+    <KeyBinding guid="guidPoshToolsCmdSet" id="cmdidExecuteWithParametersAsScript" editor="guidVSStd97" key1="VK_F5" mod1="Control Alt Shift"/>
+    <KeyBinding guid="guidPoshToolsCmdSet" id="cmdidExecuteSelection" editor="guidVSStd97" key1="VK_F8" mod1="Control"/>
+    <KeyBinding guid="guidPoshToolsCmdSet" id="cmdidReplWindow" editor="guidVSStd97" key1="VK_OEM_5" mod1="Control Shift"/>
+  </KeyBindings>
+
+  <CommandPlacements>
+    <CommandPlacement guid="guidPoshToolsCmdSet" id="toolbarGroup" priority="0x0100">
+      <Parent guid="guidPoshToolsCmdSet" id="PowerShellToolsMenu"/>
+    </CommandPlacement>
+  </CommandPlacements>
+
+  <Symbols>
+    <GuidSymbol name="guidVariablesPackage" value="{fb1a91aa-f739-4d95-a2f1-73d05f10cdf8}" />
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidVariablesPackageCmdSet" value="{e4dce82b-d60c-4ef5-8503-f3f3093875f1}">
+
+    </GuidSymbol>
+
+    <GuidSymbol name="guidPoshToolsPckg" value="{0429083f-fdbc-47a3-84ff-b3d50343b21e}"/>
+    <!-- Substitute a unique GUID for the placeholder: -->
+    <GuidSymbol name="guidPoshToolsCmdSet" value="{099073C0-B561-4BC1-A847-92657B89A00E}" >
+
+      <!--Buttons-->
+      <IDSymbol name="cmdidExecuteSelection" value="0x0102"/>
+      <IDSymbol name="cmdidExecuteAsScript"  value="0x0103"/>
+      <IDSymbol name="cmdidExecuteWithParametersAsScript"  value="0x0104"/>
+      <IDSymbol name="cmdidSnippet" value="0x0106"/>
+      <IDSymbol name="cmdidPrettyPrint" value="0x0107"/>
+      <IDSymbol name="cmdidReplWindow" value="0x0108"/>
+      <IDSymbol name="cmdidExecuteAsScriptSolution"  value="0x0109"/>
+      <IDSymbol name="cmdidExecuteWithParametersAsScriptFromSolutionExplorer"  value="0x0110"/>
+      <IDSymbol name="cmdidExplorerWindow" value="0x0111"/>
+      <IDSymbol name="cmdidProfileScript" value="0x0112"/>
+      <IDSymbol name="cmdidGenerateWinForm" value="0x0113"/>
+      <IDSymbol name="cmdidSelectPowerShellVersion" value="0x0114"/>
+      <IDSymbol name="cmdidPowerShellVersionList" value="0x0115"/>
+      <IDSymbol name="cmdidAboutPoshProTools" value="0x0116"/>
+      <IDSymbol name="cmdidLicenseInfo" value="0x0117"/>
+      <IDSymbol name="cmdidConsole" value="0x0118"/>
+      <IDSymbol name="cmdidExecuteSelectionToolbar" value="0x0119"/>
+      <IDSymbol name="cmdidConvertToPowerShell"  value="0x0120"/>
+      <IDSymbol name="cmdidCompileScriptSolution"  value="0x0121"/>
+      <IDSymbol name="cmdidPasteAsCommand" value="0x0122"/>
+      <IDSymbol name="cmdidPSExplorer" value="0x0123" />
+      <IDSymbol name="VariablesCommandId" value="0x0124" />
+      <IDSymbol name="ModulesCommandId" value="0x0125" />
+      <IDSymbol name="SubMenu" value="0x0126"/>
+      <IDSymbol name="SubMenuGroup" value="0x0127"/>
+      <IDSymbol name="SettingsCommandId" value="0x0128"/>
+
+      <!--Groups-->
+      <IDSymbol name="grpidPoshToolsGroup" value="0x01001"/>
+      <IDSymbol name="grpidPoshToolsSolutionExplorerGroup" value="0x01002"/>
+      <IDSymbol name="toolbarGroup" value="0x01003"/>
+      <IDSymbol name="PowerShellToolsMenu" value="0x01004"/>
+    </GuidSymbol>
+
+    <GuidSymbol name="guidCmdSet" value="{D309F791-903F-11D0-9EFC-00A0C911004F}" >
+      <IDSymbol name="menuidContext" value="0x0040D"/>
+      <IDSymbol name="grpidContextMain" value="0x20000"/>
+      <IDSymbol name="grpidExplorerCopyPaste" value="0x30000"/>
+      <IDSymbol name="menuidExplorer" value="0x10001"/>
+      <IDSymbol name="cmdidViewExplorer" value="0x0001"/>
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{229ed0f0-d653-4e8a-b880-28679056d810}" >
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidReplImage" value="{9F35C43F-D1AD-4A84-AB48-732DE8157697}"/>
+    <GuidSymbol name="guidExplorerImage" value="{56BFF972-C4AC-4C8E-8A17-70BD8368F11A}"/>
+    <GuidSymbol name="guidSettingsImage" value="{45a46237-7401-4c69-8f05-fb2b8884cb67}"/>
+
+   <GuidSymbol name="ProjectGuid" value="{072A9D46-0C24-4CFA-990A-25D7E12271F5}">
+      <IDSymbol name="ProjectIcon" value="0" />
+   </GuidSymbol>
+
+  <GuidSymbol name="guidVariablesPackageCmdSet" value="{e4dce82b-d60c-4ef5-8503-f3f3093875f1}">
+    <IDSymbol name="VariablesCommandId" value="0x0100" />
+    <IDSymbol name="SubMenu" value="0x1100"/>
+    <IDSymbol name="SubMenuGroup" value="0x1150"/>
+  </GuidSymbol>
+
+  </Symbols>
+
+</CommandTable>

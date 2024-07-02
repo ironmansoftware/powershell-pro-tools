@@ -1,0 +1,54 @@
+name: Cmdlets CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    timeout-minutes: 20
+
+    runs-on: windows-latest 
+                            
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: nuget/setup-nuget@v1
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Restore
+      shell: pwsh
+      run: |
+        dotnet restore PowerShellTools.sln
+        nuget restore PowerShellTools.sln
+
+    - name: Build Ironman Host
+      shell: pwsh
+      run: |
+        Push-Location IronmanPowerShellHost
+        dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
+        Pop-Location
+
+    - name: Build PSScriptPad
+      shell: pwsh
+      run: |
+        msbuild PowerShellTools.sln -t:rebuild -p:Configuration=Release -p:Platform=x64
+
+    - name: Build Cmdlets
+      shell: pwsh
+      run: |
+        .\PowerShellToolsPro.Cmdlets\build.ps1
+      env:
+        SIGNING_CODE: ${{ secrets.SIGNING_CODE }}

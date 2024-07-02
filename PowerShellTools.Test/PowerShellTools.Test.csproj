@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Build\ProjectBefore.settings" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{56CBAB0A-1CB3-416B-9F00-D2CE1372191D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PowerShellTools.Test</RootNamespace>
+    <AssemblyName>PowerShellTools.Test</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;POWERSHELL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;DEV11</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.TestWindow.Interfaces">
+      <HintPath>$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
+      <HintPath>$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestWindow.Interfaces">
+      <HintPath>$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.15.9.0\lib\net451\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Microsoft.Windows.Design.Host">
+      <HintPath>$(SolutionDir)\Build\Microsoft.Windows.Design.Host.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="BreakpointValidation\BreakpointValidationUnitTests.cs" />
+    <Compile Include="Classification\PowerShellParseUtilitiesUnitTests.cs" />
+    <Compile Include="Commands\ParameterEditorHelperUnitTests.cs" />
+    <Compile Include="Common\ScriptParameterViewModelEqualityComparer.cs" />
+    <Compile Include="ClassifierService.Test.cs" />
+    <Compile Include="Commands\ParameterEditorViewModelUnitTests.cs" />
+    <Compile Include="Common\VariableTest.cs" />
+    <Compile Include="DebugEngine\PromptUI\ReadHostPromptForChoicesViewModelUnitTests.cs" />
+    <Compile Include="FormsDesigner\CodeDomAstVisitor.Test.cs" />
+    <Compile Include="IntelliSense\UtilitiesUnitTests.cs" />
+    <Compile Include="IntelliSense\TabCompleteUnitTests.cs" />
+    <Compile Include="LanguageService\NavigationUnitTests.cs" />
+    <Compile Include="Mocking\TextEditor.cs" />
+    <Compile Include="MSBuild\PowerShellPackageTaskTest.cs" />
+    <Compile Include="Packager\BundlerTests.cs" />
+    <Compile Include="Packager\CSharpCodeGeneratorTest.cs" />
+    <Compile Include="PowerShellCodeDomProviderTest.cs" />
+    <Compile Include="RegionAndBraceMatchingService.Test.cs" />
+    <Compile Include="RemoteDebuggingTest.cs" />
+    <Compile Include="ScriptDebuggerTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestAdapter\PowerShellTestContainerDiscoverer.Test.cs" />
+    <Compile Include="TestAdapter\PowerShellTestDiscoverer.Test.cs" />
+    <Compile Include="TestAdapter\PowerShellTestExecutor.Test.cs" />
+    <Compile Include="TestUtilities.cs" />
+    <Compile Include="VsxHostTest.cs" />
+    <Compile Include="WpfSupport\WpfEventBindingProviderTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{6d748ef1-250e-40a4-8f70-73a6e63f97f5}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormDesigner\FormDesigner.Common.csproj">
+      <Project>{e637cbc9-c665-4042-bee8-ea26f474ea14}</Project>
+      <Name>FormDesigner.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HostInjection\PowerShellProTools.Common.csproj">
+      <Project>{37e5bdf1-3d1a-4a45-8ca2-0670b4a538d4}</Project>
+      <Name>PowerShellProTools.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.TestAdapter\PowerShellTools.TestAdapter.csproj">
+      <Project>{78090039-ba56-488a-a474-4e3f1d68c62e}</Project>
+      <Name>PowerShellTools.TestAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.Packager\PowerShellToolsPro.Packager.csproj">
+      <Project>{41ff979f-3129-4efe-94a3-37ebe32b508c}</Project>
+      <Name>PowerShellToolsPro.Packager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools\PowerShellTools.csproj">
+      <Project>{456d66a8-e05e-496d-bdce-af24bbc12e0d}</Project>
+      <Name>PowerShellTools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Build\FinalPublicKey.snk">
+      <Link>FinalPublicKey.snk</Link>
+    </None>
+    <Content Include="Assets\MultiThreadedForm.Designer.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\MultiThreadedForm.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Assets\form.Export.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\Be.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\BeGreaterThan.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\BeLessThan.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\BeNullOrEmpty.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\Contain.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\ContainExactly.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\Exist.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\Match.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\MatchExactly.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\PesterThrow.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\Should.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Assertions\Test-Assertion.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Context.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Coverage.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Describe.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\In.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\InModuleScope.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\It.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\Mock.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\New-Fixture.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\PesterState.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\SetupTeardown.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\TestDrive.ps1" />
+    <None Include="Modules\Pester-3.3.5\Functions\TestResults.ps1" />
+    <None Include="Modules\Pester-3.3.5\Pester.psd1" />
+    <None Include="Modules\Pester-3.3.5\Pester.psm1" />
+    <None Include="Pretty.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFile.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFile1.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ugly.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="WpfSupport\Resources\PowerShell\BlankWpfCodeBehind.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerShell.SDK">
+      <Version>7.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Win32.Registry">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Moq">
+      <Version>4.10.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK">
+      <Version>15.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="NSubstitute">
+      <Version>4.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.Diagnostics.DiagnosticSource">
+      <Version>5.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks.Extensions">
+      <Version>4.5.4</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="xunit">
+      <Version>2.4.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\MultiThreadedForm.resx">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WpfSupport\Resources\Xaml\XamlWithNamedButton.xaml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /S "$(ProjectDir)Modules" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Choose>
+    <When Condition=" '$(VisualStudioVersion)'=='15.0'  Or '$(TargetVisualStudioVersion)'=='VS150' ">
+      <PropertyGroup>
+        <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+        <FileUpgradeFlags>
+        </FileUpgradeFlags>
+        <UpgradeBackupLocation>
+        </UpgradeBackupLocation>
+        <OldToolsVersion>14.0</OldToolsVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(VisualStudioVersion)'=='14.0'  Or '$(TargetVisualStudioVersion)'=='VS140' ">
+      <PropertyGroup>
+        <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+        <FileUpgradeFlags>
+        </FileUpgradeFlags>
+        <UpgradeBackupLocation>
+        </UpgradeBackupLocation>
+        <OldToolsVersion>14.0</OldToolsVersion>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <Import Project="..\ProjectBefore.settings" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft</RootNamespace>
+    <AssemblyName>Microsoft.PythonTools</AssemblyName>
+    <ProjectGuid>{FA7BE5F5-E04F-4613-B7AC-70CE10D1BB68}</ProjectGuid>
+    <UseVSSDK>true</UseVSSDK>
+    <CreateVsixContainer>true</CreateVsixContainer>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootSuffix Exp /Log</StartArguments>
+    <DefineConstants>$(DefineConstants);$(SignedSym);SHAREDPROJECT_OLESERVICEPROVIDER</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Analysis\Analysis.csproj">
+      <Project>{A85D479D-67A9-4BDB-904A-7D86DAF68A6F}</Project>
+      <Name>Microsoft.PythonTools.Analysis</Name>
+      <IncludeInVSIX>True</IncludeInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\BuildTasks\BuildTasks.csproj">
+      <Project>{89d51398-a003-44ba-b1b2-cfc6f8396d7e}</Project>
+      <Name>Microsoft.PythonTools.BuildTasks</Name>
+      <IncludeInVSIX>True</IncludeInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\Debugger\Debugger.csproj">
+      <Project>{DECC7971-FA58-4DB0-9561-BFFADD393BBD}</Project>
+      <Name>Microsoft.PythonTools.Debugger</Name>
+      <IncludeInVSIX>True</IncludeInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\EnvironmentsList\EnvironmentsList.csproj">
+      <Project>{b20e082b-4d3c-457d-b2bd-60420b434573}</Project>
+      <Name>Microsoft.PythonTools.EnvironmentsList</Name>
+      <IncludeInVSIX>True</IncludeInVSIX>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\VSInterpreters\VSInterpreters.csproj">
+      <Project>{815db0cd-c0dd-4997-b43c-abee4dbeffe7}</Project>
+      <Name>Microsoft.PythonTools.VSInterpreters</Name>
+      <IncludeInVSIX>True</IncludeInVSIX>
+    </ProjectReference>
+    <ProjectReference2 Include="..\Analyzer\Analyzer.csproj" />
+    <ProjectReference Include="..\Attacher\Attacher.csproj">
+      <Project>{666A22BB-0CB5-4C08-A20F-E17450DA6573}</Project>
+      <Name>Attacher</Name>
+      <IncludeInVSIX>True</IncludeInVSIX>
+    </ProjectReference>
+    <ProjectReference2 Include="..\AttacherX86\AttacherX86.csproj" />
+    <ProjectReference2 Include="..\ImportWizard\ImportWizard.csproj" />
+    <ProjectReference2 Include="..\ProjectWizards\ProjectWizards.csproj" />
+    <ProjectReference2 Include="..\TestAdapter\TestAdapter.csproj" />
+    <Reference Include="Microsoft.Windows.Design.Host, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(DevEnvDir)PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.WindowsAzure.CommonAzureTools.Contracts.1.2">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(DevEnvDir)Extensions\Microsoft\Windows Azure Tools\Common\Microsoft.VisualStudio.WindowsAzure.CommonAzureTools.Contracts.1.2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Web.WindowsAzure.Contracts, Version=2.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath Condition="Exists('$(DevEnvDir)PrivateAssemblies\Microsoft.VisualStudio.Web.WindowsAzure.Contracts.dll')">$(DevEnvDir)PrivateAssemblies\Microsoft.VisualStudio.Web.WindowsAzure.Contracts.dll</HintPath>
+      <HintPath Condition="Exists('$(DevEnvDir)Extensions\Microsoft\Web Tools\WindowsAzure\Microsoft.VisualStudio.Web.WindowsAzure.Contracts.dll')">$(DevEnvDir)Extensions\Microsoft\Web Tools\WindowsAzure\Microsoft.VisualStudio.Web.WindowsAzure.Contracts.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="envdte100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="envdte80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Build, Version=$(MicrosoftBuildAssemblyVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Build.Conversion.$(MicrosoftBuildAssemblyVersionSuffix), Version=$(MicrosoftBuildAssemblyVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Build.Engine, Version=$(MicrosoftBuildAssemblyVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Build.Framework, Version=$(MicrosoftBuildAssemblyVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Build.Tasks.$(MicrosoftBuildAssemblyVersionSuffix), Version=$(MicrosoftBuildAssemblyVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Build.Utilities.$(MicrosoftBuildAssemblyVersionSuffix), Version=$(MicrosoftBuildAssemblyVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="microsoft.msxml, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.ComponentModelHost, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Debugger.Engine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Debugger.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Debugger.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Debugger.InteropA, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Designer.Interfaces, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Editor, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Language.Intellisense, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Language.NavigateTo.Interfaces, Version=$(VSTarget).0.0, Culture=neutral" />
+    <Reference Include="Microsoft.VisualStudio.Language.StandardClassification, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
+    <Reference Include="Microsoft.VisualStudio.ProjectAggregator, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Design, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.Data, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" />
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.VSHelp, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.WizardFramework, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj2, Version=7.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Microsoft.VisualStudio.InteractiveWindow">
+      <HintPath>$(DevEnvDir)PrivateAssemblies\Microsoft.VisualStudio.InteractiveWindow.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.VsInteractiveWindow">
+      <HintPath>$(DevEnvDir)PrivateAssemblies\Microsoft.VisualStudio.VsInteractiveWindow.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.ImageCatalog, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Imaging, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Imaging.Interop.$(VSTarget).DesignTime, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.$(VSTarget).DesignTime, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Utilities, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Settings.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Analysis\IEnumerableExtensions.cs">
+      <Link>IEnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="PythonTools\Repl\IMultipleScopeEvaluator.cs" />
+    <Compile Include="PythonTools\Repl\InlineReplAdornment.cs" />
+    <Compile Include="PythonTools\Repl\InlineReplAdornmentManager.cs" />
+    <Compile Include="PythonTools\Repl\InteractiveWindowCommands.cs" />
+    <Compile Include="PythonTools\Repl\InteractiveWindowProvider.cs" />
+    <Compile Include="IPythonToolsToolWindowService.cs" />
+    <Compile Include="MissingInterpreterException.cs" />
+    <Compile Include="PythonTools\Repl\IInteractiveEvaluatorProvider.cs" />
+    <Compile Include="PythonTools\Repl\InteractiveRoleAttribute.cs" />
+    <Compile Include="PythonTools\Debugger\ProximityExpressionWalker.cs" />
+    <Compile Include="PythonTools\Repl\ReplOutputClassificationFormatDefinitions.cs" />
+    <Compile Include="PythonTools\Repl\ReplOutputClassifier.cs" />
+    <Compile Include="PythonTools\Repl\ReplOutputClassifierProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\PythonSuggestedActionsSource.cs" />
+    <Compile Include="PythonTools\Intellisense\PythonSuggestedActionsSourceProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\PythonSuggestedImportAction.cs" />
+    <Compile Include="PythonTools\Project\IPythonProjectLaunchProperties.cs" />
+    <Compile Include="PythonTools\Project\PythonProjectLaunchProperties.cs" />
+    <Compile Include="PythonTools\Repl\ResizingAdorner.cs" />
+    <Compile Include="PythonTools\Repl\ZoomableInlineAdornment.cs" />
+    <Compile Include="PythonTools\SurveyNewsService.cs" />
+    <Compile Include="PythonTools\Options\GlobalInterpreterOptions.cs" />
+    <Compile Include="PythonTools\Options\GeneralOptions.cs" />
+    <Compile Include="PythonTools\Options\DebuggerOptions.cs" />
+    <Compile Include="PythonTools\Options\AdvancedEditorOptions.cs" />
+    <Compile Include="Legacy\ObsoleteResources.cs" />
+    <Compile Include="NoInterpretersException.cs" />
+    <Compile Include="ProvideLanguageTemplatesAttribute.cs" />
+    <Compile Include="PythonToolsInstallPath.cs" />
+    <Compile Include="PythonToolsService.cs" />
+    <Compile Include="PythonTools\AzureToolsContracts.cs" />
+    <Compile Include="PythonTools\Commands\AzureExplorerAttachDebuggerCommand.cs" />
+    <Compile Include="PythonTools\Intellisense\EntryEventArgs.cs" />
+    <Compile Include="PythonTools\Intellisense\TaskProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\UnresolvedImportSquiggleProvider.cs" />
+    <Compile Include="PythonTools\Logging\InMemoryLogger.cs" />
+    <Compile Include="PythonTools\Logging\IPythonToolsLogger.cs" />
+    <Compile Include="PythonTools\Logging\PackageInstallDetails.cs" />
+    <Compile Include="PythonTools\Logging\PythonLogEvent.cs" />
+    <Compile Include="PythonTools\Logging\PythonToolsLogger.cs" />
+    <Compile Include="PythonTools\Intellisense\ExpansionClient.cs" />
+    <Compile Include="PythonTools\Options\IPythonToolsOptionsService.cs" />
+    <Compile Include="PythonTools\Options\PythonGeneralOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonGeneralOptionsControl.Designer.cs">
+      <DependentUpon>PythonGeneralOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonGeneralOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonToolsOptionsService.cs" />
+    <Compile Include="PythonTools\Project\AddVirtualEnvironmentOperation.cs" />
+    <Compile Include="PythonTools\Project\AnalyzerChangingEventArgs.cs" />
+    <Compile Include="PythonTools\Project\Attributes.cs" />
+    <Compile Include="PythonTools\Project\Conda.cs" />
+    <Compile Include="PythonTools\Project\ProjectResources.cs" />
+    <Compile Include="ProvideComponentPickerPropertyPageAttribute.cs" />
+    <Compile Include="ProvideDiffSupportedContentTypeAttribute.cs" />
+    <Compile Include="ProvideEditorExtension2Attribute.cs" />
+    <Compile Include="ProvideFileFilterAttribute.cs" />
+    <Compile Include="PythonTools\Commands\OpenInterpreterListCommand.cs" />
+    <Compile Include="PythonTools\Commands\SurveyNewsCommand.cs" />
+    <Compile Include="PythonTools\InterpreterList\InterpreterListToolWindow.cs" />
+    <Compile Include="PythonTools\InterpreterView.cs" />
+    <Compile Include="PythonTools\Navigation\NavigateTo\PythonNavigateToItemDisplay.cs" />
+    <Compile Include="PythonTools\Navigation\NavigateTo\PythonNavigateToItemDisplayFactory.cs" />
+    <Compile Include="PythonTools\Navigation\NavigateTo\PythonNavigateToItemProviderFactory.cs" />
+    <Compile Include="PythonTools\Navigation\NavigateTo\PythonNavigateToItemProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\CompletionComparer.cs" />
+    <Compile Include="PythonTools\Intellisense\FuzzyStringMatcher.cs" />
+    <Compile Include="PythonTools\Intellisense\FuzzyCompletionSet.cs" />
+    <Compile Include="PythonTools\Options\InterpreterPlaceholder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\SurveyNewsPolicy.cs" />
+    <Compile Include="PythonTools\Project\AddVirtualEnvironment.xaml.cs">
+      <DependentUpon>AddVirtualEnvironment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\AddVirtualEnvironmentView.cs" />
+    <Compile Include="PythonTools\Project\AddInterpreter.xaml.cs">
+      <DependentUpon>AddInterpreter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\AddInterpreterView.cs" />
+    <Compile Include="PythonTools\Project\CustomCommand.cs" />
+    <Compile Include="PythonTools\Project\EasyInstall.cs" />
+    <Compile Include="PythonTools\Project\IAsyncCommand.cs" />
+    <Compile Include="PythonTools\Project\ImportWizard\ProjectCustomizations.cs" />
+    <Compile Include="PythonTools\Project\ImportWizard\SaveProjectPage.xaml.cs">
+      <DependentUpon>SaveProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\ImportWizard\InterpreterPage.xaml.cs">
+      <DependentUpon>InterpreterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\ImportWizard\FileSourcePage.xaml.cs">
+      <DependentUpon>FileSourcePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\ImportWizard\ImportSettings.cs" />
+    <Compile Include="PythonTools\Project\ImportWizard\ImportWizard.xaml.cs">
+      <DependentUpon>ImportWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Commands\ImportWizardCommand.cs" />
+    <Compile Include="PythonTools\Project\LoadedProjectInterpreterFactoryProvider.cs" />
+    <Compile Include="PythonTools\Project\Pip.cs" />
+    <Compile Include="PythonTools\Project\PythonProjectImageName.cs" />
+    <Compile Include="PythonTools\Project\VirtualEnv.cs" />
+    <Compile Include="PythonTools\Project\XamlDesignerSupport.cs" />
+    <Compile Include="PythonTools\PythonAnalysisClassifier.cs" />
+    <Compile Include="PythonTools\PythonAnalysisClassifierProvider.cs" />
+    <Compile Include="PythonTools\PythonInterpreterFactoryExtensions.cs" />
+    <Compile Include="PythonTools\PeekableEnumerator.cs" />
+    <Compile Include="PythonTools\WebProject\PythonWebPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\WebProject\PythonWebPropertyPageControl.Designer.cs">
+      <DependentUpon>PythonWebPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\WebProject\PythonWebLauncher.cs" />
+    <Compile Include="PythonTools\WebProject\PythonWebLauncherOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\WebProject\PythonWebLauncherOptions.Designer.cs">
+      <DependentUpon>PythonWebLauncherOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\WebProject\PythonWebLauncherProvider.cs" />
+    <Compile Include="PythonTools\WebProject\PythonWebProject.cs" />
+    <Compile Include="PythonTools\WebProject\PythonWebProjectConfig.cs" />
+    <Compile Include="PythonTools\WebProject\PythonWebProjectFactory.cs" />
+    <Compile Include="PythonTools\Project\InstallPythonPackage.xaml.cs">
+      <DependentUpon>InstallPythonPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\InstallPythonPackageView.cs" />
+    <Compile Include="PythonTools\Project\PythonInterpreterView.cs" />
+    <Compile Include="PythonTools\Project\InterpretersContainerNode.cs" />
+    <Compile Include="PythonTools\Project\InterpretersContainerNodeProperties.cs" />
+    <Compile Include="PythonTools\Project\InterpretersNode.cs" />
+    <Compile Include="PythonTools\Project\InterpretersNodeProperties.cs" />
+    <Compile Include="PythonTools\Project\InterpretersPackageNode.cs" />
+    <Compile Include="PythonTools\Project\InterpretersPackageNodeProperties.cs" />
+    <Compile Include="PythonTools\Commands\OpenDebugReplCommand.cs" />
+    <Compile Include="PythonTools\Commands\RemoveImportsCurrentScopeCommand.cs" />
+    <Compile Include="PythonTools\Commands\RemoveImportsCommand.cs" />
+    <Compile Include="PythonTools\Commands\DiagnosticsCommand.cs" />
+    <Compile Include="PythonTools\Commands\DiagnosticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Commands\DiagnosticsForm.Designer.cs">
+      <DependentUpon>DiagnosticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Commands\ExecuteInReplCommand.cs" />
+    <Compile Include="PythonTools\Commands\FillParagraphCommand.cs" />
+    <Compile Include="PythonTools\Commands\OpenReplCommand.cs" />
+    <Compile Include="PythonTools\Commands\SendToDefiningModuleCommand.cs" />
+    <Compile Include="PythonTools\Commands\SendToReplCommand.cs" />
+    <Compile Include="PythonTools\Commands\StartScriptCommand.cs" />
+    <Compile Include="PythonTools\Intellisense\AnalysisSynchronizationContext.cs" />
+    <Compile Include="PythonTools\Intellisense\CompletionControl.xaml.cs">
+      <DependentUpon>CompletionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Intellisense\CompletionOptions.cs" />
+    <Compile Include="PythonTools\Intellisense\CompletionUIElementProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\ExceptionCompletionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\IContentTypeMetadata.cs" />
+    <Compile Include="PythonTools\Intellisense\IOrderableContentTypeMetadata.cs" />
+    <Compile Include="PythonTools\Intellisense\MissingImportAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\OverrideCompletionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\RefactoringIconKind.cs" />
+    <Compile Include="PythonTools\Navigation\TextViewFilter.cs" />
+    <Compile Include="PythonTools\Options\PythonFormattingWrappingOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\OptionCategory.cs" />
+    <Compile Include="PythonTools\Options\OptionInfo.cs" />
+    <Compile Include="PythonTools\Options\OptionsTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingGeneralOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingGeneralOptionsControl.Designer.cs">
+      <DependentUpon>PythonFormattingGeneralOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingGeneralOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingOptionsControl.Designer.cs">
+      <DependentUpon>PythonFormattingOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingNewLinesOptionsPage.cs" />
+    <Compile Include="PythonTools\Options\PythonFormattingOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingSpacingOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonFormattingStatementsOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonInteractiveCommonOptions.cs" />
+    <Compile Include="PythonTools\Options\PythonDebugInteractiveOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonDebugInteractiveOptionsControl.Designer.cs">
+      <DependentUpon>PythonDebugInteractiveOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonDebugInteractiveOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\PythonAssemblyReferenceNode.cs" />
+    <Compile Include="PythonTools\Project\Automation\OAWebPiReference.cs" />
+    <Compile Include="PythonTools\Project\Automation\OAPythonExtensionReference.cs" />
+    <Compile Include="PythonTools\Project\PythonExtensionReferenceNode.cs" />
+    <Compile Include="PythonTools\Project\PythonEncodingDetector.cs" />
+    <Compile Include="PythonTools\Project\PythonProjectReferenceNode.cs" />
+    <Compile Include="PythonTools\Project\PythonReferenceContainerNode.cs" />
+    <Compile Include="PythonTools\ProvidePythonInterpreterFactoryProviderAttribute.cs" />
+    <Compile Include="PythonTools\Refactoring\CodeFormatter.cs" />
+    <Compile Include="PythonTools\Refactoring\EnclosingNodeWalker.cs" />
+    <Compile Include="PythonTools\Refactoring\ExtractMethodRequestView.cs" />
+    <Compile Include="PythonTools\Refactoring\ImportRemover.cs" />
+    <Compile Include="PythonTools\Refactoring\LinePreservingCodeReplacer.cs" />
+    <Compile Include="PythonTools\Refactoring\RenameVariableRequestView.cs" />
+    <Compile Include="PythonTools\Repl\BasePythonReplEvaluator.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplFrameCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplFrameDownCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplFramesCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplFrameUpCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplGoCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplProcessCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplProcessesCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplStepIntoCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplStepOutCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplStepOverCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplThreadCommand.cs" />
+    <Compile Include="PythonTools\Repl\DebugReplThreadsCommand.cs" />
+    <Compile Include="PythonTools\Repl\IPythonReplEvaluator.cs" />
+    <Compile Include="PythonTools\Repl\IPythonReplIntellisense.cs" />
+    <Compile Include="PythonTools\Repl\PythonDebugReplEvaluator.cs" />
+    <Compile Include="PythonTools\Repl\PythonDebugReplEvaluatorProvider.cs" />
+    <Compile Include="PythonTools\Editor\SmartIndentProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\DecoratorCompletionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\XamlTextViewCreationListener.cs" />
+    <Compile Include="PythonTools\IVsPython.cs" />
+    <Compile Include="PythonTools\Navigation\AssignmentScopeNode.cs" />
+    <Compile Include="PythonTools\Navigation\PythonFileLibraryNode.cs" />
+    <Compile Include="PythonTools\Navigation\WaitForCompleteAnalysisDialog.xaml.cs">
+      <DependentUpon>WaitForCompleteAnalysisDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\DefaultLauncherProvider.cs" />
+    <Compile Include="PythonTools\Project\DefaultPythonLauncherOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\DefaultPythonLauncherOptions.Designer.cs">
+      <DependentUpon>DefaultPythonLauncherOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\DefaultPythonProject.cs" />
+    <Compile Include="PythonTools\Project\FtpPublisher.cs" />
+    <Compile Include="PythonTools\Project\FilePublisher.cs" />
+    <Compile Include="PythonTools\Options\ExecutionMode.cs" />
+    <Compile Include="PythonTools\Project\IPythonLauncherOptions.cs" />
+    <Compile Include="PythonTools\Project\IPythonLauncherProvider.cs" />
+    <Compile Include="PythonTools\Project\IPythonProject.cs" />
+    <Compile Include="PythonTools\Project\PublishPropertyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\PublishPropertyControl.Designer.cs">
+      <DependentUpon>PublishPropertyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\PublishPropertyPage.cs" />
+    <Compile Include="PythonTools\Project\PythonDebugPropertyPage.cs" />
+    <Compile Include="PythonTools\Project\PythonDebugPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\PythonDebugPropertyPageControl.Designer.cs">
+      <DependentUpon>PythonDebugPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\PythonProjectConfig.cs" />
+    <Compile Include="PythonTools\Project\StartWithErrorsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\StartWithErrorsDialog.Designer.cs">
+      <DependentUpon>StartWithErrorsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\ProvidePythonExecutionModeAttribute.cs" />
+    <Compile Include="PythonTools\Editor\AutoIndent.cs" />
+    <Compile Include="PythonTools\Intellisense\AnalysisPriority.cs" />
+    <Compile Include="PythonTools\Intellisense\AnalysisQueue.cs" />
+    <Compile Include="PythonTools\Intellisense\MonitoredBufferResult.cs" />
+    <Compile Include="PythonTools\Intellisense\ParseQueue.cs" />
+    <Compile Include="PythonTools\ISnapshotTextReader.cs" />
+    <Compile Include="PythonTools\PythonAutomation.cs" />
+    <Compile Include="PythonTools\Options\InterpreterOptions.cs" />
+    <Compile Include="PythonTools\Options\IPythonOptions.cs" />
+    <Compile Include="PythonTools\Options\NewInterpreter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\NewInterpreter.Designer.cs">
+      <DependentUpon>NewInterpreter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonInteractiveOptions.cs" />
+    <Compile Include="PythonTools\Options\PythonInteractiveOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonInteractiveOptionsControl.Designer.cs">
+      <DependentUpon>PythonInteractiveOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonInteractiveOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\WebPiReferenceNode.cs" />
+    <Compile Include="PythonTools\Project\BaseSearchPathNode.cs" />
+    <Compile Include="PythonTools\Project\CommonSearchPathContainerNodeProperties.cs" />
+    <Compile Include="PythonTools\Project\CommonSearchPathContainerNode.cs" />
+    <Compile Include="PythonTools\Project\CommonSearchPathNode.cs" />
+    <Compile Include="PythonTools\Project\CommonSearchPathNodeProperties.cs" />
+    <Compile Include="PythonTools\Project\DefaultPythonLauncher.cs" />
+    <Compile Include="PythonTools\Project\CurrentWorkingDirectoryNode.cs" />
+    <Compile Include="PythonTools\Project\PythonProjectNodeProperties.cs" />
+    <Compile Include="PythonTools\Refactoring\AssignmentWalker.cs" />
+    <Compile Include="PythonTools\Refactoring\FilePreviewItem.cs" />
+    <Compile Include="PythonTools\Refactoring\IPreviewItem.cs" />
+    <Compile Include="PythonTools\Refactoring\LocationPreviewItem.cs" />
+    <Compile Include="PythonTools\Refactoring\PreviewChangesEngine.cs" />
+    <Compile Include="PythonTools\Refactoring\PreviewList.cs" />
+    <Compile Include="PythonTools\Refactoring\RenameVariableRequest.cs" />
+    <Compile Include="PythonTools\Refactoring\RenameVariableUserInput.cs" />
+    <Compile Include="PythonTools\Refactoring\IRenameVariableInput.cs" />
+    <Compile Include="PythonTools\Refactoring\ExtractedMethodCreator.cs" />
+    <Compile Include="PythonTools\Refactoring\ExtractMethodDialog.xaml.cs">
+      <DependentUpon>ExtractMethodDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Refactoring\ExtractMethodRequest.cs" />
+    <Compile Include="PythonTools\Refactoring\ExtractMethodResult.cs" />
+    <Compile Include="PythonTools\Refactoring\ExtractMethodUserInput.cs" />
+    <Compile Include="PythonTools\Refactoring\FlowChecker.cs" />
+    <Compile Include="PythonTools\Refactoring\IExtractMethodInput.cs" />
+    <Compile Include="PythonTools\Refactoring\MethodExtractor.cs" />
+    <Compile Include="PythonTools\Refactoring\RenameVariableDialog.xaml.cs">
+      <DependentUpon>RenameVariableDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Refactoring\SelectionTarget.cs" />
+    <Compile Include="PythonTools\Refactoring\VariableRenamer.cs" />
+    <Compile Include="PythonTools\Repl\AttachDebuggerReplCommand.cs" />
+    <Compile Include="PythonTools\Repl\LoadReplCommand.cs" />
+    <Compile Include="PythonTools\Repl\OverloadDoc.cs" />
+    <Compile Include="PythonTools\Designer\WpfEventBindingProvider.cs" />
+    <Compile Include="PythonTools\PythonClassifier.cs" />
+    <Compile Include="PythonTools\PythonPredefinedClassificationTypeNames.cs" />
+    <Compile Include="PythonTools\Editor\BraceMatcher.cs" />
+    <Compile Include="PythonTools\Editor\EditorExtensions.cs" />
+    <Compile Include="PythonTools\Editor\LanguagePreferences.cs" />
+    <Compile Include="PythonTools\Editor\ReplWindowCreationListener.cs" />
+    <Compile Include="PythonTools\Extensions.cs" />
+    <Compile Include="PythonTools\Intellisense\CompletionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\CompletionSource.cs" />
+    <Compile Include="PythonTools\Intellisense\CompletionSourceProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\ExpressionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\FromImportCompletionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\ImportCompletionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\NormalCompletionAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\PythonAnalysisExtensions.cs" />
+    <Compile Include="PythonTools\Intellisense\ProjectAnalyzer.cs" />
+    <Compile Include="PythonTools\Intellisense\PythonParameter.cs" />
+    <Compile Include="PythonTools\Intellisense\PythonSignature.cs" />
+    <Compile Include="PythonTools\Intellisense\QuickInfoSource.cs" />
+    <Compile Include="PythonTools\Intellisense\QuickInfoSourceProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\ReverseExpressionParser.cs" />
+    <Compile Include="PythonTools\Intellisense\SignatureAnalysis.cs" />
+    <Compile Include="PythonTools\Intellisense\SignatureHelpSource.cs" />
+    <Compile Include="PythonTools\Intellisense\SignatureHelpSourceProvider.cs" />
+    <Compile Include="PythonTools\Intellisense\SnapshotCookie.cs" />
+    <Compile Include="PythonTools\Intellisense\StringLiteralCompletionList.cs" />
+    <Compile Include="PythonTools\Navigation\AstScopeNode.cs" />
+    <Compile Include="PythonTools\Navigation\ClassScopeNode.cs" />
+    <Compile Include="PythonTools\Navigation\FunctionScopeNode.cs" />
+    <Compile Include="PythonTools\Options\PythonInterpreterOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonInterpreterOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonInterpreterOptionsControl.Designer.cs">
+      <DependentUpon>PythonInterpreterOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonDialogPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonAdvancedEditorOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonAdvancedEditorOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonAdvancedEditorOptionsControl.Designer.cs">
+      <DependentUpon>PythonAdvancedEditorOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\OutliningTaggerProvider.cs" />
+    <Compile Include="PythonTools\Options\PythonDebuggingOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonDebuggingOptionsControl.Designer.cs">
+      <DependentUpon>PythonDebuggingOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Options\PythonDebuggingOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\PythonGeneralPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PythonTools\Project\PythonGeneralPropertyPageControl.Designer.cs">
+      <DependentUpon>PythonGeneralPropertyPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PythonTools\Project\PythonFolderNode.cs" />
+    <Compile Include="PythonTools\Project\PythonNonCodeFileNode.cs" />
+    <Compile Include="PythonTools\PythonClassifierProvider.cs" />
+    <Compile Include="PythonTools\PythonCoreConstants.cs" />
+    <Compile Include="PythonTools\Repl\PythonReplEvaluator.cs" />
+    <Compile Include="PythonTools\Repl\PythonReplEvaluatorProvider.cs" />
+    <Compile Include="PythonTools\Repl\ReplIntellisenseMode.cs" />
+    <Compile Include="PythonTools\Repl\SwitchModuleCommand.cs" />
+    <Compile Include="PythonTools\SnapshotSpanSourceCodeReader.cs" />
+    <Compile Include="PythonTools\Intellisense\IntellisenseController.cs" />
+    <Compile Include="PythonTools\Intellisense\IntellisenseControllerProvider.cs" />
+    <Compile Include="PythonTools\Navigation\CodeWindowManager.cs" />
+    <Compile Include="PythonTools\Navigation\DropDownBarClient.cs" />
+    <Compile Include="PythonTools\Navigation\EditFilter.cs" />
+    <Compile Include="PythonConstants.cs" />
+    <Compile Include="PythonTools\Navigation\PythonLibraryManager.cs" />
+    <Compile Include="PythonTools\Navigation\PythonLibraryNode.cs" />
+    <Compile Include="PythonTools\Navigation\PythonLanguageInfo.cs" />
+    <Compile Include="PythonTools\Project\PythonEditorFactory.cs" />
+    <Compile Include="PythonTools\Project\PythonFileNode.cs" />
+    <Compile Include="PythonTools\Project\PythonGeneralPropertyPage.cs" />
+    <Compile Include="PythonTools\Project\PythonProjectFactory.cs" />
+    <Compile Include="PythonTools\Project\PythonProjectNode.cs" />
+    <Compile Include="PythonTools\Project\PythonProjectPackage.cs" />
+    <Compile Include="Guids.cs" />
+    <Compile Include="PythonTools\TokenCache.cs" />
+    <Compile Include="PythonToolsPackage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PkgCmdID.cs" />
+    <Compile Include="PythonTools\WebProject\PythonWebPropertyPage.cs" />
+    <Compile Include="VsCredentials.cs" />
+    <Compile Include="PythonTools\Commands\UsePythonStepping.cs" />
+    <Compile Include="PythonTools\Commands\ShowNativePythonFrames.cs" />
+    <Compile Include="PythonTools\Commands\DkmDebuggerCommand.cs" />
+    <Compile Include="PythonTools\Commands\ShowCppViewCommand.cs" />
+    <Compile Include="PythonTools\Commands\ShowPythonViewCommand.cs" />
+    <Compile Include="PythonTools\Debugger\CustomDebuggerEventHandler.cs" />
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <ZipProject>
+      <Language>Python</Language>
+      <OutputSubPath>Web</OutputSubPath>
+    </ZipProject>
+    <ZipItem>
+      <Language>Python</Language>
+    </ZipItem>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <!-- Item Templates -->
+    <ZipItem Include="Templates\Files\EmptyPackage\__init__.py" />
+    <ZipItem Include="Templates\Files\EmptyPyFile\empty.py" />
+    <ZipItem Include="Templates\Files\EmptyPackage\package.vstemplate" />
+    <ZipItem Include="Templates\Files\PyClass\class.py" />
+    <ZipItem Include="Templates\Files\EmptyPyFile\empty.vstemplate">
+      <SubType>Designer</SubType>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\PyClass\class.vstemplate" />
+    <ZipItem Include="Templates\Files\UnitTestFile\test.vstemplate">
+      <SubType>Designer</SubType>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\UnitTestFile\test.py" />
+    <ZipItem Include="Templates\Files\TextFile\textfile.txt" />
+    <ZipItem Include="Templates\Files\TextFile\textfile.vstemplate" />
+    <ZipItem Include="Templates\Files\Stylesheet\Stylesheet.css" />
+    <ZipItem Include="Templates\Files\Stylesheet\Stylesheet.vstemplate">
+      <SubType>Designer</SubType>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\JavaScript\JavaScript.js" />
+    <ZipItem Include="Templates\Files\JavaScript\JavaScript.vstemplate">
+      <SubType>Designer</SubType>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\HtmlFile\HtmlFile.html" />
+    <ZipItem Include="Templates\Files\HtmlFile\HtmlFile.vstemplate" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Project Templates -->
+    <ZipProject Include="Templates\Projects\ConsoleAppProject\PythonApp.pyproj">
+      <OutputSubPath>
+      </OutputSubPath>
+    </ZipProject>
+    <ZipProject Include="Templates\Projects\ConsoleAppProject\Program.py">
+      <OutputSubPath>
+      </OutputSubPath>
+    </ZipProject>
+    <ZipProject Include="Templates\Projects\ConsoleAppProject\PythonConsoleApp.vstemplate">
+      <OutputSubPath>
+      </OutputSubPath>
+      <SubType>Designer</SubType>
+    </ZipProject>
+    <ZipProject Include="Templates\Projects\FromExistingCode\FromExistingCode.pyproj">
+      <OutputSubPath>
+      </OutputSubPath>
+    </ZipProject>
+    <ZipProject Include="Templates\Projects\FromExistingCode\FromExistingCode.vstemplate">
+      <OutputSubPath>
+      </OutputSubPath>
+      <SubType>Designer</SubType>
+    </ZipProject>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Web Project Templates -->
+    <ZipProject Include="Templates\Projects\CloudService\CloudService.ccproj" />
+    <ZipProject Include="Templates\Projects\CloudService\cloudservice.ico" />
+    <ZipProject Include="Templates\Projects\CloudService\CloudService.vstemplate" />
+    <ZipProject Include="Templates\Projects\CloudService\ServiceConfiguration.Cloud.cscfg" />
+    <ZipProject Include="Templates\Projects\CloudService\ServiceConfiguration.Local.cscfg" />
+    <ZipProject Include="Templates\Projects\CloudService\ServiceDefinition.csdef" />
+    <ZipProject Include="Templates\Projects\EmptyWebProject\EmptyWebProject.pyproj" />
+    <ZipProject Include="Templates\Projects\EmptyWebProject\EmptyWebProject.vstemplate" />
+    <ZipProject Include="Templates\Projects\EmptyWebRole\EmptyWebRole.pyproj" />
+    <ZipProject Include="Templates\Projects\EmptyWebRole\EmptyWebRole.vstemplate" />
+    <ZipProject Include="Templates\Projects\EmptyWebRole\requirements.txt" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\_references.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\about.tpl" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\app.py" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\bootstrap.css" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\bootstrap.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\bootstrap.min.css" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\bootstrap.min.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\contact.tpl" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\glyphicons-halflings-regular.eot" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\glyphicons-halflings-regular.svg" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\glyphicons-halflings-regular.ttf" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\glyphicons-halflings-regular.woff" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\index.tpl" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery.validate.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery.validate.min.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery.validate.unobtrusive.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery.validate.unobtrusive.min.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery.validate-vsdoc.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery-1.10.2.intellisense.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery-1.10.2.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery-1.10.2.min.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\jquery-1.10.2.min.map" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\layout.tpl" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\modernizr-2.6.2.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\requirements.txt" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\respond.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\respond.min.js" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\routes.py" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\site.css" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\StarterBottleProject.png" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\StarterBottleProject.pyproj" />
+    <ZipProject Include="Templates\Projects\StarterBottleProject\StarterBottleProject.vstemplate" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\__init__.py" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\_references.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\about.jade" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\runserver.py" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\bootstrap.css" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\bootstrap.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\bootstrap.min.css" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\bootstrap.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\contact.jade" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\glyphicons-halflings-regular.eot" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\glyphicons-halflings-regular.svg" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\glyphicons-halflings-regular.ttf" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\glyphicons-halflings-regular.woff" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\index.jade" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery.validate.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery.validate.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery.validate.unobtrusive.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery.validate.unobtrusive.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery.validate-vsdoc.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery-1.10.2.intellisense.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery-1.10.2.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery-1.10.2.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\jquery-1.10.2.min.map" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\layout.jade" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\modernizr-2.6.2.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\requirements.txt" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\respond.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\respond.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\views.py" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\site.css" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\StarterFlaskJadeProject.png" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\StarterFlaskJadeProject.pyproj" />
+    <ZipProject Include="Templates\Projects\StarterFlaskJadeProject\StarterFlaskJadeProject.vstemplate" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\__init__.py" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\_references.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\about.html" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\runserver.py" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\bootstrap.css" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\bootstrap.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\bootstrap.min.css" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\bootstrap.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\contact.html" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\glyphicons-halflings-regular.eot" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\glyphicons-halflings-regular.svg" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\glyphicons-halflings-regular.ttf" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\glyphicons-halflings-regular.woff" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\index.html" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery.validate.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery.validate.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery.validate.unobtrusive.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery.validate.unobtrusive.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery.validate-vsdoc.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery-1.10.2.intellisense.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery-1.10.2.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery-1.10.2.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\jquery-1.10.2.min.map" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\layout.html" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\modernizr-2.6.2.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\requirements.txt" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\respond.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\respond.min.js" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\views.py" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\site.css" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\StarterFlaskProject.png" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\StarterFlaskProject.pyproj" />
+    <ZipProject Include="Templates\Projects\StarterFlaskProject\StarterFlaskProject.vstemplate" />
+    <ZipProject Include="Templates\Projects\WebProjectBottle\app.py" />
+    <ZipProject Include="Templates\Projects\WebProjectBottle\WebProjectBottle.pyproj" />
+    <ZipProject Include="Templates\Projects\WebProjectBottle\WebProjectBottle.vstemplate" />
+    <ZipProject Include="Templates\Projects\WebProjectFlask\app.py" />
+    <ZipProject Include="Templates\Projects\WebProjectFlask\WebProjectFlask.pyproj" />
+    <ZipProject Include="Templates\Projects\WebProjectFlask\WebProjectFlask.vstemplate" />
+    <ZipProject Include="Templates\Projects\WebRoleBottle\app.py" />
+    <ZipProject Include="Templates\Projects\WebRoleBottle\requirements.txt" />
+    <ZipProject Include="Templates\Projects\WebRoleBottle\WebRoleBottle.pyproj" />
+    <ZipProject Include="Templates\Projects\WebRoleBottle\WebRoleBottle.vstemplate" />
+    <ZipProject Include="Templates\Projects\WebRoleFlask\app.py" />
+    <ZipProject Include="Templates\Projects\WebRoleFlask\requirements.txt" />
+    <ZipProject Include="Templates\Projects\WebRoleFlask\WebRoleFlask.pyproj" />
+    <ZipProject Include="Templates\Projects\WebRoleFlask\WebRoleFlask.vstemplate" />
+    <ZipProject Include="Templates\Projects\WorkerRoleProject\requirements.txt" />
+    <ZipProject Include="Templates\Projects\WorkerRoleProject\worker.py" />
+    <ZipProject Include="Templates\Projects\WorkerRoleProject\WorkerRoleProject.pyproj" />
+    <ZipProject Include="Templates\Projects\WorkerRoleProject\WorkerRoleProject.vstemplate">
+      <SubType>Designer</SubType>
+    </ZipProject>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- VSIX -->
+    <None Include="Theme\contrast.vstheme" />
+    <None Include="NoSurveyNewsFeed.html" />
+    <None Include="NoInterpreters.html" />
+    <None Include="ptvsd\attach_server.py" />
+    <None Include="Theme\Microsoft.PythonTools.theme.v11.0.pkgdef" />
+    <None Include="Theme\Microsoft.PythonTools.theme.v12.0.pkgdef" />
+    <None Include="Theme\Microsoft.PythonTools.theme.v14.0.pkgdef" />
+    <None Include="Theme\dark.vstheme" />
+    <None Include="Theme\make_theme_pkgdef.py" />
+    <Content Include="NoInterpreters.mht">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="NoSurveyNewsFeed.mht">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="ptvsd\__init__.py" />
+    <None Include="Theme\Repl\blue.vstheme" />
+    <None Include="Theme\Repl\contrast.vstheme" />
+    <None Include="Theme\Repl\dark.vstheme" />
+    <None Include="Theme\Repl\light.vstheme" />
+    <Note Include="ptvsd\__main__.py" />
+    <Content Include="pip_downloader.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Snippets\1033\Python\for.snippet">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\SnippetsIndex.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Test\testclass.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\while.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\def.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\class.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\if.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\with.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\try.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\except.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\1033\Python\main.snippet">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Templates\SharedFiles\Readme\WorkerRoleConfiguration.html" />
+    <SharedTemplateFile Include="Templates\SharedFiles\ConfigureCloudService.ps1">
+      <IncludeInWebRoleTemplates>true</IncludeInWebRoleTemplates>
+      <IncludeInWorkerRoleTemplates>true</IncludeInWorkerRoleTemplates>
+    </SharedTemplateFile>
+    <SharedTemplateFile Include="Templates\SharedFiles\ps.cmd">
+      <IncludeInWebRoleTemplates>true</IncludeInWebRoleTemplates>
+      <IncludeInWorkerRoleTemplates>true</IncludeInWorkerRoleTemplates>
+    </SharedTemplateFile>
+    <SharedTemplateFile Include="Templates\SharedFiles\LaunchWorker.ps1">
+      <IncludeInWebRoleTemplates>false</IncludeInWebRoleTemplates>
+      <IncludeInWorkerRoleTemplates>true</IncludeInWorkerRoleTemplates>
+    </SharedTemplateFile>
+    <ZipItem Include="Templates\Files\AzureCSWorkerRole\AzureCSWorkerRole.vstemplate" />
+    <ZipItem Include="Templates\Files\AzureCSWebRole\AzureCSWebRole.vstemplate">
+      <SubType>Designer</SubType>
+    </ZipItem>
+    <SharedTemplateFile Include="Templates\SharedFiles\WebRoleConfiguration.mht">
+      <IncludeInWebRoleTemplates>true</IncludeInWebRoleTemplates>
+      <IncludeInWorkerRoleTemplates>false</IncludeInWorkerRoleTemplates>
+    </SharedTemplateFile>
+    <ZipItem Include="Templates\Files\CloudServiceBottleWebRole\CloudServiceBottleWebRole.vstemplate">
+      <OutputSubPath>NETFramework4\Web Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\CloudServiceBottleWebRole\roletemplatedata.xml">
+      <OutputSubPath>NETFramework4\Web Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\CloudServiceFlaskWebRole\CloudServiceFlaskWebRole.vstemplate">
+      <OutputSubPath>NETFramework4\Web Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\CloudServiceFlaskWebRole\roletemplatedata.xml">
+      <OutputSubPath>NETFramework4\Web Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\CloudServiceWorkerRole\roletemplatedata.xml">
+      <OutputSubPath>NETFramework4\Worker Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\CloudServiceWorkerRole\WorkerRole.vstemplate">
+      <OutputSubPath>NETFramework4\Worker Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\CloudServiceEmptyWebRole\CloudServiceEmptyWebRole.vstemplate">
+      <OutputSubPath>NETFramework4\Web Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <ZipItem Include="Templates\Files\CloudServiceEmptyWebRole\roletemplatedata.xml">
+      <OutputSubPath>NETFramework4\Web Role\Python</OutputSubPath>
+      <Language>CloudService</Language>
+    </ZipItem>
+    <SharedTemplateFile Include="Templates\SharedFiles\WorkerRoleConfiguration.mht">
+      <IncludeInWebRoleTemplates>false</IncludeInWebRoleTemplates>
+      <IncludeInWorkerRoleTemplates>true</IncludeInWorkerRoleTemplates>
+    </SharedTemplateFile>
+    <None Include="Templates\SharedFiles\Readme\ServiceDefinition.png" />
+    <None Include="Templates\SharedFiles\Readme\WebRoleConfiguration.html" />
+    <Content Include="ReadmeStyle.css" />
+    <ZipProject Include="Templates\Projects\WebProjectBottle\requirements.txt" />
+    <ZipProject Include="Templates\Projects\WebProjectFlask\requirements.txt" />
+    <None Include="Theme\Repl\make_theme_pkgdef.py" />
+    <_ThemePkgDef Include="Theme\Repl\Microsoft.PythonTools.Repl.theme.v14.0.pkgdef">
+      <IncludeInVsix>true</IncludeInVsix>
+      <Link>Microsoft.PythonTools.Repl.theme.pkgdef</Link>
+      <VSIXSubPath>.</VSIXSubPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </_ThemePkgDef>
+    <Content Include="visualstudio_py_debugger.py">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="visualstudio_py_repl.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="visualstudio_py_util.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="WebPiCmdLine\Microsoft.Web.Deployment.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <VSIXSubPath>.</VSIXSubPath>
+    </Content>
+    <Content Include="WebPiCmdLine\Microsoft.Web.PlatformInstaller.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <VSIXSubPath>.</VSIXSubPath>
+    </Content>
+    <Content Include="WebPiCmdLine\Microsoft.Web.PlatformInstaller.UI.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <VSIXSubPath>.</VSIXSubPath>
+    </Content>
+    <Content Include="WebPiCmdLine\WebPICmdLine.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <VSIXSubPath>.</VSIXSubPath>
+    </Content>
+    <Content Include="..\Icons\Dev$(VSTarget)\PythonProject.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <VSIXSubPath>.</VSIXSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Icons\Dev$(VSTarget)\PythonProjectBig.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <VSIXSubPath>.</VSIXSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Templates\NewItem\class.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Templates\NewItem\class.pyw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Templates\NewItem\module.pyw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Templates\NewItem\module.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="visualstudio_ipython_repl.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Python Tools for VS License.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Icons\Dev$(VSTarget)\PythonFile.ico">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <VSIXSubPath>.</VSIXSubPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\NewItem\NewPythonItems.vsdir">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="WebPiCmdLine\WebPICmdLine.exe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <VSIXSubPath>.</VSIXSubPath>
+    </Content>
+    <VSCTCompile Include="PythonTools.vsct">
+      <ResourceName>1000</ResourceName>
+      <SubType>Designer</SubType>
+    </VSCTCompile>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="visualstudio_py_launcher.py">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="..\Icons\Dev$(VSTarget)\PythonImageList.png" />
+    <Resource Include="..\Icons\Dev$(VSTarget)\PythonProjectBig.ico" />
+    <EmbeddedResource Include="Legacy\ObsoleteResources.resx">
+      <ManifestResourceName>Microsoft.VisualStudioTools.SharedProject</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Commands\DiagnosticsForm.resx">
+      <DependentUpon>DiagnosticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\NewInterpreter.resx">
+      <DependentUpon>NewInterpreter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonDebugInteractiveOptionsControl.resx">
+      <DependentUpon>PythonDebugInteractiveOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonGeneralOptionsControl.resx">
+      <DependentUpon>PythonGeneralOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonFormattingGeneralOptionsControl.resx">
+      <DependentUpon>PythonFormattingGeneralOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonFormattingOptionsControl.resx">
+      <DependentUpon>PythonFormattingOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonInteractiveOptionsControl.resx">
+      <DependentUpon>PythonInteractiveOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Project\DefaultPythonLauncherOptions.resx">
+      <DependentUpon>DefaultPythonLauncherOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Project\PublishPropertyControl.resx">
+      <DependentUpon>PublishPropertyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Project\PythonDebugPropertyPageControl.resx">
+      <DependentUpon>PythonDebugPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Resources -->
+    <EmbeddedResource Include="PythonTools\Project\StartWithErrorsDialog.resx">
+      <DependentUpon>StartWithErrorsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonInterpreterOptionsControl.resx">
+      <DependentUpon>PythonInterpreterOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonAdvancedEditorOptionsControl.resx">
+      <DependentUpon>PythonAdvancedEditorOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Options\PythonDebuggingOptionsControl.resx">
+      <DependentUpon>PythonDebuggingOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\Project\PythonGeneralPropertyPageControl.resx">
+      <DependentUpon>PythonGeneralPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <ConditionalEmbeddedResource Include="VSPackage.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Microsoft.PythonTools</CustomToolNamespace>
+      <ManifestResourceName>Microsoft.VSPackage</ManifestResourceName>
+    </ConditionalEmbeddedResource>
+    <EmbeddedResource Include="PythonTools\WebProject\PythonWebPropertyPageControl.resx">
+      <DependentUpon>PythonWebPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PythonTools\WebProject\PythonWebLauncherOptions.resx">
+      <DependentUpon>PythonWebLauncherOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <SubType>Designer</SubType>
+      <MergeWithCTO>true</MergeWithCTO>
+      <CustomToolNamespace>Microsoft.PythonTools</CustomToolNamespace>
+      <ManifestResourceName>Microsoft.PythonTools.Resources</ManifestResourceName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="PythonTools\Intellisense\CompletionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PythonTools\Project\AddVirtualEnvironment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PythonTools\Navigation\WaitForCompleteAnalysisDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PythonTools\Project\AddInterpreter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="images\images.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PythonTools\Project\ImportWizard\SaveProjectPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PythonTools\Project\ImportWizard\InterpreterPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PythonTools\Project\ImportWizard\FileSourcePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PythonTools\Project\ImportWizard\ImportWizard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PythonTools\Project\ImportWizard\ImportWizardDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PythonTools\Project\InstallPythonPackage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PythonTools\Refactoring\ExtractMethodDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PythonTools\Refactoring\RenameVariableDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\Files\EmptyPackage\package\" />
+  </ItemGroup>
+  <Import Project="$(BuildRoot)\Common\Product\SharedProject\SharedProject.proj" />
+  <Import Project="..\ProjectAfter.settings" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="_DeployPTVSDFiles" AfterTargets="PrepareForBuild" Returns="@(_PTVSDFiles)">
+    <ItemGroup>
+      <_PTVSDSourceFiles Include="visualstudio_py_*.py;ptvsd\*.py" />
+      <_PTVSDFiles Include="@(_PTVSDSourceFiles->'$(IntermediateOutputPath)ptvsd\%(Filename)%(Extension)')" />
+      <Content Include="@(_PTVSDFiles)">
+        <IncludeInVSIX>true</IncludeInVSIX>
+        <VSIXSubPath>ptvsd</VSIXSubPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <Link>ptvsd\%(Filename)%(Extension)</Link>
+      </Content>
+    </ItemGroup>
+    <Copy SourceFiles="@(_PTVSDSourceFiles)" DestinationFiles="@(_PTVSDFiles)" SkipUnchangedFiles="true">
+      <Output TaskParameter="CopiedFiles" ItemName="FileWrites" />
+    </Copy>
+  </Target>
+  <Target Name="_CalculateSharedTemplateFiles">
+    <ItemGroup>
+      <_Templates Include="Templates\Projects\EmptyWebRole;Templates\Projects\WebRoleBottle;Templates\Projects\WebRoleFlask">
+        <IsWeb>true</IsWeb>
+        <IsWorker>false</IsWorker>
+        <Type>Project</Type>
+      </_Templates>
+      <_Templates Include="Templates\Files\AzureCSWebRole">
+        <IsWeb>true</IsWeb>
+        <IsWorker>false</IsWorker>
+        <Type>Item</Type>
+      </_Templates>
+      <_Templates Include="Templates\Projects\WorkerRoleProject">
+        <IsWeb>false</IsWeb>
+        <IsWorker>true</IsWorker>
+        <Type>Project</Type>
+      </_Templates>
+      <_Templates Include="Templates\Files\AzureCSWorkerRole">
+        <IsWeb>false</IsWeb>
+        <IsWorker>true</IsWorker>
+        <Type>Item</Type>
+      </_Templates>
+    </ItemGroup>
+    <ItemGroup>
+      <_SharedTemplateFiles Include="@(_Templates)">
+        <SourceFile>%(SharedTemplateFile.FullPath)</SourceFile>
+        <IncludeInWeb Condition="%(SharedTemplateFile.IncludeInWebRoleTemplates) != ''">%(SharedTemplateFile.IncludeInWebRoleTemplates)</IncludeInWeb>
+        <IncludeInWorker Condition="%(SharedTemplateFile.IncludeInWorkerRoleTemplates) != ''">%(SharedTemplateFile.IncludeInWorkerRoleTemplates)</IncludeInWorker>
+        <TargetFileName>%(SharedTemplateFile.Filename)%(SharedTemplateFile.Extension)</TargetFileName>
+      </_SharedTemplateFiles>
+      <SharedTemplateFiles Include="%(_SharedTemplateFiles.Identity)\%(_SharedTemplateFiles.TargetFileName)" Condition="(%(_SharedTemplateFiles.IsWeb) and %(_SharedTemplateFiles.IncludeInWeb)) or (%(_SharedTemplateFiles.IsWorker) and %(_SharedTemplateFiles.IncludeInWorker))">
+        <SourceFile>%(_SharedTemplateFiles.SourceFile)</SourceFile>
+        <Type>%(_SharedTemplateFiles.Type)</Type>
+      </SharedTemplateFiles>
+    </ItemGroup>
+  </Target>
+  <Target Name="_CopySharedTemplateFiles" BeforeTargets="GetZipFilesFromVSTemplates" Inputs="%(SharedTemplateFiles.SourceFile)" Outputs="@(SharedTemplateFiles)">
+    <MakeDir Directories="%(SharedTemplateFiles.RootDir)%(SharedTemplateFiles.Directory)" />
+    <Copy SourceFiles="%(SharedTemplateFiles.SourceFile)" DestinationFiles="%(SharedTemplateFiles.FullPath)" OverwriteReadOnlyFiles="true">
+      <Output TaskParameter="CopiedFiles" ItemName="FileWrites" />
+    </Copy>
+  </Target>
+  <Target Name="CopySharedTemplateFiles" BeforeTargets="GetZipFilesFromVSTemplates" DependsOnTargets="_CalculateSharedTemplateFiles;_CopySharedTemplateFiles">
+    <ItemGroup>
+      <ZipProject Include="%(SharedTemplateFiles.FullPath)" Condition="%(SharedTemplateFiles.Type) == 'Project'" />
+      <ZipItem Include="%(SharedTemplateFiles.FullPath)" Condition="%(SharedTemplateFiles.Type) == 'Item'" />
+    </ItemGroup>
+  </Target>
+  <!-- We build these assemblies into separate folders to avoid incremental cleaning issues,
+       but then CreatePkgDef can't find them for the ProvideCodeBase attributes. So we copy
+       into the PythonTools output folder temporarily to generate the pkgdef file. -->
+  <!--<Target Name="_CopyForCreatePkgDef" BeforeTargets="GeneratePkgDef">
+    <Copy SourceFiles="$(OutputPath)..\Analysis\Microsoft.PythonTools.Analysis.dll;$(OutputPath)..\EnvironmentsList\Microsoft.PythonTools.EnvironmentsList.dll;$(OutputPath)..\VSInterpreters\Microsoft.PythonTools.VSInterpreters.dll" DestinationFolder="$(OutputPath)">
+      <Output TaskParameter="CopiedFiles" ItemName="_CopiedForCreatePkgdef" />
+    </Copy>
+  </Target>
+  <Target Name="_DeleteAfterCreatePkgDef" AfterTargets="GeneratePkgDef">
+    <Delete Files="@(_CopiedForCreatePkgdef)" />
+  </Target>-->
+</Project>

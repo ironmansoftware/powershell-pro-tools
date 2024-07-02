@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="PowerShellTools.Editors.MainGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <!--<Grid x:Name="MainGrid2" Margin="8,0,0,8" Grid.ColumnSpan="3" Grid.RowSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Auto" d:IsHidden="True">-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="976"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label HorizontalAlignment="Left" Margin="12,29.04,0,0" x:Name="SnapinLable" Width="127" Height="27" VerticalAlignment="Top"/>
+        <Label Margin="8,-2.96,457,0" Content="Select a PsSnapin. Then, click a button (above) to open the associated help file." FontWeight="Bold" x:Name="PsSnapinLable" Style="{DynamicResource LabelStyle1}" VerticalAlignment="Top" Height="28" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBlock xml:space="preserve" Margin="13.5,836.5,31.5,112.5" x:Name="HelpLableTextBox" FontSize="12" FontStyle="Italic" FontWeight="Normal" TextWrapping="Wrap" Foreground="#FFF8F2F2"><Run Text=" "/><Span Language="en-us"><Run Text="Cmdlet Help Editor is designed for Windows PowerShell cmdlet developers to make it easy to create excellent cmdlet help. This tool is made available free of charge, but it is not warranted or supported by Microsoft."/></Span></TextBlock>
+        <Label IsEnabled="True" Visibility="Hidden" x:Name="errorLable" Height="26" Content="" Width="340" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ListView ItemsSource="{Binding ModuleObjects}" x:Name="PsSnapinList" IsSynchronizedWithCurrentItem="True" Margin="8,29.04,16,154.46" BorderThickness="1,1,3,1" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxWidth="1152" MaxHeight="807" SelectionChanged="PsSnapinList_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" 
+							DisplayMemberBinding="{Binding Name}"  />
+                    <GridViewColumn Header="Version " 
+							DisplayMemberBinding="{Binding Version}" />
+                    <GridViewColumn Header="Description"
+							DisplayMemberBinding="{Binding Description}" />
+                    <GridViewColumn Header="ModuleType"
+							DisplayMemberBinding="{Binding ModuleType}" />
+                </GridView>
+            </ListView.View>            
+        </ListView>
+
+    </Grid>
+</UserControl>

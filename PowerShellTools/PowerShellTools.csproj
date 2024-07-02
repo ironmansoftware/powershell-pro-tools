@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <Import Project="..\Build\ProjectBefore.settings" />
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{456D66A8-E05E-496D-BDCE-AF24BBC12E0D}</ProjectGuid>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PowerShellTools</RootNamespace>
+    <AssemblyName>PowerShellTools.$(appveyor_build_version)</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>$(DefineConstants);TRACE;DEBUG;POWERSHELL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CreateVsixContainer>true</CreateVsixContainer>
+    <DeployExtension>True</DeployExtension>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+    <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
+    <NoWarn>436;VSTHRD010</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;POWERSHELL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CreateVsixContainer>True</CreateVsixContainer>
+    <NoWarn>436;169;3021;VSTHRD010</NoWarn>
+    <DeployExtension>False</DeployExtension>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.MSXML">
+      <HintPath>..\Build\Microsoft.MSXML.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Windows.Design.Host">
+      <HintPath>$(DevEnvDir)\PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PowerShellToolsColors.pkgdef">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Resource Include="ToolWindows\Icons\Save_16x.png" />
+    <Resource Include="ToolWindows\Icons\ps-logo.png" />
+    <Resource Include="ToolWindows\Icons\Link_16x.png" />
+    <Resource Include="ToolWindows\Icons\Key_16x.png" />
+    <Resource Include="ToolWindows\Icons\HelpApplication_16x.png" />
+    <Resource Include="Resources\IMSLogo.png" />
+    <Resource Include="Resources\VariablesCommand.png" />
+    <Resource Include="Resources\VariablesPackage.ico" />
+    <VSCTCompile Include="ReplWindow.vsct">
+      <ResourceName>ReplWindow.ctmenu</ResourceName>
+    </VSCTCompile>
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\PoshToolsVsLogo.png" />
+    <EmbeddedResource Include="Resources\completionset.bmp" />
+    <Resource Include="Resources\DataIcon.png" />
+    <Resource Include="Resources\Images.png" />
+    <Resource Include="Resources\Images_0.png" />
+    <Resource Include="Resources\Images_1.png" />
+    <Resource Include="Resources\Images_2.png" />
+    <Resource Include="Resources\Images_3.png" />
+    <Resource Include="Resources\Images_4.png" />
+    <Resource Include="Resources\Images_5.png" />
+    <Resource Include="Resources\ModuleIcon.png" />
+    <Resource Include="Resources\Package.ico" />
+    <Resource Include="Resources\PowerShell.ico" />
+    <Resource Include="Resources\powershell.png" />
+    <Resource Include="Resources\PowerShellInteractiveWindow_16x.png" />
+    <Resource Include="Resources\powershell_icon.png" />
+    <Resource Include="Resources\ProjectIcon.png" />
+    <Resource Include="Resources\Project_16.bmp" />
+    <Resource Include="Resources\ScriptIcon.png" />
+    <Resource Include="Resources\TestIcon.png" />
+    <None Include="Manifest\source.extension.vsixmanifest" />
+    <Content Include="poshtools.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="PowerShellTools.targets">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <InstallRoot>MSBuild</InstallRoot>
+      <VSIXSubPath>PowerShell Tools for Visual Studio</VSIXSubPath>
+    </Content>
+    <None Include="Resources\ModuleProject.pdn" />
+    <None Include="Resources\Project.pdn" />
+    <None Include="Resources\Thumbs.db" />
+    <Resource Include="Poshtools_128x.png" />
+    <Resource Include="powershell-large.png" />
+    <VSCTCompile Include="PowerShellTools.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
+    </VSCTCompile>
+    <Content Include="PowerShellTools.15.0.imagemanifest">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="prebuild.ps1" />
+    <Content Include="License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{6d748ef1-250e-40a4-8f70-73a6e63f97f5}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormDesigner\FormDesigner.Common.csproj">
+      <Project>{e637cbc9-c665-4042-bee8-ea26f474ea14}</Project>
+      <Name>FormDesigner.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HostInjection\PowerShellProTools.Common.csproj">
+      <Project>{37e5bdf1-3d1a-4a45-8ca2-0670b4a538d4}</Project>
+      <Name>PowerShellProTools.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.Templates.Data\PowerShellTools.Templates.Data.csproj">
+      <Project>{8cb16f4e-1e4a-4631-8144-7e62d16fa4c3}</Project>
+      <Name>PowerShellTools.Templates.Data</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.Templates.FormProject\PowerShellTools.Templates.FormProject.csproj">
+      <Project>{2525625d-7430-4206-87fb-11cb0d3b9111}</Project>
+      <Name>PowerShellTools.Templates.FormProject</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.Templates.ModuleProject\PowerShellTools.Templates.ModuleProject.csproj">
+      <Project>{4c0eb89b-f75b-49b4-91bb-403c4993b37b}</Project>
+      <Name>PowerShellTools.Templates.ModuleProject</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.Templates.Module\PowerShellTools.Templates.Module.csproj">
+      <Project>{ae1df5d4-6afe-4ed1-9ef4-602222054113}</Project>
+      <Name>PowerShellTools.Templates.Module</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.Templates.ScriptProject\PowerShellTools.Templates.ScriptProject.csproj">
+      <Project>{b88c2e04-dfe3-4d8e-9388-c33407e51d36}</Project>
+      <Name>PowerShellTools.Templates.ScriptProject</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.Templates.Script\PowerShellTools.Templates.Script.csproj">
+      <Project>{b38fa330-cbba-4d71-a7d2-7deb3ad4c264}</Project>
+      <Name>PowerShellTools.Templates.Script</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.Templates.Test\PowerShellTools.Templates.Test.csproj">
+      <Project>{3236c69c-1c96-4464-aaa2-5fe33e80225f}</Project>
+      <Name>PowerShellTools.Templates.Test</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.TestAdapter\PowerShellTools.TestAdapter.csproj">
+      <Project>{78090039-ba56-488a-a474-4e3f1d68c62e}</Project>
+      <Name>PowerShellTools.TestAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.MsBuild\PowerShellToolsPro.MsBuild.csproj">
+      <Project>{85961e40-189b-461a-9482-256c285f5170}</Project>
+      <Name>PowerShellToolsPro.MsBuild</Name>
+      <InstallRoot>MSBuild</InstallRoot>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+      <VSIXSubPath>PowerShell Tools for Visual Studio</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.Packager\PowerShellToolsPro.Packager.csproj">
+      <Project>{41ff979f-3129-4efe-94a3-37ebe32b508c}</Project>
+      <Name>PowerShellToolsPro.Packager</Name>
+      <InstallRoot>PublicAssemblies</InstallRoot>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.Templates.FormItem\PowerShellToolsPro.Templates.FormItem.csproj">
+      <Project>{2525625d-7430-4206-87fb-11cb0d3b913b}</Project>
+      <Name>PowerShellToolsPro.Templates.FormItem</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.Templates.ServiceItem\PowerShellToolsPro.Templates.ServiceItem.csproj">
+      <Project>{40e4423b-ff92-4426-a670-1cab2437d109}</Project>
+      <Name>PowerShellToolsPro.Templates.ServiceItem</Name>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.Templates.WpfItem\PowerShellToolsPro.Templates.WpfItem.csproj">
+      <Project>{846f52e3-6fda-49e5-8c1c-9c605ac200bc}</Project>
+      <Name>PowerShellToolsPro.Templates.WpfItem</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Castle.Core">
+      <Version>4.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.ApplicationInsights">
+      <Version>2.20.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Build">
+      <Version>15.9.20</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Build.Utilities.Core">
+      <Version>15.9.20</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VSSDK.Vsixsigntool">
+      <Version>16.2.29116.78</Version>
+    </PackageReference>
+    <PackageReference Include="ModernWpfUI.Signed">
+      <Version>0.9.4</Version>
+    </PackageReference>
+    <PackageReference Include="PowerShellStandard.Library">
+      <Version>5.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel">
+      <Version>15.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK">
+      <Version>15.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Language">
+      <Version>15.8.525</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Workspace">
+      <Version>15.0.485</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Win32.Registry">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Nito.AsyncEx.Context">
+      <Version>5.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="PowerShellTools.Interfaces">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.File">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="StreamJsonRpc">
+      <Version>1.4.134</Version>
+    </PackageReference>
+    <PackageReference Include="StrongNamer">
+      <Version>0.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="System.Diagnostics.DiagnosticSource">
+      <Version>4.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.4</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.Algorithms">
+      <Version>4.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.X509Certificates">
+      <Version>4.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks.Dataflow">
+      <Version>4.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks.Extensions">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.TestWindow.Interfaces">
+      <HintPath>$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
+      <HintPath>$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <Import Project="..\PowerShellTools.Shared\PowerShellTools.Shared.projitems" Label="Shared" />
+  <PropertyGroup>
+    <UseCodebase>true</UseCodebase>
+  </PropertyGroup>
+  <Import Project="..\Build\ProjectAfter.settings" />
+  <PropertyGroup>
+    <PreBuildEvent>pwsh -Command "$(MSBuildProjectDirectory)\prebuild.ps1 -Version '$(appveyor_build_version)'"
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+RMDIR /S /Q "$(DevEnvDir)..\..\MSBuild\PowerShell Tools for Visual Studio"
+MKDIR "$(DevEnvDir)..\..\MSBuild\PowerShell Tools for Visual Studio"
+
+xcopy "$(TargetDir)PowerShellToolsPro.Packager.dll"  "$(DevEnvDir)PublicAssemblies" /Y
+xcopy "$(TargetDir)PowerShellProTools.VSCode.dll"  "$(DevEnvDir)..\..\MSBuild\PowerShell Tools for Visual Studio" /Y
+xcopy "$(TargetDir)PowerShellToolsPro.Cmdlets.dll"  "$(DevEnvDir)..\..\MSBuild\PowerShell Tools for Visual Studio" /Y
+xcopy "$(TargetDir)PowerShellToolsPro.MSBuild.dll"  "$(DevEnvDir)..\..\MSBuild\PowerShell Tools for Visual Studio" /Y
+xcopy "$(ProjectDir)PowerShellTools.targets"  "$(DevEnvDir)..\..\MSBuild\PowerShell Tools for Visual Studio" /Y
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

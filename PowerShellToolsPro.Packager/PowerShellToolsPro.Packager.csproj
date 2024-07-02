@@ -1,0 +1,110 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <FileVersion>3.0.0.0</FileVersion>
+    <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\Build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <Copyright>2</Copyright>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <Product>PowerShellToolsPro.Packager2</Product>
+    <Description>2</Description>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DefineConstants>$(DefineConstants);TEST</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Hosts\Assembly\AssemblyPowerShellHost.cs" />
+    <Compile Remove="Hosts\Assembly\AssemblyPowerShellHostUserInterface.cs" />
+    <Compile Remove="Hosts\Console\ConsolePowerShellHost.cs" />
+    <Compile Remove="Hosts\Console\ConsolePowerShellHost_Core.cs" />
+    <Compile Remove="Hosts\Console\ConsolePowerShellHost_Hidden.cs" />
+    <Compile Remove="Hosts\Console\ConsolePowerShellHost_Linux.cs" />
+    <Compile Remove="Hosts\Console\ConsolePowerShellHost_Osx.cs" />
+    <Compile Remove="Hosts\Service\ConsolePowerShellHost.cs" />
+    <Compile Remove="Hosts\Service\ConsolePowerShellHost_Core.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="BuildDate.txt" />
+    <None Remove="FodyWeavers.xml" />
+    <None Remove="GetBoundParameters.ps1" />
+    <None Remove="Hosts\Console\app.manifest" />
+    <None Remove="Hosts\IronmanPowerShellHost.exe" />
+    <None Remove="Hosts\IronmanPowerShellHost7.exe" />
+    <None Remove="Obfuscar.Console.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Hosts\IronmanPowerShellHost.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="BuildDate.txt" />
+    <EmbeddedResource Include="Hosts\Console\ConsolePowerShellHost_Osx.cs" />
+    <EmbeddedResource Include="Hosts\Console\ConsolePowerShellHost_Linux.cs" />
+    <EmbeddedResource Include="Hosts\Console\ConsolePowerShellHost_Core.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="GetBoundParameters.ps1" />
+    <EmbeddedResource Include="Hosts\Assembly\AssemblyPowerShellHost.cs" />
+    <EmbeddedResource Include="Hosts\Assembly\AssemblyPowerShellHostUserInterface.cs" />
+    <EmbeddedResource Include="Hosts\Console\app.manifest" />
+    <EmbeddedResource Include="Hosts\Console\ConsolePowerShellHost.cs" />
+    <EmbeddedResource Include="Hosts\Console\ConsolePowerShellHost_Hidden.cs" />
+    <EmbeddedResource Include="Hosts\Service\ConsolePowerShellHost_Core.cs" />
+    <EmbeddedResource Include="Hosts\Service\ConsolePowerShellHost.cs" />
+    <EmbeddedResource Include="Obfuscar.Console.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Build\FinalPublicKey.snk" Link="FinalPublicKey.snk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0" />
+    <PackageReference Include="StrongNamer" Version="0.2.5" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Text.Json" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AsmResolver">
+      <HintPath>ASMResolver\AsmResolver.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmResolver.PE">
+      <HintPath>ASMResolver\AsmResolver.PE.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmResolver.PE.File">
+      <HintPath>ASMResolver\AsmResolver.PE.File.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmResolver.PE.Win32Resources">
+      <HintPath>ASMResolver\AsmResolver.PE.Win32Resources.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+
+  <Target Name="BuiltProjectOutputGroupDependencies" />
+  <Target Name="BuiltProjectOutputGroup" />
+  <Target Name="GetCopyToOutputDirectoryItems" />
+  <Target Name="SatelliteDllsProjectOutputGroup" />
+  <Target Name="DebugSymbolsProjectOutputGroup" />
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="pwsh -Command &quot;(Get-Date).ToFileTimeUtc()&quot; &gt; &quot;$(ProjectDir)\BuildDate.txt&quot;" />
+  </Target>
+</Project>

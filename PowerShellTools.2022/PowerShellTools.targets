@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask AssemblyFile="PowerShellToolsPro.MsBuild.dll" TaskName="PowerShellTools.MsBuild.RunPowerShellCommand" />
+  <UsingTask AssemblyFile="PowerShellToolsPro.MsBuild.dll" TaskName="PowerShellToolsPro.MsBuild.PowerShellPackageTask" />
+
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkMoniker>.NETFramework,Version=$(TargetFrameworkVersion)</TargetFrameworkMoniker>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
+  <Target Name="Build">
+    <RunPowerShellCommand Command="$(PreBuildScript)" Condition="'$(PreBuildScript)' != ''"/>
+    <PowerShellPackageTask PackageEntryPoint="$(PackageEntryPoint)"
+                        PackageAsExecutable="$(PackageAsExecutable)"
+                        DotNetVersion="$(DotNetVersion)"
+                        Bundle="$(Bundle)"
+                        OutputDirectory="$(OutputPath)"
+                        Obfuscate="$(Obfuscate)"
+                        HideConsoleWindow="$(HideConsoleWindow)"
+                        FileVersion="$(FileVersion)"
+                        FileDescription="$(FileDescription)"
+                        ProductName="$(ProductName)"
+                        ProductVersion="$(ProductVersion)"
+                        Copyright="$(Copyright)"
+                        RequireElevation="$(RequireElevation)"
+                        ApplicationIconPath="$(ApplicationIconPath)"
+                        PackageModules="$(PackageModules)"
+                        PackageType="$(PackageType)"
+                        ServiceName="$(ServiceName)"
+                        ServiceDisplayName="$(ServiceDisplayName)"
+                        HighDPISupport="$(HighDPISupport)"
+                        PowerShellArgs="$(PowerShellArgs)"
+                        PackagePlatform="$(PackagePlatform)"
+                        PowerShellVersion="$(PowerShellVersion)"
+                        OutputName="$(OutputName)"
+						OperatingSystem="$(OperatingSystem)"
+                        CompanyName="$(CompanyName)"
+                        CompileItems="@(Compile)"
+                        ContentItems="@(Content)"
+                        />
+    <RunPowerShellCommand Command="$(PostBuildScript)" Condition="'$(PostBuildScript)' != ''"/>
+  </Target>
+</Project>

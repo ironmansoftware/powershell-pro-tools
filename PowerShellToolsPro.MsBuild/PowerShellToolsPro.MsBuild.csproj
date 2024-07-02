@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<FileVersion>1.0.0.0</FileVersion>
+		<AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\Build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="PowerShellStandard.Library" Version="5.1.0" />
+		<PackageReference Include="Microsoft.Build" Version="15.9.20" />
+		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.9.20" />
+		<PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.9.20" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\PowerShellToolsPro.Packager\PowerShellToolsPro.Packager.csproj" />
+		<ProjectReference Include="..\PowerShellToolsPro.Cmdlets\PowerShellToolsPro.Cmdlets.csproj" />
+	</ItemGroup>
+
+	<Target Name="BuiltProjectOutputGroupDependencies" />
+	<Target Name="BuiltProjectOutputGroup" />
+	<Target Name="GetCopyToOutputDirectoryItems" />
+	<Target Name="SatelliteDllsProjectOutputGroup" />
+	<Target Name="DebugSymbolsProjectOutputGroup" />
+</Project>

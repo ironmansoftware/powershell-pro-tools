@@ -1,0 +1,306 @@
+﻿<shell:VsShellDialogWindow x:Class="PowerShellTools.Commands.UserInterface.ParameterEditorView"
+                    x:ClassModifier="internal"                    
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:shell="clr-namespace:PowerShellTools.Common"
+                    xmlns:common="clr-namespace:PowerShellTools.Common.Controls"
+                    xmlns:package="clr-namespace:PowerShellTools"
+                    xmlns:local="clr-namespace:PowerShellTools.Commands.UserInterface"
+                    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                    mc:Ignorable="d" 
+                    Height="Auto"
+                    MinHeight="300"
+                    MaxHeight="700"
+                    Width="400"
+                    SizeToContent="Height"
+                    ShowInTaskbar="False"
+                    WindowStartupLocation="CenterOwner"
+                    Title="{x:Static package:Resources.ParameterEditorTitle}"
+                    d:DataContext="{x:Static local:ParameterEditorViewModel.DesignerViewModel}">
+
+    <shell:VsShellDialogWindow.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="DialogDataGridStyle" TargetType="{x:Type DataGrid}">
+                <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="6,0,0,0" />
+                <Setter Property="Padding" Value="4,0,4,0" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="MinHeight" Value="23" />
+                <Setter Property="MinWidth" Value="75" />
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <local:ErrorIconConverter x:Key="ErrorIconConverter"/>
+            <local:ByteValueConverter x:Key="ByteValueConverter" />
+            <local:IntValueConverter x:Key="IntValueConverter"/>
+            <local:LongValueConverter x:Key="LongValueConverter" />
+
+
+            <Style x:Key="DataGridCellEditingStyle" TargetType="{x:Type DataGridCell}" >
+                <!-- Without this, editable cells have two tabstops (one for the cell, one for the editing control) -->
+                <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+
+                <Setter Property="MinHeight" Value="16"/>
+
+                <!-- Due to WPF bug(981654), when we tab out of data grid and tab back in, the selected cell is not the same as cell in focus.
+                     So we need to clean up the borders for the selected cell by setting the border thickness to 0. This will remove highlighting on the cell not in focus-->
+                <Style.Triggers>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsSelected" Value="True"/>
+                            <Condition Property="IsKeyboardFocusWithin" Value="False"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="BorderThickness" Value="0"></Setter>
+                    </MultiTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Shows an error or warning glyph to the left of the editable control -->
+            <ControlTemplate x:Key="ErrorTemplate">
+                <Grid>
+                    <AdornedElementPlaceholder x:Name="adorner" Grid.RowSpan="2"/>
+                    <Image
+                        Source="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent, Converter={StaticResource ErrorIconConverter}}"
+                        Width="16"
+                        Height="16"
+                        Margin="-18,0,0,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        ToolTip="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent.Message}"
+                        AutomationProperties.Name="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent.Message}"
+                    />
+                </Grid>
+            </ControlTemplate>
+
+            <!-- DataTemplates for the individual editing controls based on parameter type -->
+            <DataTemplate x:Key="StringParameterValueTemplate">
+                <TextBox 
+                    BorderThickness="0"
+                    Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                    ToolTip="{Binding HelpText}"
+                    AutomationProperties.HelpText="{Binding HelpText}"
+                    AutomationProperties.Name="{Binding Name}"
+                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                    common:Watermark.Text="{Binding Watermark}"
+                    />
+            </DataTemplate>
+            <DataTemplate x:Key="ByteParameterValueTemplate">
+                <TextBox 
+                    BorderThickness="0" 
+                    Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Converter={StaticResource ResourceKey=ByteValueConverter}}"
+                    ToolTip="{Binding HelpText}"
+                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                    AutomationProperties.HelpText="{Binding HelpText}"
+                    AutomationProperties.Name="{Binding Name}"
+                    common:Watermark.Text="{Binding Watermark}"
+                    />
+            </DataTemplate>
+            <DataTemplate x:Key="IntParameterValueTemplate">
+                <TextBox 
+                    BorderThickness="0" 
+                    Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Converter={StaticResource ResourceKey=IntValueConverter}}"
+                    ToolTip="{Binding HelpText}"
+                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                    AutomationProperties.HelpText="{Binding HelpText}"
+                    AutomationProperties.Name="{Binding Name}"
+                    common:Watermark.Text="{Binding Watermark}"
+                    />
+            </DataTemplate>
+            <DataTemplate x:Key="LongParameterValueTemplate">
+                <TextBox 
+                    BorderThickness="0" 
+                    Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Converter={StaticResource ResourceKey=LongValueConverter}}"
+                    ToolTip="{Binding HelpText}"
+                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                    AutomationProperties.HelpText="{Binding HelpText}"
+                    AutomationProperties.Name="{Binding Name}"
+                    common:Watermark.Text="{Binding Watermark}"
+                    />
+            </DataTemplate>
+            <DataTemplate x:Key="ChoiceParameterValueTemplate">
+                <!-- CONSIDER: If we needed to show watermarks with choice parameters, we should
+                        do that by adding a new entry to the combobox. Not needed for now -->
+                <ComboBox 
+                    BorderThickness="0"
+                    Padding="2,0,2,0"
+                    SelectedValue="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                    ItemsSource="{Binding Path=AllowedValues}" 
+                    HorizontalAlignment="Stretch"
+                    ToolTip="{Binding HelpText}"
+                    AutomationProperties.HelpText="{Binding HelpText}"
+                    AutomationProperties.Name="{Binding Name}"
+                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                    />
+            </DataTemplate>
+            <DataTemplate x:Key="SwitchParameterValueTemplate">
+                <CheckBox 
+                    BorderThickness="1"
+                    Padding="2,0,2,0"
+                    IsChecked="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                    HorizontalAlignment="Left"
+                    ToolTip="{Binding HelpText}"
+                    AutomationProperties.HelpText="{Binding HelpText}"
+                    AutomationProperties.Name="{Binding Name}"
+                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                    />
+            </DataTemplate>
+            
+            <CollectionViewSource x:Key="CommonParametersSorted" Source="{Binding Path=CommonParameters}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="Name"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+            
+        </ResourceDictionary>
+        
+    </shell:VsShellDialogWindow.Resources>
+
+    <Grid x:Name="ParameterPanel" Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" MinHeight="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="ParameterFileLabel"
+              Margin="0,0,0,10"
+              Grid.Row="0"
+              Text="{Binding ParameterEditorTip}" 
+              TextWrapping="Wrap" />
+        
+        <Grid x:Name="ParameterSetGrid"
+              Visibility="{Binding Path=HasParameterSets, Converter={StaticResource ResourceKey=BooleanToVisibilityConverter}}"
+              Margin="-5,0,0,10"
+              Grid.IsSharedSizeScope="True"
+              Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" MaxWidth="200"/>
+                <ColumnDefinition Width="*" 
+                                  MinWidth="100"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="ParameterSetLabel"
+                   Visibility="{Binding Path=HasParameterSets}"
+                   Target="{Binding ElementName=ParameterSetComboBox}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{x:Static package:Resources.ParameterSetNameLabel}" />
+            <ComboBox x:Name="ParameterSetComboBox"
+                      Grid.Row="0"
+                      Grid.Column="1"
+                      Visibility="{Binding Path=HasParameterSets}"
+                      AutomationProperties.Name="{x:Static package:Resources.ParameterSetNameLabel}"
+                      SelectedItem="{Binding SelectedParameterSetName}"
+                      ItemsSource="{Binding ParameterSetNames}" />
+        </Grid>
+        
+        <DataGrid Grid.Row="2"
+                  Margin="0,0,0,10"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  SelectionUnit="Cell"
+                  SelectionMode="Single"
+                  Visibility="{Binding HasParameters, Converter={StaticResource ResourceKey=BooleanToVisibilityConverter}}"
+                  AutomationProperties.Name="{Binding ParameterEditorTip}"
+                  Style="{StaticResource DialogDataGridStyle}"
+                  ItemsSource="{Binding Path=Parameters, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                        IsReadOnly="True" 
+                        Binding="{Binding Path=Name}" 
+                        Header="{x:Static package:Resources.ParameterNameHeaderLabel}"
+                        MinWidth="150"
+                        CellStyle="{StaticResource DataGridCellEditingStyle}"/>
+                <DataGridTemplateColumn 
+                        Width="*"
+                        Header="{x:Static package:Resources.ParameterValueHeaderLabel}"
+                        CellStyle="{StaticResource DataGridCellEditingStyle}">
+                    <DataGridTemplateColumn.CellTemplateSelector>
+                        <local:ParameterEditorTemplateSelector
+                            StringTemplate="{StaticResource StringParameterValueTemplate}"
+                            ChoiceTemplate="{StaticResource ChoiceParameterValueTemplate}"
+                            ByteTemplate="{StaticResource ByteParameterValueTemplate}"
+                            IntTemplate="{StaticResource IntParameterValueTemplate}"
+                            LongTemplate="{StaticResource LongParameterValueTemplate}"
+                            SwitchTemplate="{StaticResource SwitchParameterValueTemplate}"/>
+                    </DataGridTemplateColumn.CellTemplateSelector>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock x:Name="CommonParameterLabel"
+              Margin="0,0,0,10"
+              Grid.Row="3"
+              Text="{x:Static package:Resources.CommonParametersTipLabel}" 
+              TextWrapping="Wrap" />
+
+        <DataGrid Grid.Row="4"
+                  Margin="0,0,0,10"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  SelectionUnit="Cell"
+                  SelectionMode="Single"
+                  AutomationProperties.Name="{x:Static package:Resources.CommonParametersTipLabel}"
+                  Style="{StaticResource DialogDataGridStyle}"
+                  ItemsSource="{Binding Source={StaticResource CommonParametersSorted}}">
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                        IsReadOnly="True" 
+                        Binding="{Binding Path=Name}" 
+                        Header="{x:Static package:Resources.ParameterNameHeaderLabel}"
+                        MinWidth="150"
+                        CellStyle="{StaticResource DataGridCellEditingStyle}"/>
+                <DataGridTemplateColumn 
+                        Width="*"
+                        Header="{x:Static package:Resources.ParameterValueHeaderLabel}"
+                        CellStyle="{StaticResource DataGridCellEditingStyle}">
+                    <DataGridTemplateColumn.CellTemplateSelector>
+                        <local:ParameterEditorTemplateSelector
+                            StringTemplate="{StaticResource StringParameterValueTemplate}"
+                            ChoiceTemplate="{StaticResource ChoiceParameterValueTemplate}"
+                            ByteTemplate="{StaticResource ByteParameterValueTemplate}"
+                            IntTemplate="{StaticResource IntParameterValueTemplate}"
+                            LongTemplate="{StaticResource LongParameterValueTemplate}"
+                            SwitchTemplate="{StaticResource SwitchParameterValueTemplate}"/>
+                    </DataGridTemplateColumn.CellTemplateSelector>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <StackPanel x:Name="ButtonsPanel"
+                   Grid.Row="5"
+                   Margin="0 10 0 0">
+            <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+                <Button x:Name="SaveButton" 
+                        IsDefault="True"
+                        IsEnabled="{Binding IsSaveButtonEnabled}"
+                        Command="{Binding SaveCommand}"
+                        Content="{x:Static package:Resources.OkButtonLabel}"/>
+                <Button x:Name="CancelButton"
+                        IsCancel="True"
+                        Content="{x:Static package:Resources.CancelButtonLabel}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</shell:VsShellDialogWindow>

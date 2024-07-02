@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Build\ProjectBefore.settings" />
+  <PropertyGroup>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <TargetFrameworkProfile />
+    <UseCodebase>true</UseCodebase>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <RootNamespace>PowerShellToolsPro</RootNamespace>
+    <AssemblyName>PowerShellToolsPro</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{25DBA8EE-B7F1-4711-A8E9-1627B720CC52}</ProjectGuid>
+    <CreateVsixContainer>True</CreateVsixContainer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DeployExtension>False</DeployExtension>
+    <CreateVsixContainer>True</CreateVsixContainer>
+    <NoWarn>VSTHRD010</NoWarn>
+    <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DeployExtension>False</DeployExtension>
+    <NoWarn>VSTHRD010</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Windows.Design.Host">
+      <HintPath>..\Build\Microsoft.Windows.Design.Host.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FormDesigner\PSScriptPad.WinForm.csproj">
+      <Project>{e637cbc9-c665-4042-bee8-ea26f474ea14}</Project>
+      <Name>PSScriptPad.WinForm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HostInjection\PowerShellProTools.Common.csproj">
+      <Project>{37e5bdf1-3d1a-4a45-8ca2-0670b4a538d4}</Project>
+      <Name>PowerShellProTools.Common</Name>
+      <InstallRoot>PublicAssemblies</InstallRoot>
+    </ProjectReference>
+    <ProjectReference Include="..\Licensing\Licensing.csproj">
+      <Project>{a38d0b43-4b82-4841-98f3-e076f5d8ea97}</Project>
+      <Name>Licensing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.Cmdlets\PowerShellToolsPro.Cmdlets.csproj">
+      <Project>{57ff419d-7401-411e-a413-46b43e7c5b70}</Project>
+      <Name>PowerShellToolsPro.Cmdlets</Name>
+      <InstallRoot>PublicAssemblies</InstallRoot>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.CodeConversion\PowerShellToolsPro.CodeConversion.csproj">
+      <Project>{e2c7ac8b-c472-47bf-827c-f406460ab0a1}</Project>
+      <Name>PowerShellToolsPro.CodeConversion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellToolsPro.Packager\PowerShellToolsPro.Packager.csproj">
+      <InstallRoot>PublicAssemblies</InstallRoot>
+      <Project>{41ff979f-3129-4efe-94a3-37ebe32b508c}</Project>
+      <Name>PowerShellToolsPro.Packager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Manifest\$(VSTarget)\source.extension.vsixmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK">
+      <Version>15.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="PowerShellTools.Interfaces">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="PowerShellStandard.Library">
+      <Version>5.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.4</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.Algorithms">
+      <Version>4.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.X509Certificates">
+      <Version>4.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="..\PowerShellToolsPro.Shared\PowerShellToolsPro.Shared.projitems" Label="Shared" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\Build\ProjectAfter.settings" />
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <PostBuildEvent>RMDIR /S /Q "$(DevEnvDir)..\..\MSBuild\PowerShell Pro Tools"
+    MKDIR "$(DevEnvDir)..\..\MSBuild\PowerShell Pro Tools"
+    xcopy "$(TargetDir)PowerShellToolsPro.MSBuild.dll"  "$(DevEnvDir)..\..\MSBuild\PowerShell Pro Tools" /Y
+    xcopy "$(TargetDir)PowerShellToolsPro.Packager.dll" "$(DevEnvDir)PublicAssemblies" /Y
+    xcopy "$(TargetDir)PowerShellToolsPro.Licensing.dll" "$(DevEnvDir)PublicAssemblies" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>echo RMDIR /S /Q "$(DevEnvDir)..\..\MSBuild\PowerShell Pro Tools"
+echo    MKDIR "$(DevEnvDir)..\..\MSBuild\PowerShell Pro Tools"
+echo    xcopy "$(TargetDir)PowerShellToolsPro.MSBuild.dll"  "$(DevEnvDir)..\..\MSBuild\PowerShell Pro Tools" /Y
+echo    xcopy "$(TargetDir)PowerShellToolsPro.Cmdlets.dll"  "$(DevEnvDir)PublicAssemblies" /Y
+echo    xcopy "$(TargetDir)PowerShellToolsPro.Packager.dll" "$(DevEnvDir)PublicAssemblies" /Y
+echo     xcopy "$(TargetDir)PowerShellToolsPro.Licensing.dll" "$(DevEnvDir)PublicAssemblies" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

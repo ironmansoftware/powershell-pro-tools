@@ -1,0 +1,889 @@
+{
+    "name": "powershellprotools",
+    "displayName": "PowerShell Pro Tools",
+    "description": "Powerful extensions for PowerShell development.",
+    "version": "2024.7.0",
+    "publisher": "ironmansoftware",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ironmansoftware/issues"
+    },
+    "engines": {
+        "vscode": "^1.46.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onLanguage:powershell",
+        "onLanguage:csharp",
+        "onCommand:powershell.packageAsExe",
+        "onCommand:poshProTools.openPsScriptPad",
+        "onView:astView",
+        "onView:hostProcessView",
+        "onView:moduleView",
+        "onView:providerView",
+        "onView:quickScriptsView",
+        "onView:variableView",
+        "onView:infoView",
+        "onView:reflectionView",
+        "onView:customView",
+        "onView:historyView",
+        "onView:sessionsView",
+        "onView:jobView",
+        "onCommand:powershell.showWinFormDesigner",
+        "onCommand:powershell.generateWinForm",
+        "onCommand:poshProTools.statusBarMenu",
+        "onCommand:poshProTools.installModule",
+        "onCommand:poshProTools.welcome"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "poshProTools.welcome",
+                "title": "Welcome",
+                "category": "PowerShell Pro Tools"
+            },
+            {
+                "command": "poshProTools.refactoringInfo",
+                "title": "Refactoring Info",
+                "category": "PowerShell Pro Tools"
+            },
+            {
+                "command": "poshProTools.attachRunspace",
+                "title": "Attach Runspace",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(bug)"
+            },
+            {
+                "command": "poshProTools.statusBarMenu",
+                "title": "Show Session Menu",
+                "category": "PowerShell Pro Tools"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.packageAsExe",
+                "title": "Package Script as Exe",
+                "icon": {
+                    "light": "media/light/box.svg",
+                    "dark": "media/dark/box.svg"
+                }
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "poshProTools.openPsScriptPad",
+                "title": "Open with PSScriptPad",
+                "icon": "$(note)"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.previewUniversalDashboard",
+                "title": "Preview Universal Dashboard"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "poshProTools.installModule",
+                "title": "Install PowerShell Pro Tools Module"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.convertToUdElement",
+                "title": "Convert to New-UDElement"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.profileScript",
+                "title": "Profile Script Performance"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.clearProfiling",
+                "title": "Clear Profiling Information"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.showWinFormDesigner",
+                "title": "Show Form Designer",
+                "icon": {
+                    "light": "media/light/browser.svg",
+                    "dark": "media/dark/browser.svg"
+                }
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "poshProTools.runInNewTerminal",
+                "title": "Run in New Terminal",
+                "icon": "$(debug-console)"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "poshProTools.dataGrid",
+                "title": "PowerShell Data Grid"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "poshProTools.loadAssembly",
+                "title": "Load Assembly",
+                "icon": "$(folder-opened)"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.generateWinForm",
+                "title": "Generate Windows Form"
+            },
+            {
+                "category": "PowerShell Pro Tools",
+                "command": "powershell.generateTool",
+                "title": "Generate Tool"
+            },
+            {
+                "command": "astView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "hostProcessView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "moduleView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "providerView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "quickScriptView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "variableView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "reflectionView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "historyView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "customView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "sessionsView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "poshProTools.help",
+                "title": "Help",
+                "icon": "$(link-external)"
+            },
+            {
+                "command": "poshProTools.decompileType",
+                "title": "Decompile Type",
+                "icon": "$(file-binary)"
+            },
+            {
+                "command": "poshProTools.selectAst",
+                "title": "Select AST",
+                "icon": {
+                    "light": "media/light/brush.svg",
+                    "dark": "media/dark/brush.svg"
+                }
+            },
+            {
+                "command": "poshProTools.clearAstSelection",
+                "title": "Clear Selection",
+                "icon": {
+                    "light": "media/light/trash-solid.svg",
+                    "dark": "media/dark/trash-solid.svg"
+                }
+            },
+            {
+                "command": "moduleExplorer.updateModule",
+                "title": "Update",
+                "icon": {
+                    "light": "media/light/icon-download.svg",
+                    "dark": "media/dark/icon-download.svg"
+                }
+            },
+            {
+                "command": "moduleExplorer.uninstallModule",
+                "title": "Uninstall",
+                "icon": {
+                    "light": "media/light/trash-solid.svg",
+                    "dark": "media/dark/trash-solid.svg"
+                }
+            },
+            {
+                "command": "poshProTools.addQuickScript",
+                "title": "Add to Quick Scripts",
+                "icon": {
+                    "light": "media/light/bolt.svg",
+                    "dark": "media/dark/bolt.svg"
+                }
+            },
+            {
+                "command": "poshProTools.removeQuickScript",
+                "title": "Remove Quick Script",
+                "icon": {
+                    "light": "media/light/trash-solid.svg",
+                    "dark": "media/dark/trash-solid.svg"
+                }
+            },
+            {
+                "command": "poshProTools.openQuickScript",
+                "title": "Open Quick Script",
+                "icon": {
+                    "light": "media/light/external-link.svg",
+                    "dark": "media/dark/external-link.svg"
+                }
+            },
+            {
+                "command": "poshProTools.insertVariable",
+                "title": "Insert Variable",
+                "icon": {
+                    "light": "media/light/code.svg",
+                    "dark": "media/dark/code.svg"
+                }
+            },
+            {
+                "command": "poshProTools.insertProviderPath",
+                "title": "Insert Path",
+                "icon": {
+                    "light": "media/light/code.svg",
+                    "dark": "media/dark/code.svg"
+                }
+            },
+            {
+                "command": "poshProTools.viewItemProperties",
+                "title": "View Item Properties",
+                "icon": "$(symbol-property)"
+            },
+            {
+                "command": "poshProTools.viewItems",
+                "title": "View Child Items",
+                "icon": "$(folder-opened)"
+            },
+            {
+                "command": "poshProTools.toggleRapidSense",
+                "title": "Toggle RapidSense",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(bug)"
+            },
+            {
+                "command": "historyView.insert",
+                "title": "Add History to Console",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(terminal)"
+            },
+            {
+                "command": "poshProTools.refactor",
+                "title": "Refactor",
+                "category": "PowerShell Pro Tools"
+            },
+            {
+                "command": "poshProTools.refactorMoveRight",
+                "title": "Move Right",
+                "category": "PowerShell Pro Tools"
+            },
+            {
+                "command": "poshProTools.refactorMoveLeft",
+                "title": "Move Left",
+                "category": "PowerShell Pro Tools"
+            },
+            {
+                "command": "customView.invoke",
+                "title": "Invoke Item",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(play)"
+            },
+            {
+                "command": "poshProTools.enterSession",
+                "title": "Enter PSSession",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(remote)"
+            },
+            {
+                "command": "poshProTools.removeSession",
+                "title": "Remove PSSession",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(close)"
+            },
+            {
+                "command": "poshProTools.exitSession",
+                "title": "Exit PSSession",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(remove)"
+            },
+            {
+                "command": "poshProTools.pinSession",
+                "title": "Pin PSSession",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(pinned)"
+            },
+            {
+                "command": "poshProTools.unpinSession",
+                "title": "Unpin PSSession",
+                "category": "PowerShell Pro Tools",
+                "icon": "$(pin)"
+            },
+            {
+                "command": "jobView.stop",
+                "title": "Stop",
+                "icon": "$(debug-stop)"
+            },
+            {
+                "command": "jobView.debug",
+                "title": "Debug",
+                "icon": "$(debug-alt)"
+            },
+            {
+                "command": "jobView.remove",
+                "title": "Remove",
+                "icon": "$(close)"
+            },
+            {
+                "command": "jobView.receive",
+                "title": "Receive",
+                "icon": "$(arrow-down)"
+            },
+            {
+                "command": "jobView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "PowerShell Pro Tools",
+            "properties": {
+                "poshProTools.universalDashboardPreviewPort": {
+                    "type": "number",
+                    "default": 10000,
+                    "description": "The port to start Universal Dashboard on when running the Preview Universal Dashboard command."
+                },
+                "poshProTools.showUpgradeNotification": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show upgrade notification."
+                },
+                "poshProTools.checkForModuleUpdates": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to check for updated versions of the modules you have installed. This can be slow if you have a lot of modules installed."
+                },
+                "poshProTools.sideBar.astVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of the Abstract Syntax Tree in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.hostProcessVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Host Processes in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.moduleVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Modules in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.providerVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Providers in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.reflectionVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Reflection in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.quickScriptVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Quick Scripts in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.jobVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Jobs in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.variableVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Variables in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.customVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Custom in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.historyVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of History Explorer in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.sideBar.sessionVisibility": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies the visibility of Sessions in the PowerShell Pro Tools Side Bar."
+                },
+                "poshProTools.toolbar.runInNewTerminal": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to display the Run in New Terminal button."
+                },
+                "poshProTools.toolbar.quickScripts": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to display the Quick Scripts button."
+                },
+                "poshProTools.toolbar.packageAsExecutable": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to display the package as executable button."
+                },
+                "poshProTools.toolbar.formDesigner": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to display the form designer button."
+                },
+                "poshProTools.toolbar.psScriptPad": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to display the PSScriptPad button."
+                },
+                "poshProTools.ignoredModules": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "RapidSense: Modules to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                },
+                "poshProTools.ignoredAssemblies": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "RapidSense: Assemblies to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                },
+                "poshProTools.ignoredTypes": {
+                    "type": "string",
+                    "default": ".*AnonymousType.*;.*ImplementationDetails.*;_.*",
+                    "markdownDescription": "RapidSense: Types to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                },
+                "poshProTools.ignoredCommands": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "RapidSense: Commands to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                },
+                "poshProTools.ignoredVariables": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "RapidSense: Variables to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                },
+                "poshProTools.ignoredPaths": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "RapidSense: Paths to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                },
+                "poshProTools.defaultPackagePsd1Path": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "Default package.psd1 file path."
+                },
+                "poshProTools.signOnSave": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Sign PS1 files when they are saved."
+                },
+                "poshProTools.signOnSaveCertificate": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "The certificate to use when signing a script on save. This should be the Get-ChildItem path to the certificate."
+                },
+                "poshProTools.excludeAutomaticVariables": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Whether to exclude automatic variables from the variables window."
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "poshProTools.runInNewTerminal",
+                "key": "shift+f5",
+                "mac": "shift+f5"
+            },
+            {
+                "command": "poshProTools.refactor",
+                "key": "ctrl+alt+r",
+                "mac": "cmd+alt+r"
+            },
+            {
+                "command": "poshProTools.refactorMoveRight",
+                "key": "ctrl+pageup",
+                "mac": "cmd+pageup"
+            },
+            {
+                "command": "poshProTools.refactorMoveLeft",
+                "key": "ctrl+pagedown",
+                "mac": "cmd+pagedown"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "powerShellProTools",
+                    "title": "PowerShell Pro Tools",
+                    "icon": "media/logo.svg"
+                }
+            ]
+        },
+        "views": {
+            "powerShellProTools": [
+                {
+                    "id": "astView",
+                    "name": "Abstract Syntax Tree",
+                    "when": "config.poshProTools.sideBar.astVisibility"
+                },
+                {
+                    "id": "customView",
+                    "name": "Custom",
+                    "when": "config.poshProTools.sideBar.customVisibility"
+                },
+                {
+                    "id": "historyView",
+                    "name": "History",
+                    "when": "config.poshProTools.sideBar.historyVisibility"
+                },
+                {
+                    "id": "hostProcessView",
+                    "name": "Host Processes",
+                    "when": "config.poshProTools.sideBar.hostProcessVisibility"
+                },
+                {
+                    "id": "jobView",
+                    "name": "Jobs",
+                    "when": "config.poshProTools.sideBar.jobVisibility"
+                },
+                {
+                    "id": "moduleView",
+                    "name": "Modules",
+                    "when": "config.poshProTools.sideBar.moduleVisibility"
+                },
+                {
+                    "id": "providerView",
+                    "name": "Providers",
+                    "when": "config.poshProTools.sideBar.providerVisibility"
+                },
+                {
+                    "id": "reflectionView",
+                    "name": "Reflection",
+                    "when": "config.poshProTools.sideBar.reflectionVisibility"
+                },
+                {
+                    "id": "sessionsView",
+                    "name": "Sessions",
+                    "when": "config.poshProTools.sideBar.sessionVisibility"
+                },
+                {
+                    "id": "quickScriptView",
+                    "name": "Quick Scripts",
+                    "when": "config.poshProTools.sideBar.quickScriptVisibility"
+                },
+                {
+                    "id": "variableView",
+                    "name": "Variables",
+                    "when": "config.poshProTools.sideBar.variableVisibility"
+                },
+                {
+                    "id": "infoView",
+                    "name": "Help and Information"
+                }
+            ]
+        },
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "powershell.packageAsExe",
+                    "group": "7_modification",
+                    "when": "resourceExtname == .ps1"
+                },
+                {
+                    "command": "poshProTools.openPsScriptPad",
+                    "group": "7_modification",
+                    "when": "resourceExtname == .ps1"
+                }
+            ],
+            "view/title": [
+                {
+                    "command": "astView.refresh",
+                    "when": "view == astView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "hostProcessView.refresh",
+                    "when": "view == hostProcessView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "moduleView.refresh",
+                    "when": "view == moduleView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "providerView.refresh",
+                    "when": "view == providerView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "quickScriptView.refresh",
+                    "when": "view == quickScriptView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "variableView.refresh",
+                    "when": "view == variableView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "reflectionView.refresh",
+                    "when": "view == reflectionView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "poshProTools.loadAssembly",
+                    "when": "view == reflectionView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "customView.refresh",
+                    "when": "view == customView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "historyView.refresh",
+                    "when": "view == historyView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "sessionsView.refresh",
+                    "when": "view == sessionsView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "poshProTools.exitSession",
+                    "when": "view == sessionsView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "jobView.refresh",
+                    "when": "view == jobView",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                {
+                    "when": "resourceExtname == .ps1 || resourceExtname == .psm1 ",
+                    "command": "poshProTools.refactor"
+                }
+            ],
+            "editor/title": [
+                {
+                    "when": "resourceExtname == .ps1 && config.poshProTools.toolbar.runInNewTerminal",
+                    "command": "poshProTools.runInNewTerminal",
+                    "group": "navigation@101"
+                },
+                {
+                    "when": "editorLangId == powershell && config.poshProTools.toolbar.quickScripts",
+                    "command": "poshProTools.addQuickScript",
+                    "group": "navigation@102"
+                },
+                {
+                    "when": "resourceExtname == .ps1 && config.poshProTools.toolbar.packageAsExecutable",
+                    "command": "powershell.packageAsExe",
+                    "group": "navigation@102"
+                },
+                {
+                    "when": "config.poshProTools.toolbar.formDesigner && resourceExtname == .ps1 || resourceExtname == .xaml",
+                    "command": "powershell.showWinFormDesigner",
+                    "group": "navigation@102"
+                },
+                {
+                    "command": "poshProTools.openPsScriptPad",
+                    "group": "navigation@102",
+                    "when": "resourceExtname == .ps1 && config.poshProTools.toolbar.psScriptPad"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "moduleExplorer.updateModule",
+                    "when": "view == moduleView && viewItem == update",
+                    "group": "inline"
+                },
+                {
+                    "command": "moduleExplorer.uninstallModule",
+                    "when": "view == moduleView && viewItem == uninstall",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.attachRunspace",
+                    "when": "view == hostProcessView && viewItem == runspace",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.selectAst",
+                    "when": "view == astView && viewItem == astNode",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.clearAstSelection",
+                    "when": "view == astView && viewItem == ast",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.removeQuickScript",
+                    "when": "view == quickScriptView && viewItem == quickscript",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.openQuickScript",
+                    "when": "view == quickScriptView && viewItem == quickscript",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.insertVariable",
+                    "when": "view == variableView && viewItem == variable",
+                    "group": "inline"
+                },
+                {
+                    "command": "historyView.insert",
+                    "when": "view == historyView && viewItem == historyItem",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.insertProviderPath",
+                    "when": "view == providerView && viewItem == providerItem",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.insertProviderPath",
+                    "when": "view == providerView && viewItem == providerContainer",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.viewItemProperties",
+                    "when": "view == providerView && viewItem == providerItem",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.viewItemProperties",
+                    "when": "view == providerView && viewItem == providerContainer",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.viewItems",
+                    "when": "view == providerView && viewItem == providerContainer",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.decompileType",
+                    "when": "view == reflectionView && viewItem == type",
+                    "group": "inline"
+                },
+                {
+                    "command": "customView.invoke",
+                    "when": "view == customView && viewItem == customViewItem",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.removeSession",
+                    "when": "view == sessionsView && viewItem == session",
+                    "group": "inline"
+                },
+                {
+                    "command": "poshProTools.enterSession",
+                    "when": "view == sessionsView && viewItem == session",
+                    "group": "inline"
+                },
+                {
+                    "command": "jobView.receive",
+                    "when": "view == jobView && viewItem == jobcompleted",
+                    "group": "inline"
+                },
+                {
+                    "command": "jobView.remove",
+                    "when": "view == jobView && viewItem == jobcompleted",
+                    "group": "inline"
+                },
+                {
+                    "command": "jobView.stop",
+                    "when": "view == jobView && viewItem == jobrunning",
+                    "group": "inline"
+                },
+                {
+                    "command": "jobView.debug",
+                    "when": "view == jobView && viewItem == jobrunning",
+                    "group": "inline"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint src --ext ts",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^14.11.2",
+        "@types/vscode": "^1.46.0",
+        "esbuild": "^0.13.8",
+        "tslint": "^5.8.0",
+        "typescript": "^4.0.2"
+    },
+    "dependencies": {
+        "cheerio": "^1.0.0-rc.2",
+        "extract-zip": "^2.0.1",
+        "json-rpc2": "^2.0.0",
+        "moment": "^2.28.0",
+        "node-fetch": "2.6.1",
+        "randomstring": "^1.1.5",
+        "temp-dir": "^2.0.0",
+        "uuid": "^3.3.2",
+        "vscode-languageclient": "^6.1.3"
+    },
+    "preview": false,
+    "icon": "poshtools.png",
+    "qna": "marketplace",
+    "homepage": "https://ironmansoftware.com/powershell-pro-tools-for-visual-studio-code",
+    "bugs": {
+        "url": "https://github.com/ironmansoftware/issues"
+    },
+    "badges": [
+        {
+            "url": "https://img.shields.io/badge/Trial-14%20Days-green",
+            "href": "https://ironmansoftware.com/trial/powershell-pro-tools",
+            "description": "14-day trial of PowerShell Pro Tools"
+        }
+    ],
+    "keywords": [
+        "powershell",
+        "windowsforms",
+        "wpf"
+    ]
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Foreach</Title>
+            <Shortcut>Foreach</Shortcut>
+            <Description>Code snippet for a foreach statement</Description>
+            <Author>Adam Driscoll</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+                <SnippetType>SurroundsWithStatement</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal>
+                  <ID>param1</ID>
+                    <ToolTip>Iterator Variable</ToolTip>
+                    <Default>$item</Default>
+                </Literal>
+                <Literal>
+                  <ID>param2</ID>
+                    <ToolTip>Collection</ToolTip>
+                    <Default>$collection</Default>
+                </Literal>
+            </Declarations>
+            <References />
+          <Code Language="PowerShell">
+                <![CDATA[foreach ($param1$ in $param2$)
+{
+  $selected$ $end$
+}]]>
+            </Code>  
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
