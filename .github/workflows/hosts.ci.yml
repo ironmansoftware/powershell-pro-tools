@@ -1,0 +1,36 @@
+name: Hosts CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    timeout-minutes: 10
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: nuget/setup-nuget@v1
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Build Ironman Host
+      shell: pwsh
+      run: |
+        Set-Location IronmanPowerShellHost
+        dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
+        dotnet publish -f net6.0-windows -c Release .\IronmanPowerShellHost.csproj -p:UseWindowsForms=true
+        dotnet publish -f net6.0 -c Release .\IronmanPowerShellHost.csproj
+        dotnet publish -f net6.0 -c NoPowerShell .\IronmanPowerShellHost.csproj
+        dotnet publish -f net6.0-windows -c NoPowerShell .\IronmanPowerShellHost.csproj -p:UseWindowsForms=true

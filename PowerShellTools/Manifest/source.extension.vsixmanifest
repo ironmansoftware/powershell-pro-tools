@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="PowerShellTools.VS2017" Version="|%CurrentProject%;GetVsixVersion|" Language="en-US" Publisher="Adam Driscoll" />
+    <DisplayName>|%CurrentProject%;GetVsixDisplayName|</DisplayName>
+    <Description xml:space="preserve">A set of tools for developing and debugging PowerShell scripts and modules in Visual Studio.</Description>
+    <MoreInfo>https://ironmansoftware.com/powershell-pro-tools</MoreInfo>
+    <License>License.txt</License>
+    <Icon>poshtools.png</Icon>
+    <PreviewImage>preview.png</PreviewImage>
+    <Tags>PowerShell</Tags>
+  </Metadata>
+  <Installation InstalledByMsi="false" AllUsers="true">
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0.28010,17.0)" />
+  </Installation>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    <Asset Type="UnitTestExtension" d:Source="Project" d:ProjectName="PowerShellTools.TestAdapter" Path="|PowerShellTools.TestAdapter|" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="snippets.pkgdef" />
+    
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="PowerShellToolsPro.Templates.FormItem" d:TargetPath="|PowerShellToolsPro.Templates.FormItem;TemplateProjectOutputGroup|" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="PowerShellToolsPro.Templates.WpfItem" d:TargetPath="|PowerShellToolsPro.Templates.WpfItem;TemplateProjectOutputGroup|" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="PowerShellToolsPro.Templates.ServiceItem" d:TargetPath="|PowerShellToolsPro.Templates.ServiceItem;TemplateProjectOutputGroup|" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.Templates.Test" d:TargetPath="|PowerShellTools.Templates.Test;TemplateProjectOutputGroup|" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.Templates.Script" d:TargetPath="|PowerShellTools.Templates.Script;TemplateProjectOutputGroup|" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.Templates.Data" d:TargetPath="|PowerShellTools.Templates.Data;TemplateProjectOutputGroup|" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.Templates.Module" d:TargetPath="|PowerShellTools.Templates.Module;TemplateProjectOutputGroup|" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.Templates.ScriptProject" d:TargetPath="|PowerShellTools.Templates.ScriptProject;TemplateProjectOutputGroup|" Path="ProjectTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.Templates.ModuleProject" d:TargetPath="|PowerShellTools.Templates.ModuleProject;TemplateProjectOutputGroup|" Path="ProjectTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.Templates.FormProject" d:TargetPath="|PowerShellTools.Templates.FormProject;TemplateProjectOutputGroup|" Path="ProjectTemplates" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Workload.ManagedDesktop" Version="[15.0,)" DisplayName="Managed Desktop" IsRequired="true" CanAutoDownload="true" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Managed Desktop" IsRequired="true" CanAutoDownload="true" /> 
+  </Prerequisites>
+</PackageManifest>

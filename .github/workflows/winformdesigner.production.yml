@@ -1,0 +1,69 @@
+name: Windows Form Designer Production
+on: [workflow_dispatch]
+
+jobs:
+
+  build:
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        platform: [x64]
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: nuget/setup-nuget@v1
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Restore
+      shell: pwsh
+      run: |
+        dotnet restore PowerShellTools.sln
+        nuget restore PowerShellTools.sln
+
+    - name: Build Ironman Host
+      shell: pwsh
+      run: |
+        Push-Location IronmanPowerShellHost
+        dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
+        Pop-Location
+
+    - name: Build
+      shell: pwsh
+      run: |
+        $Version = Get-Content .\WinFormDesigner\version.txt -Raw
+        msbuild PowerShellTools.sln -t:rebuild -p:Configuration=Release -p:Platform=${{ matrix.platform }} -p:Version=$Version
+      env:
+        SIGNING_CODE: ${{ secrets.SIGNING_CODE }}
+
+    - name: Release
+      shell: pwsh
+      run: |
+        $Version = Get-Content ./WinFormDesigner/version.txt
+        azcopy copy ./FormDesigner.Host/version.txt "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+
+        $Item = (Get-ChildItem "./WinFormDesigner/bin/${{ matrix.platform }}/Release/*.exe").FullName
+        azcopy copy $Item "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+
+        Compress-Archive -Path $Item -DestinationPath "./WinFormDesigner.zip"
+        Compress-Archive -Path $Item -DestinationPath "./WinFormDesigner.$Version.zip"
+        azcopy copy "./WinFormDesigner.$Version.zip" "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+        azcopy copy "./WinFormDesigner.zip" "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+
+        Rename-Item $Item "WinFormDesigner.$Version.exe"
+        $Item = (Get-ChildItem "./WinFormDesigner/bin/${{ matrix.platform }}/Release/*.exe").FullName
+        azcopy copy $Item "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+      env:
+        SAS: ${{ secrets.PSSCRIPTPAD_SAS }}

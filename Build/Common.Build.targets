@@ -1,0 +1,54 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Choose>
+    <When Condition="'$(Language)' == 'C#' and !$(SuppressCommonAssemblyMetadata)">
+      <PropertyGroup>
+        <TrackFileAccess>false</TrackFileAccess>
+        <!-- CHECK RELEVANCE -->
+      </PropertyGroup>
+      <ItemGroup>
+        <Compile Include="$(BuildRoot)\Build\AssemblyInfoCommon.cs">
+          <Link>AssemblyInfoCommon.cs</Link>
+        </Compile>
+        <Compile Include="$(BuildRoot)\Build\AssemblyVersion.cs">
+          <Link>AssemblyVersion.cs</Link>
+        </Compile>
+      </ItemGroup>
+      <PropertyGroup>
+        <TrackFileAccess>true</TrackFileAccess>
+        <!-- CHECK RELEVANCE -->
+      </PropertyGroup>
+    </When>
+  </Choose>
+
+  <PropertyGroup>
+    <!-- If we are building on a local dev machine, pretend we're given this other version number. Dev builds will have this number.-->
+
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Pacakge Guids; These need to be the same as the GUIDs in Guids.cs/PowerShellTools.vsct-->
+    <VsixGuid>0429083f-fdbc-47a3-84ff-b3d50343b21e</VsixGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VsixDisplayName>PowerShell Tools for Visual Studio</VsixDisplayName>
+    <ToolsPath>$(VsSDKInstall)\Microsoft.VsSDK.targets</ToolsPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VsixVsTarget>[15.0.26203.0, 17.0)</VsixVsTarget>
+  </PropertyGroup>
+
+  <!-- Returns the current build version. Used in .vsixmanifests to substitute our build version into them -->
+  <!-- TODO: Bring the below into its own .targets file, possibly Vsix.Targets, and import it. -->
+  <Target Name="GetVsixVersion" Outputs="$(appveyor_build_version)" />
+  <Target Name="GetVsixVSTarget" Outputs="$(VsixVsTarget)" />
+  <Target Name="GetVsixGuid" Outputs="$(VsixGuid)" />
+  <Target Name="GetVsixDisplayName" Outputs="$(VsixDisplayName)" />
+
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(Language)' == 'C#'" />
+  <Import Project="$(ToolsPath)" Condition="'$(Language)' == 'C#' and '$(CreateVsixContainer)' != '' and $(CreateVsixContainer) and '$(VSToolsPath)' != '' and $(MinimumVisualStudioVersion) == '17.0'" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(Language)' == 'C#' and '$(CreateVsixContainer)' != '' and $(CreateVsixContainer) and '$(VSToolsPath)' != '' and $(MinimumVisualStudioVersion) != '17.0'" />
+  <!-- <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition="'$(Language)' == 'C++'" />
+  <Import Project="$(WixTargetsPath)" Condition="'$(Language)' == 'WiX'" /> -->
+</Project>

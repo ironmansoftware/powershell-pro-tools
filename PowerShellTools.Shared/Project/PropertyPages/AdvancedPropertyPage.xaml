@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="PowerShellTools.ToolWindows.AdvancedPropertyPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:grids="http://schemas.actiprosoftware.com/winfx/xaml/grids"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+             xmlns:common="clr-namespace:PowerShellTools"
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
+             Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="800"
+             Name="Modules">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TabControl>
+            <TabItem Header="Packaging Settings">
+                <StackPanel Margin="5">
+                    <TextBlock FontWeight="Bold">Entry Point</TextBlock>
+                    <TextBlock>Defines the entry point of the bundle or executable.</TextBlock>
+                    <ComboBox Margin="5" SelectedItem="{Binding EntryPoint}" ItemsSource="{Binding Files}"></ComboBox>
+                    <TextBlock FontWeight="Bold">Bundle</TextBlock>
+                    <TextBlock  TextWrapping="Wrap">Specifies whether to bundle dot source files included by the entry point. This setting is recursive. Dot source files that contain other dot sourced files will also be included.</TextBlock>
+                    <CheckBox Margin="5" IsChecked="{Binding Bundle}">Bundle</CheckBox>
+                    <TextBlock FontWeight="Bold" >Package as Executable</TextBlock>
+                    <TextBlock TextWrapping="Wrap">Outputs an executable that contains the script. Launching the executable will execute the script. This can be combined with bundling to merge several scripts into an executable.</TextBlock>
+                    <CheckBox Margin="5" IsChecked="{Binding PackageAsExecutable}">Package as Executable</CheckBox>
+                </StackPanel>
+
+
+            </TabItem>
+            <TabItem Header="Executable Properties">
+                <ScrollViewer>
+                <StackPanel Margin="5">
+                        <TextBlock FontWeight="Bold">Output Name</TextBlock>
+                        <TextBlock Margin="5" TextWrapping="Wrap">The name of the output executable. If not specified, the name of the entry point script will be used.</TextBlock>
+                        <TextBox Margin="5" Text="{Binding OutputName}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                        <TextBlock FontWeight="Bold">.NET Version</TextBlock>
+                        <ComboBox Margin="5" SelectedItem="{Binding NetVersion}" IsEnabled="{Binding DotNetVersionEnabled}" ItemsSource="{Binding NetVersions}">
+                        </ComboBox>
+                    <TextBlock FontWeight="Bold">PowerShell Version</TextBlock>
+                        <ComboBox Margin="5" SelectedValue="{Binding PowerShellVersion}" IsEnabled="{Binding FilePropertiesEnabled}" ItemsSource="{Binding PowerShellVersions}">
+                        </ComboBox>
+                    <TextBlock FontWeight="Bold">Output Type</TextBlock>
+                        <ComboBox Margin="5" SelectedItem="{Binding OutputType}" ItemsSource="{Binding OutputTypes}" IsEnabled="{Binding FilePropertiesEnabled}">
+                        </ComboBox>
+                    <TextBlock FontWeight="Bold">Platform</TextBlock>
+                        <ComboBox Margin="5" SelectedItem="{Binding Platform}" ItemsSource="{Binding Platforms}" IsEnabled="{Binding FilePropertiesEnabled}">
+                        </ComboBox>
+                        <TextBlock FontWeight="Bold">Operating System</TextBlock>
+                        <ComboBox Margin="5" SelectedItem="{Binding OperatingSystem}" ItemsSource="{Binding OperatingSystems}" IsEnabled="{Binding FilePropertiesEnabled}">
+                        </ComboBox>
+                        <TextBlock FontWeight="Bold">PowerShell Arguments</TextBlock>
+                    <TextBlock Margin="5" TextWrapping="Wrap">Specify additional arguments that you would like to pass to PowerShell.exe\Pwsh.exe when this process starts. These can include options such as -NoProfile and -ExecutionPolicy. Do not specify the -Command argument.</TextBlock>
+                    <TextBox Margin="5" Text="{Binding PowerShellArguments}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                    <TextBlock FontWeight="Bold">Icon</TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Margin="5" Text="{Binding Icon}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                        <Button Grid.Column="1" Margin="5" x:Name="btnBrowseIcon" IsEnabled="{Binding FilePropertiesEnabled}" Click="BrowseIconClicked">...</Button>
+                    </Grid>
+
+                    <TextBlock FontWeight="Bold" >Hide Console Window</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">Whether or not to show the console window. Useful to disable for GUI applications.</TextBlock>
+                    <CheckBox Margin="5" IsChecked="{Binding HideConsoleWindow}" IsEnabled="{Binding FilePropertiesEnabled}">Hide Console Window</CheckBox>
+                    <TextBlock FontWeight="Bold">Package Modules</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">Embeds modules referenced using Import-Module within the resulting executable so there is no need to deploy them to the target machine.</TextBlock>
+                    <CheckBox Margin="5" IsChecked="{Binding PackageModules}" IsEnabled="{Binding FilePropertiesEnabled}">Package Modules</CheckBox>
+                    <TextBlock FontWeight="Bold">Require Elevation (Administrator)</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">Adds an application manifest that forces elevations when running the resulting executable.</TextBlock>
+                    <CheckBox Margin="5" IsChecked="{Binding RequireElevation}" IsEnabled="{Binding FilePropertiesEnabled}">Require Elevation</CheckBox>
+                    <TextBlock FontWeight="Bold">Obfuscate Executable</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">Obfuscates the .NET executable containing the script. The string containing the script is also obfuscated.</TextBlock>
+                    <CheckBox Margin="5" IsChecked="{Binding ObfuscateExecutable}" IsEnabled="{Binding FilePropertiesEnabled}">Obfuscate Executable</CheckBox>
+                    <TextBlock FontWeight="Bold">High DPI Support</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="5">High DPI support for WinForm applications. Requires .NET Framework v4.7 or higher and only executes on Windows 10 or newer.</TextBlock>
+                    <CheckBox Margin="5" IsChecked="{Binding HighDpiSupport}" IsEnabled="{Binding FilePropertiesEnabled}">High DPI Support</CheckBox>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="File Properties">
+                <StackPanel Margin="5">
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">Specify file details below that will show up in the details for the executable.</TextBlock>
+                    <TextBlock FontWeight="Bold" IsEnabled="{Binding FilePropertiesEnabled}">File Description</TextBlock>
+                    <TextBox Margin="5" Text="{Binding FileDescription}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                    <TextBlock FontWeight="Bold">File Version</TextBlock>
+                    <TextBox Margin="5" Text="{Binding FileVersion}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                    <TextBlock FontWeight="Bold">Product Name</TextBlock>
+                    <TextBox Margin="5" Text="{Binding ProductName}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                    <TextBlock FontWeight="Bold">Product Version</TextBlock>
+                    <TextBox Margin="5" Text="{Binding ProductVersion}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                    <TextBlock FontWeight="Bold">Copyright</TextBlock>
+                    <TextBox Margin="5" Text="{Binding Copyright}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                    <TextBlock FontWeight="Bold">Company Name</TextBlock>
+                    <TextBox Margin="5" Text="{Binding CompanyName}" IsEnabled="{Binding FilePropertiesEnabled}"></TextBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Service Properties">
+                <StackPanel Margin="5">
+                    <TextBlock TextWrapping="Wrap">Settings for a PowerShell service. Change the Output Type on the Executable Properties to PowerShell Service to set these settings.</TextBlock>
+                    <TextBlock FontWeight="Bold" >Service Name</TextBlock>
+                    <TextBox Margin="5" Text="{Binding ServiceName}" IsEnabled="{Binding ServicePropertiesEnabled}"></TextBox>
+                    <TextBlock FontWeight="Bold">Service Display Name</TextBlock>
+                    <TextBox Margin="5" Text="{Binding ServiceDisplayName}" IsEnabled="{Binding ServicePropertiesEnabled}"></TextBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>

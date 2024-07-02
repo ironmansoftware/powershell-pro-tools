@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Advanced Function</Title>
+            <Shortcut>advfunc</Shortcut>
+            <Description>Code snippet for an advanced function.</Description>
+            <Author>Adam Driscoll</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal>
+                  <ID>param1</ID>
+                    <ToolTip>Function Name</ToolTip>
+                    <Default>New-Function</Default>
+                </Literal>
+                 <Literal>
+                  <ID>param2</ID>
+                    <ToolTip>Paramter 1</ToolTip>
+                    <Default>$parameter1</Default>
+                </Literal>
+                <Literal>
+                  <ID>param3</ID>
+                    <ToolTip>Paramter 2</ToolTip>
+                    <Default>$parameter2</Default>
+                </Literal>
+            </Declarations>
+            <References />
+          <Code Language="PowerShell" Delimiter="~">
+                <![CDATA[<#.Synopsis
+<!<SnippetShortDescription>!>
+.DESCRIPTION
+<!<SnippetLongDescription>!>
+.EXAMPLE
+<!<SnippetExample>!>
+.EXAMPLE
+<!<SnippetAnotherExample>!>
+#>
+function ~param1~
+{
+    [CmdletBinding()]
+    [OutputType([int])]
+    param
+    (
+        # <!<SnippetParam1Help>!>
+        [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true,Position=0)]
+        ~param2~,
+
+        # <!<SnippetParam2Help>!>
+        [int]~param3~)
+
+        Begin
+        {
+          
+        }
+
+        Process
+        {
+          ~end~
+        }
+
+        End
+        {
+
+        }
+}]]>
+            </Code>  
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

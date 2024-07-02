@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <TargetFrameworks>net472;net6.0;net6.0-windows</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <ApplicationIcon>pslogo.ico</ApplicationIcon>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <BaseOutputPath></BaseOutputPath>
+    <Configurations>Debug;Release;NoPowerShell</Configurations>
+    <NoWarn>$(NoWarn);IL3000;IL3002;SYSLIB0012</NoWarn>
+    <PowerShellVersion Condition="'$(PowerShellVersion)'==''">7.2.7</PowerShellVersion>
+</PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="pslogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PowerShellToolsPro.Packager\Config\PackageConfig.cs" Link="PackageConfig.cs" />
+    <Compile Include="..\PowerShellToolsPro.Packager\NativeResourceManager.cs" Link="NativeResourceManager.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="pslogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.PowerShell.ConsoleHost" Condition="'$(TargetFramework)' == 'net472'">
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.PowerShell.ConsoleHost\v4.0_3.0.0.0__31bf3856ad364e35\Microsoft.PowerShell.ConsoleHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management.Automation" Condition="'$(TargetFramework)' == 'net472'">
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Management.Automation\v4.0_3.0.0.0__31bf3856ad364e35\System.Management.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" Condition="'$(TargetFramework)' == 'net472'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Hosts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="$(PowerShellVersion)" Condition="'$(TargetFramework)' != 'net472'">
+      <IncludeAssets Condition="'$(Configuration)' == 'NoPowerShell'">compile</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.PowerShell.ConsoleHost" Version="$(PowerShellVersion)" Condition="'$(TargetFramework)' != 'net472'">
+      <IncludeAssets Condition="'$(Configuration)' == 'NoPowerShell'">compile</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pslogo.ico" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="Publish">
+    <Exec Command="xcopy /y $(TargetPath) $(ProjectDir)..\PowerShellToolsPro.Packager\Hosts" Condition="'$(TargetFramework)' == 'net472'" />
+  </Target>
+
+  <ProjectExtensions><VisualStudio><UserProperties host_1manifest_1json__JsonSchema="https://carafe.fm/schema/draft-02/bundle.schema.json" /></VisualStudio></ProjectExtensions>
+
+</Project>

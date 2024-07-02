@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <DefaultName>Script.psd1</DefaultName>
+    <Name>PowerShell Script Data File</Name>
+    <ProjectType>PowerShell</ProjectType>
+    <Description>An empty PowerShell script data file.</Description>
+    <TemplateID>PowerShellTools.PowerShell.PowerShellScriptData</TemplateID>
+    <TemplateGroupID>PowerShellTools.PowerShell</TemplateGroupID>
+    <AppliesTo>PowerShell</AppliesTo>
+    <SortOrder>150</SortOrder>
+    <Icon>PowerShellScriptDataFile.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem ReplaceParameters="true">Script.psd1</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

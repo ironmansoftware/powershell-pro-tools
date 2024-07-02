@@ -1,0 +1,57 @@
+name: Visual Studio
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Restore
+      shell: pwsh
+      run: |
+        dotnet restore PowerShellTools.sln
+        nuget restore PowerShellTools.sln
+
+    - name: Image Manifest
+      shell: pwsh
+      run: |
+        $Xml = [Xml](Get-Content .\Build\Common.Build.settings)
+        $Version = $Xml.Project.PropertyGroup[1].appveyor_build_version
+        .\PowerShellTools\prebuild.ps1 -Version $Version
+        .\PowerShellTools.2022\prebuild.ps1 -Version $Version
+
+    - name: Build Ironman Host
+      shell: pwsh
+      run: |
+        Push-Location IronmanPowerShellHost
+        dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
+        Pop-Location
+
+    - name: Build Extension
+      shell: pwsh
+      run: |
+        $devenv = .\Build\vswhere.exe -latest -property productPath | Split-Path
+        msbuild PowerShellTools.sln -p:Configuration=Release -p:Platform="Any CPU" -p:DevEnvDir="$devenv"
+      env:
+        signing_code: ${{ secrets.SIGNING_CODE }}
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: PowerShellTools
+        path: bin/Release/PowerShellTools.*.vsix

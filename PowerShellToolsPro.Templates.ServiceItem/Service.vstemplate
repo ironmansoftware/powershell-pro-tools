@@ -1,0 +1,17 @@
+﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>Service.ps1</DefaultName>
+    <Name>PowerShell Service</Name>
+    <Description>The main entry point for a PowerShell Service.</Description>
+    <ProjectType>PowerShell</ProjectType>
+    <SortOrder>220</SortOrder>
+    <Icon>PowerShellService.ico</Icon>
+    <TemplateID>PowerShellTools.PowerShell.PowerShellService</TemplateID>
+    <TemplateGroupID>PowerShellTools.PowerShell</TemplateGroupID>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+    </References>
+    <ProjectItem SubType="Code" TargetFileName="$fileinputname$.ps1" ReplaceParameters="true">Service.ps1</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

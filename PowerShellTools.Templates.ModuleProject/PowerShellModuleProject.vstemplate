@@ -1,0 +1,21 @@
+﻿<VSTemplate Type="Project" Version="2.0.0"
+    xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name>PowerShell Module Project</Name>
+        <Description>A PowerShell module project.</Description>
+        <Icon>PowerShellModuleProject.ico</Icon>
+        <ProjectType>PowerShell</ProjectType>
+        <DefaultName>PowerShellModuleProject</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LanguageTag>PowerShell</LanguageTag>
+        <PlatformTag>Windows</PlatformTag>
+        <ProjectTypeTag>Console</ProjectTypeTag>
+    </TemplateData>
+    <TemplateContent>
+        <Project File="PowerShellModuleProject.pssproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.psd1">Module.psd1</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.psm1" OpenInEditor="true">Module.psm1</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.Tests.ps1">Module.Tests.ps1</ProjectItem>
+        </Project>
+    </TemplateContent>
+</VSTemplate>

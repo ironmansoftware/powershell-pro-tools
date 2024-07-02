@@ -1,0 +1,102 @@
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{0}" rel="stylesheet">
+        <script src="{1}/bootstrap.bundle.min.js"></script>
+        <script src="{1}/fontawesome.js"></script>
+        <link href="{3}" rel="stylesheet">
+
+        <script>
+                function install() {
+                        const vscode = acquireVsCodeApi();
+                        vscode.postMessage("install-license")
+                }
+        </script>
+</head>
+
+<body>
+
+        <div class="container" style="padding-top: 20px">
+                <div class="text-center">
+                        <h1 style="padding: 10px"><img alt="logo" src="{2}/ps-logo.png" />&nbsp;&nbsp;PowerShell Pro
+                                Tools for VS
+                                Code</h1>
+                        <a class="btn btn-primary" href="https://docs.poshtools.com"><i class="fas fa-book"></i>
+                                Documentation</a>
+                        <a class="btn btn-primary" href="#" onclick="install()"><i class="fas fa-key"></i>
+                                Install License</a>
+                        <a class="btn btn-primary" href="https://ironmansoftware.com/trial/powershell-pro-tools"><i
+                                        class="fas fa-download"></i>
+                                Get 14-day Trial License</a>
+                        <a class="btn btn-primary" href="https://ironmansoftware.com/pricing/powershell-pro-tools"><i
+                                        class="fas fa-shopping-cart"></i>
+                                Buy a License</a>
+                        <a class="btn btn-primary" href="https://forums.ironmansoftware.com"><i
+                                        class="fas fa-users"></i>
+                                Community</a>
+                </div>
+
+                <hr />
+
+                <span class="lead">Enhancements and tools for working with PowerShell in Visual Studio Code.</span>
+
+                <div class="row align-items-center">
+                        <div class="col-lg-3 col-sm-auto">
+                                <ul class="checklist">
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/automating-visual-studio-code"
+                                                        target="_blank">Automate Visual Studio Code</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/debugging"
+                                                        target="_blank">Debugging Tools</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/decompiler"
+                                                        target="_blank">.NET Decompiler</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/enhanced-hover"
+                                                        target="_blank">Enhanced Hover</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/packaging-in-visual-studio-code"
+                                                        target="_blank">Packaging (Compilation)</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/pin-session"
+                                                        target="_blank">Pin Session</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/powershell-explorer"
+                                                        target="_blank">PowerShell Explorer</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/profiler"
+                                                        target="_blank">Profiler</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/sign-on-save"
+                                                        target="_blank">Sign on Save</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/rapidsense"
+                                                        target="_blank">RapidSense</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/refactoring"
+                                                        target="_blank">Refactoring</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/rename-symbols"
+                                                        target="_blank">Rename Symbols</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/windows-forms-designer"
+                                                        target="_blank">Windows Form Designer</a></li>
+                                        <li><a rel="noopener"
+                                                        href="https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code/wpf-designer"
+                                                        target="_blank">WPF Designer</a></li>
+                                </ul>
+                        </div>
+                        <div class="col-lg-9 col-sm-auto">
+                                <div class="text-center" style="margin-top: 20px">
+                                        <img alt="vscode" src="{2}/visual-studio-code.gif" width="90%" />
+                                </div>
+                        </div>
+                </div>
+
+        </div>
+</body>
+
+</html>

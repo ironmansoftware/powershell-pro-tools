@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SnippetCollection>
+    <Language Lang="PowerShell" Guid="{1C4711F1-3766-4F84-9516-43FA4169CC36}">
+        <SnippetDir>
+            <OnOff>On</OnOff>
+            <Installed>true</Installed>
+            <Locale>1033</Locale>
+            <DirPath>Snippets\PowerShell\</DirPath>
+            <LocalizedName>PowerShell</LocalizedName>
+        </SnippetDir>
+    </Language>
+</SnippetCollection>

@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\Build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="en-US\PowerShellToolsPro.Cmdlets.Installer.dll-Help.xml" />
+    <None Remove="PowerShellProTools.psd1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="morelinq" Version="3.3.2" />
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0" />
+    <PackageReference Include="StrongNamer" Version="0.2.5" />
+    <PackageReference Include="System.IO.Pipes.AccessControl" Version="4.5.0" />
+    <PackageReference Include="YamlDotNet" Version="9.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\FormDesigner.Generator\FormDesigner.Generator.csproj" />
+    <ProjectReference Include="..\PowerShellToolsPro.Packager\PowerShellToolsPro.Packager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="CreateHelp.ps1" />
+    <None Include="Help\about_MergeScriptConfig.md" />
+    <None Include="Help\ConvertTo-CSharp.md" />
+    <None Include="Help\ConvertTo-PowerShell.md" />
+    <None Include="Help\Install-PoshProToolsLicense.md" />
+    <None Include="Help\Merge-Script.md" />
+    <None Include="Help\Send-PoshProToolsTrialLicense.md" />
+    <None Include="packages.config" />
+    <None Include="Tests\ConvertToCSharp.tests.ps1" />
+    <None Include="Tests\ConvertToPowerShell.tests.ps1" />
+    <None Include="Tests\MergeScript.tests.ps1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PowerShellProTools.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PowerShellProTools.psm1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="en-US\about_MergeScriptConfig.help.txt" />
+    <Content Include="en-US\PowerShellToolsPro.Cmdlets.dll-Help.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="en-US\PowerShellToolsPro.Cmdlets.Installer.dll-Help.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="BuiltProjectOutputGroupDependencies" />
+  <Target Name="BuiltProjectOutputGroup" />
+  <Target Name="GetCopyToOutputDirectoryItems" />
+  <Target Name="SatelliteDllsProjectOutputGroup" />
+  <Target Name="DebugSymbolsProjectOutputGroup" />
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="pwsh -ExecutionPolicy Unrestricted -Command &quot;&amp; $(ProjectDir)post-build.ps1&quot;" />
+  </Target>
+
+</Project>
+
+

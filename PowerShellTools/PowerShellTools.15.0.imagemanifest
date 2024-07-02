@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImageManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/VisualStudio/ImageManifestSchema/2014">
+  <Symbols>
+    <!--;v1.2.3.4;32cd18849a3a99f8-->
+    <String Name="Resources" Value="/PowerShellTools.2024.3.0;Component/Resources" />
+    <Guid Name="ProjectGuid" Value="{072A9D46-0C24-4CFA-990A-25D7E12271F5}" />
+    <ID Name="ProjectIcon" Value="1" />
+    <ID Name="ScriptIcon" Value="2" />
+    <ID Name="DataIcon" Value="3" />
+    <ID Name="ModuleIcon" Value="4" />
+    <ID Name="TestIcon" Value="5" />
+  </Symbols>
+  <Images>
+    <Image Guid="$(ProjectGuid)" ID="$(ProjectIcon)">
+      <Source Uri="$(Resources)/ProjectIcon.png">
+        <Size Value="16" />
+      </Source>
+    </Image>
+    <Image Guid="$(ProjectGuid)" ID="$(ScriptIcon)">
+      <Source Uri="$(Resources)/ScriptIcon.png">
+        <Size Value="16" />
+      </Source>
+    </Image>
+    <Image Guid="$(ProjectGuid)" ID="$(DataIcon)">
+      <Source Uri="$(Resources)/DataIcon.png">
+        <Size Value="16" />
+      </Source>
+    </Image>
+    <Image Guid="$(ProjectGuid)" ID="$(ModuleIcon)">
+      <Source Uri="$(Resources)/ModuleIcon.png">
+        <Size Value="16" />
+      </Source>
+    </Image>
+    <Image Guid="$(ProjectGuid)" ID="$(TestIcon)">
+      <Source Uri="$(Resources)/TestIcon.png">
+        <Size Value="16" />
+      </Source>
+    </Image>
+  </Images>
+  <ImageLists />
+</ImageManifest>

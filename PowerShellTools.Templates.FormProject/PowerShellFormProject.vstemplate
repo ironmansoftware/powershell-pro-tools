@@ -1,0 +1,21 @@
+﻿<VSTemplate Type="Project" Version="2.0.0"
+    xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name>PowerShell Windows Forms Project</Name>
+        <Description>A PowerShell project for building Windows Forms.</Description>
+        <Icon>PowerShellWindowsForm.ico</Icon>
+        <ProjectType>PowerShell</ProjectType>
+        <DefaultName>PowerShellFormProject</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LanguageTag>PowerShell</LanguageTag>
+        <PlatformTag>Windows</PlatformTag>
+        <ProjectTypeTag>Console</ProjectTypeTag>
+    </TemplateData>
+    <TemplateContent>
+        <Project File="PowerShellFormProject.pssproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.ps1" OpenInEditor="true">Form.ps1</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.designer.ps1">Form.designer.ps1</ProjectItem>
+            <ProjectItem TargetFileName="Resources.resx">Resources.resx</ProjectItem>
+        </Project>
+    </TemplateContent>
+</VSTemplate>

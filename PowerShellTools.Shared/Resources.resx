@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AliasesToExport_Description" xml:space="preserve">
+    <value>A collection of the aliases to export from the module.</value>
+  </data>
+  <data name="AliasesToExport_DisplayName" xml:space="preserve">
+    <value>Aliases to export</value>
+  </data>
+  <data name="Author_Description" xml:space="preserve">
+    <value>The author of the module.</value>
+  </data>
+  <data name="Author_DisplayName" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="ClrVersion_Description" xml:space="preserve">
+    <value>The CLR version that this module requires.</value>
+  </data>
+  <data name="CLRVersion_DisplayName" xml:space="preserve">
+    <value>CLR Version</value>
+  </data>
+  <data name="CmdletsToExport_Description" xml:space="preserve">
+    <value>The cmdlets to export from the module.</value>
+  </data>
+  <data name="CmdletsToExport_DisplayName" xml:space="preserve">
+    <value>Cmdlets to export</value>
+  </data>
+  <data name="CodeCertSetting" xml:space="preserve">
+    <value>Code Signing Certificate</value>
+  </data>
+  <data name="CodeCertSettingDesc" xml:space="preserve">
+    <value>Specifies the code signing certificate to use when signing scripts.</value>
+  </data>
+  <data name="CompanyName_Description" xml:space="preserve">
+    <value>The company name to specify for the module.</value>
+  </data>
+  <data name="CompanyName_DisplayName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="Copyright_Description" xml:space="preserve">
+    <value>The copyright information for the module.</value>
+  </data>
+  <data name="Copyright_DisplayName" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="Description_Description" xml:space="preserve">
+    <value>The description of the module.</value>
+  </data>
+  <data name="Description_DisplayName" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DotNetFrameworkVersion_Description" xml:space="preserve">
+    <value>The .NET framework version requried by the module.</value>
+  </data>
+  <data name="DotNetFrameworkVersion_DisplayName" xml:space="preserve">
+    <value>.NET Framework Version</value>
+  </data>
+  <data name="FailedToInstallDebugEngine" xml:space="preserve">
+    <value>Failed to install and register the PowerGUI VSX debug engine. The first execution of this extension must be run as Administrator to allow a file to be copied to the PowerGUI installation directory and for it to be registered with Visual Studio. For more information see http:\\powerguivsx.codeplex.com. The error that was reported was [{0}].</value>
+  </data>
+  <data name="FailedToInstallDebugEngineTitle" xml:space="preserve">
+    <value>Failed to install debug engine.</value>
+  </data>
+  <data name="FormatsToProcess_Description" xml:space="preserve">
+    <value>The formats to process within the module.</value>
+  </data>
+  <data name="FormatsToProcess_DisplayName" xml:space="preserve">
+    <value>Formats to process</value>
+  </data>
+  <data name="FunctionsToExport_Description" xml:space="preserve">
+    <value>Functions to export from the module.</value>
+  </data>
+  <data name="FunctionsToExport_DisplayName" xml:space="preserve">
+    <value>Functions to export</value>
+  </data>
+  <data name="GeneralCategory" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Guid_Description" xml:space="preserve">
+    <value>The unique identifier of the module.</value>
+  </data>
+  <data name="Guid_DisplayName" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="ManifestFileName_Description" xml:space="preserve">
+    <value>The file name of the manifest.</value>
+  </data>
+  <data name="ManifestFileName_DisplayName" xml:space="preserve">
+    <value>Manifest File Name</value>
+  </data>
+  <data name="ModuleList_Description" xml:space="preserve">
+    <value>Module list</value>
+  </data>
+  <data name="ModuleList_DisplayName" xml:space="preserve">
+    <value>Module list</value>
+  </data>
+  <data name="ModuleSettings" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="ModuleToProcess_DisplayName" xml:space="preserve">
+    <value>Module to process</value>
+  </data>
+  <data name="ModuleToProess_Description" xml:space="preserve">
+    <value>Specifies the primary or "root" file of the module. When the module is imported, the members that are exported from the root module file are imported into the caller's session state. Enter the file name of one script module (.psm1) or binary module (.dll).</value>
+  </data>
+  <data name="NestedModules_Description" xml:space="preserve">
+    <value>Specifies script modules (.psm1) and binary modules (.dll) that are imported into the module's session state. The files in the NestedModules key run in the order in which they are listed in the value.</value>
+  </data>
+  <data name="NestedModules_DisplayName" xml:space="preserve">
+    <value>Nested modules</value>
+  </data>
+  <data name="OutputCategory" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="OutputDirectory_Description" xml:space="preserve">
+    <value>The output directory to copy scripts after completing the build.</value>
+  </data>
+  <data name="OutputDirectory_DisplayName" xml:space="preserve">
+    <value>Output Directory</value>
+  </data>
+  <data name="OutputTypeSetting" xml:space="preserve">
+    <value>Create Module</value>
+  </data>
+  <data name="OutputTypeSettingDescription" xml:space="preserve">
+    <value>Specifies whether to create a module manifest including the scripts in this project.</value>
+  </data>
+  <data name="PowerShellHostName_Description" xml:space="preserve">
+    <value>Specifies the name of the Windows PowerShell host program that the module requires. Enter the name of the host program, such as "Windows PowerShell ISE Host" or "ConsoleHost". Wildcards are not permitted.</value>
+  </data>
+  <data name="PowerShellHostName_DisplayName" xml:space="preserve">
+    <value>PowerShell Host Name</value>
+  </data>
+  <data name="PowerShellHostVersion_Description" xml:space="preserve">
+    <value>Specifies the minimum version of the Windows PowerShell host program that works with the module. Enter a version number, such as 1.1.</value>
+  </data>
+  <data name="PowerShellHostVersion_DisplayName" xml:space="preserve">
+    <value>PowerShell Host Version</value>
+  </data>
+  <data name="PowerShellVersion_Description" xml:space="preserve">
+    <value>Specifies the minimum version of Windows PowerShell that will work with this module. Enter 1.0 or 2.0. Requirements for versions greater than 2.0 are not enforced.</value>
+  </data>
+  <data name="PowerShellVersion_DisplayName" xml:space="preserve">
+    <value>PowerShell Version</value>
+  </data>
+  <data name="ProcessorArchitecture_Description" xml:space="preserve">
+    <value>Specifies the processor architecture that the module requires. Valid values are x86, AMD64, IA64, and None (unknown or unspecified).</value>
+  </data>
+  <data name="ProcessorArchitecture_DisplayName" xml:space="preserve">
+    <value>Processor Architecture</value>
+  </data>
+  <data name="RequiredAssemblies_Description" xml:space="preserve">
+    <value>Specifies the assembly (.dll) files that the module requires. Windows PowerShell loads the specified assemblies before updating types or formats, importing nested modules, or importing the module file that is specified in the value of the ModuleToProcess key.</value>
+  </data>
+  <data name="RequiredAssemblies_DisplayName" xml:space="preserve">
+    <value>Required Assemblies</value>
+  </data>
+  <data name="RequiredModules_Description" xml:space="preserve">
+    <value>Specifies modules that must be in the global session state. If the required modules are not in the global session state, attempts to import this module will fail.</value>
+  </data>
+  <data name="RequiredModules_DisplayName" xml:space="preserve">
+    <value>Required Modules</value>
+  </data>
+  <data name="ScriptsToProcess_Description" xml:space="preserve">
+    <value>Specifies script (.ps1) files that run in the caller's session state when the module is imported. You can use these scripts to prepare an environment, just as you might use a login script.</value>
+  </data>
+  <data name="ScriptsToProcess_DisplayName" xml:space="preserve">
+    <value>Scripts to process</value>
+  </data>
+  <data name="SignOutputSetting" xml:space="preserve">
+    <value>Sign Output</value>
+  </data>
+  <data name="SignOutputSettingDescription" xml:space="preserve">
+    <value>Sign the scripts in this project with the specified certificate.</value>
+  </data>
+  <data name="TypesToProcess_Description" xml:space="preserve">
+    <value>Specifies the type files (.ps1xml) that run when the module is imported.</value>
+  </data>
+  <data name="TypesToProcess_DisplayName" xml:space="preserve">
+    <value>Types to process</value>
+  </data>
+  <data name="VariablesToExport_Description" xml:space="preserve">
+    <value>Specifies the variables that the module exports. Wildcards are permitted.</value>
+  </data>
+  <data name="VariablesToExport_DisplayName" xml:space="preserve">
+    <value>Variables to export</value>
+  </data>
+  <data name="Version_Description" xml:space="preserve">
+    <value>Specifies the version of the module.</value>
+  </data>
+  <data name="Version_DisplayName" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="MissingDependency" xml:space="preserve">
+    <value>Missing Dependency</value>
+  </data>
+  <data name="MissingPowerShellVersion" xml:space="preserve">
+    <value>PowerShell Tools for Visual Studio requires at least Windows Management Framework v3, which you do not have installed.
+
+Would you like to download now?</value>
+  </data>
+  <data name="ErrorFailToCreateProcess" xml:space="preserve">
+    <value>Timed out to create and initialize the process {0}</value>
+    <comment>{0} - process id</comment>
+  </data>
+  <data name="ErrorPipelineBusy" xml:space="preserve">
+    <value>Pipeline not executed because a pipeline is already executing. Pipelines cannot be executed concurrently.</value>
+  </data>
+  <data name="MessageBoxErrorTitle" xml:space="preserve">
+    <value>PowerShell Tools for Visual Studio Error</value>
+  </data>
+  <data name="PowerShellHostInitializeFailed" xml:space="preserve">
+    <value>Failed to initialize PowerShell host for PowerShell Tools</value>
+  </data>
+  <data name="PowerShellHostInitializingNotComplete" xml:space="preserve">
+    <value>PowerShell host initializing has not yet completed, please try again later.</value>
+  </data>
+  <data name="PowerShellToolsInitializeFailed" xml:space="preserve">
+    <value>Failed to initialize PowerShell Tools for Visual Studio</value>
+  </data>
+  <data name="UserInputRequestMessage" xml:space="preserve">
+    <value>Appliation asks for an input:</value>
+  </data>
+  <data name="HighlightMatchedBracesTagDisplayName" xml:space="preserve">
+    <value>Highlighted Braces for PowerShell</value>
+  </data>
+  <data name="WatermarkAutoGenerated" xml:space="preserve">
+    <value>&lt;Auto-generated&gt;</value>
+  </data>
+  <data name="WatermarkNotSet" xml:space="preserve">
+    <value>(Not set)</value>
+  </data>
+  <data name="CancelButtonLabel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Error_DisallowedValue_1arg" xml:space="preserve">
+    <value>This value is not one of the allowed values for parameter '{0}'.</value>
+  </data>
+  <data name="Error_TypeMismatch_2args" xml:space="preserve">
+    <value>Parameter '{0}' must be of type '{1}'.</value>
+  </data>
+  <data name="OkButtonLabel" xml:space="preserve">
+    <value>_Ok</value>
+  </data>
+  <data name="ParameterEditorTitle" xml:space="preserve">
+    <value>Edit Parameters</value>
+  </data>
+  <data name="ParameterNameHeaderLabel" xml:space="preserve">
+    <value>Parameter Name</value>
+  </data>
+  <data name="ParameterValueHeaderLabel" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="ParameterEditorTipLabel" xml:space="preserve">
+    <value>The following parameter values will be used for this execution</value>
+  </data>
+  <data name="GoToDefinitionFailureMessage" xml:space="preserve">
+    <value>Cannot navigate to the symbol under the caret.</value>
+  </data>
+  <data name="MessageBoxCaption" xml:space="preserve">
+    <value>Microsoft Visual Studio</value>
+  </data>
+  <data name="GoToDefinitionName" xml:space="preserve">
+    <value>Go to Definition</value>
+  </data>
+  <data name="GoToDefinitionAmbiguousMessage" xml:space="preserve">
+    <value>Function definition is ambiguous. Navigated to first possible definition.</value>
+  </data>
+  <data name="DropDownToolTip" xml:space="preserve">
+    <value>Use the dropdown to view and navigate to other items in this file.</value>
+  </data>
+  <data name="DropDownScriptName" xml:space="preserve">
+    <value>(script)</value>
+  </data>
+  <data name="CommonParametersTipLabel" xml:space="preserve">
+    <value>Common Parameters</value>
+  </data>
+  <data name="ParameterSetNameLabel" xml:space="preserve">
+    <value>ParameterSetName:</value>
+  </data>
+  <data name="RemotePortDescription" xml:space="preserve">
+    <value>Allows for debugging of a PowerShell script on a remote machine. Enter the name or address of the machine for which you wish to connect for the qualifier. Port 5986 is the default port but another may be specified. There is no need to specify a transport protocol type (http, tcp, etc.) or username. PowerShell v5.0+ must be installed on the remote machine. Requires a SSL certificate.</value>
+  </data>
+  <data name="RemoteDebugTitle" xml:space="preserve">
+    <value>PowerShell Tools Remote Debugging (SSL Required)</value>
+  </data>
+  <data name="AttachErrorTitle" xml:space="preserve">
+    <value>Error Attaching to Process</value>
+  </data>
+  <data name="CleanupErrorMessage" xml:space="preserve">
+    <value>PowerShell Tools is unable to detach from the process and may now be in an unstable state. You may need to restart Visual Studio.</value>
+  </data>
+  <data name="DetachErrorTitle" xml:space="preserve">
+    <value>Error Detaching From Process</value>
+  </data>
+  <data name="AttachExistingAttachError" xml:space="preserve">
+    <value>Cannot remotely debug a process while already attached to a process. Please detach from the currently attached process before trying again.</value>
+  </data>
+  <data name="AttachExistingRemoteError" xml:space="preserve">
+    <value>Cannot remotely debug a process while in a remote session. Please exit your remote session before trying again.</value>
+  </data>
+  <data name="RemoteUnsecuredDebugTitle" xml:space="preserve">
+    <value>PowerShell Tools Remote Debugging</value>
+  </data>
+  <data name="RemoteUnsecuredPortDescription" xml:space="preserve">
+    <value>Allows for debugging of a PowerShell script on a remote machine. Enter the name or address of the machine for which you wish to connect for the qualifier. Port 5985 is the default port but another may be specified. There is no need to specify a transport protocol type (http, tcp, etc.) or username. PowerShell v5.0+ must be installed on the remote machine. Does not require a SSL certificate.</value>
+  </data>
+  <data name="Warning_MandatoryValueNotSet_1arg" xml:space="preserve">
+    <value>Parameter '{0}' is Mandatory.</value>
+  </data>
+  <data name="GetHelp_HelpNotFound" xml:space="preserve">
+    <value>Online Help not found for {0}. </value>
+  </data>
+  <data name="GetHelp_Searching" xml:space="preserve">
+    <value>Searching Online Help for {0}...</value>
+  </data>
+  <data name="ExplorerWindowTitle" xml:space="preserve">
+    <value>PowerShell Command Explorer</value>
+  </data>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>Unable to connect to {0}.</value>
+  </data>
+  <data name="CredentialDialogCaption" xml:space="preserve">
+    <value>Windows PowerShell credential request</value>
+  </data>
+  <data name="CredentialDialogMessage" xml:space="preserve">
+    <value>Enter your credentials.</value>
+  </data>
+  <data name="EnumRemoteConnectionError" xml:space="preserve">
+    <value>Unable to connect to {0}. Retry?</value>
+    <comment>{0} - remote machine name</comment>
+  </data>
+  <data name="EnumRemoteVersionError" xml:space="preserve">
+    <value>Unable to attach with current remote PowerShell version ({0}). Please ensure that PowerShell v5 or higher is installed.</value>
+    <comment>{0} - remote PowerShell version</comment>
+  </data>
+  <data name="Error_LocalScriptInRemoteSession" xml:space="preserve">
+    <value>Local script ({0}) cannot be run through remote PowerShell session</value>
+    <comment>{0} - Script file path</comment>
+  </data>
+  <data name="Error_PipelineBusy" xml:space="preserve">
+    <value>Pipeline not executed because a pipeline is already executing. Pipelines cannot be executed concurrently.</value>
+  </data>
+  <data name="LocalHostRemoteDebugError" xml:space="preserve">
+    <value>Cannot connect to the localhost with remote debugging. Use the default transport to attach to local processes.</value>
+  </data>
+  <data name="ProcessAttachFailErrorBody" xml:space="preserve">
+    <value>Unable to attach to specified process.</value>
+    <comment>Generic dialog box body for when attaching to a process fails</comment>
+  </data>
+  <data name="ProcessAttachVersionErrorBody" xml:space="preserve">
+    <value>Unable to attach with current PowerShell version ({0}). Please ensure that PowerShell v5 or higher is installed.</value>
+    <comment>Dialog box body for invalid attempt at attaching on PowerShell v4 or below</comment>
+  </data>
+  <data name="ProcessDebugError" xml:space="preserve">
+    <value>Error while attempting to debug the specified process.</value>
+    <comment>Error message given if an error occurs attempting to/while debugging the runspace</comment>
+  </data>
+  <data name="Warning_HigherVersionOnTargetRequiredForDebugging" xml:space="preserve">
+    <value>Warning: PowerShell v4.0 or later is needed on your remote computer to debug during remote script execution. You can install the latest PowerShell from: {0}</value>
+    <comment>{0} - powershell download fwlink</comment>
+  </data>
+  <data name="Warning_HigherVersionRequiredForDebugging" xml:space="preserve">
+    <value>Warning: PowerShell v4.0 or later is needed to debug during remote script execution. You can install the latest PowerShell from: {0}</value>
+    <comment>{0} - powershell download fwlink</comment>
+  </data>
+  <data name="AddingTestFormat" xml:space="preserve">
+    <value>Adding test [{0}] in {1} at {2}.</value>
+  </data>
+  <data name="FailedToLoadPesterModule" xml:space="preserve">
+    <value>Failed to load Pester module. </value>
+  </data>
+  <data name="ParserErrorFormat" xml:space="preserve">
+    <value>Parser error. {0}</value>
+  </data>
+  <data name="SearchingForTestsFormat" xml:space="preserve">
+    <value>Searching for tests in [{0}].</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Unexpected error! Failed to run tests!</value>
+  </data>
+</root>

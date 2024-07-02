@@ -1,0 +1,50 @@
+﻿<shell:VsShellDialogWindow x:Class="PowerShellTools.Repl.DialogWindows.RemoteSessionEnterWindow"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:shell="clr-namespace:PowerShellTools.Common"
+        xmlns:w="clr-namespace:PowerShellTools.Repl.Repl.DialogWindows"
+        MinWidth="360"
+        MinHeight="120"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Title="{x:Static w:Resources.RemoteSessionEnterTitle}"
+        WindowStartupLocation="CenterOwner">
+    <shell:VsShellDialogWindow.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Height" Value="23"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+    </shell:VsShellDialogWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                Margin="6,12,6,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="{x:Static w:Resources.ComputerNameLabel}"/>
+            <TextBox Name="txtComputerName" Grid.Column="1" VerticalContentAlignment="Center" Text="{Binding Path=ComputerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    Margin="0,6,6,12"
+                    Orientation="Horizontal">
+            <Button Click="OnOkButtonClick"
+                    Content="{x:Static w:Resources.EnterButtonText}"
+                    IsDefault="True" 
+                    IsEnabled="{Binding ElementName=txtComputerName, Path=Text.Length, Mode=OneWay}"/>
+            <Button Content="{x:Static w:Resources.CancelButtonText}"
+                    IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</shell:VsShellDialogWindow>

@@ -1,0 +1,35 @@
+{
+  "version": "2023.3.0",
+  "hosts": [
+    {
+      "id": "IronmanPowerShellHost",
+      "name": "Windows PowerShell (x64)",
+      "description": "Windows PowerShell host.",
+      "fileName": "IronmanPowerShellHost.exe"
+    },
+    {
+      "id": "PowerShell727",
+      "name": "PowerShell 7.2.7",
+      "description": "PowerShell 7.2.7 for Windows. Includes PowerShell runtime.",
+      "fileName": "IronmanPowerShellHost.7.2.7.exe"
+    },
+    {
+      "id": "PowerShell727Winforms",
+      "name": "PowerShell 7.2.7 - Windows Forms",
+      "description": "PowerShell 7.2.7 Windows host with Windows Forms support. Includes PowerShell runtime.",
+      "fileName": "IronmanPowerShellHost.7.2.7.winforms.exe"
+    },
+    {
+      "id": "PowerShell727Lightweight",
+      "name": "PowerShell 7.2.7 - Lightweight",
+      "description": "PowerShell 7.2.7 for Windows. Does not include the PowerShell runtime. PowerShell 7.2.7 or later needs to be installed on the target machine.",
+      "fileName": "IronmanPowerShellHost.7.2.7.lightweight.exe"
+    },
+    {
+      "id": "PowerShell727WinformsLightweight",
+      "name": "PowerShell 7.2.7 - Windows Forms - Lightweight",
+      "description": "PowerShell 7.2.7 Windows host with Windows Forms support. Does not include the PowerShell runtime. PowerShell 7.2.7 or later needs to be installed on the target machine.",
+      "fileName": "IronmanPowerShellHost.7.2.7.winforms.lightweight.exe"
+    }
+  ]
+}

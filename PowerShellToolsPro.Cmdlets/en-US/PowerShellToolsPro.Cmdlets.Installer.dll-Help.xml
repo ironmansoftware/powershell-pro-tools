@@ -1,0 +1,1092 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-Installer</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>Installer</command:noun>
+      <maml:description>
+        <maml:para>Creates a new MSI installer.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Creates a new MSI installer. Files and directories can be added with New-InstallerDirectory and New-InstallerFile.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-Installer</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AboutLink</maml:name>
+          <maml:Description>
+            <maml:para>A link to the about page for the installer.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AddRemoveProgramsIcon</maml:name>
+          <maml:Description>
+            <maml:para>The icon to put in Add or Remove programs.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Content</maml:name>
+          <maml:Description>
+            <maml:para>The content of the installer. You can use other installer cmdlets to define the content.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>HelpLink</maml:name>
+          <maml:Description>
+            <maml:para>A help link to include in the installer.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Manufacturer</maml:name>
+          <maml:Description>
+            <maml:para>The manufacturer to set in the installer. This will appear in Add or Remove prorgams.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>OutputDirectory</maml:name>
+          <maml:Description>
+            <maml:para>The output directory to place the MSI and build artifacts.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DirectoryInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>DirectoryInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Platform</maml:name>
+          <maml:Description>
+            <maml:para>The platform this installer is intended to be run on.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">x86</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">x64</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ia64</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">arm</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">intel</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">intel64</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ProductName</maml:name>
+          <maml:Description>
+            <maml:para>The name of the product. This will appear in Add or Remove Programs.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>RequiresElevation</maml:name>
+          <maml:Description>
+            <maml:para>Specifies whether this installer requires elevation. This will require the user to have adminisrative permissions.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UpgradeCode</maml:name>
+          <maml:Description>
+            <maml:para>The upgrade code for this installer. This GUID needs to be unique and remain the same for all versions of your installer.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+          <dev:type>
+            <maml:name>Guid</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserInterface</maml:name>
+          <maml:Description>
+            <maml:para>User interface options defined by New-InstallerUserInterface.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">UserInterface</command:parameterValue>
+          <dev:type>
+            <maml:name>UserInterface</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Version</maml:name>
+          <maml:Description>
+            <maml:para>The version of this installer. Installers prevent downgrades to older versions.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+          <dev:type>
+            <maml:name>Version</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AboutLink</maml:name>
+        <maml:Description>
+          <maml:para>A link to the about page for the installer.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AddRemoveProgramsIcon</maml:name>
+        <maml:Description>
+          <maml:para>The icon to put in Add or Remove programs.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Content</maml:name>
+        <maml:Description>
+          <maml:para>The content of the installer. You can use other installer cmdlets to define the content.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>HelpLink</maml:name>
+        <maml:Description>
+          <maml:para>A help link to include in the installer.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Manufacturer</maml:name>
+        <maml:Description>
+          <maml:para>The manufacturer to set in the installer. This will appear in Add or Remove prorgams.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>OutputDirectory</maml:name>
+        <maml:Description>
+          <maml:para>The output directory to place the MSI and build artifacts.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DirectoryInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>DirectoryInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Platform</maml:name>
+        <maml:Description>
+          <maml:para>The platform this installer is intended to be run on.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ProductName</maml:name>
+        <maml:Description>
+          <maml:para>The name of the product. This will appear in Add or Remove Programs.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>RequiresElevation</maml:name>
+        <maml:Description>
+          <maml:para>Specifies whether this installer requires elevation. This will require the user to have adminisrative permissions.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UpgradeCode</maml:name>
+        <maml:Description>
+          <maml:para>The upgrade code for this installer. This GUID needs to be unique and remain the same for all versions of your installer.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+        <dev:type>
+          <maml:name>Guid</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UserInterface</maml:name>
+        <maml:Description>
+          <maml:para>User interface options defined by New-InstallerUserInterface.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">UserInterface</command:parameterValue>
+        <dev:type>
+          <maml:name>UserInterface</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Version</maml:name>
+        <maml:Description>
+          <maml:para>The version of this installer. Installers prevent downgrades to older versions.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+        <dev:type>
+          <maml:name>Version</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt;   New-Installer -ProductName "PowerShellTools" -UpgradeCode "25d7c902-c46c-44fd-87e0-0000bee726de" -Version '2.1' -OutputDirectory $OutputDir -Content {
+            New-InstallerDirectory -PredefinedDirectory "LocalAppDataFolder" -Content {
+                New-InstallerDirectory -DirectoryName "PowerShell Tools" {
+                    New-InstallerDirectory -DirectoryName "images" {
+                        Get-ChildItem (Join-Path $PSScriptRoot "InstallerAssets\*.JPG") | New-InstallerFile -Verbose
+                    }
+                    Get-ChildItem (Join-Path $PSScriptRoot "InstallerAssets\*.exe") | New-InstallerFile -Verbose
+                }
+            } 
+        }</dev:code>
+        <dev:remarks>
+          <maml:para>Creates a new installer that puts images and exes in the AppData folder.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-InstallerDirectory</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>InstallerDirectory</command:noun>
+      <maml:description>
+        <maml:para>Includes a directory in the installer.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Includes a directory in the installer. You can specify custom or predefined directories, such as Program Files.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-InstallerDirectory</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>DirectoryName</maml:name>
+          <maml:Description>
+            <maml:para>The name of this directory.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Content</maml:name>
+          <maml:Description>
+            <maml:para>The content of this directory. This can include files, shortcuts or other directories.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Configurable</maml:name>
+          <maml:Description>
+            <maml:para>Specifies whether the installation folder is configurable. The user will be prompted during installation. Only one Configurable directory is allowed.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>The ID of this directory. This needs to be unique and will be autogenerated if not specified.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>New-InstallerDirectory</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Content</maml:name>
+          <maml:Description>
+            <maml:para>The content of this directory. This can include files, shortcuts or other directories.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PredefinedDirectoryName</maml:name>
+          <maml:Description>
+            <maml:para>Specifies a predefined directory name. The root directory to the installer must be a predefined directory.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">AdminToolsFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">AppDataFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CommonAppDataFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CommonFilesFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CommonFiles64Folder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CommonFiles6432Folder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">DesktopFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">FavoritesFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">FontsFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">LocalAppDataFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">MyPicturesFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PersonalFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ProgramFilesFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ProgramFiles64Folder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ProgramFiles6432Folder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ProgramMenuFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">SendToFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">StartMenuFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">StartupFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">SystemFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">System64Folder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">TemplateFolder</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">WindowsFolder</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Configurable</maml:name>
+        <maml:Description>
+          <maml:para>Specifies whether the installation folder is configurable. The user will be prompted during installation. Only one Configurable directory is allowed.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Content</maml:name>
+        <maml:Description>
+          <maml:para>The content of this directory. This can include files, shortcuts or other directories.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>DirectoryName</maml:name>
+        <maml:Description>
+          <maml:para>The name of this directory.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>The ID of this directory. This needs to be unique and will be autogenerated if not specified.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>PredefinedDirectoryName</maml:name>
+        <maml:Description>
+          <maml:para>Specifies a predefined directory name. The root directory to the installer must be a predefined directory.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt;   New-Installer -ProductName "PowerShellTools" -UpgradeCode "25d7c902-c46c-44fd-87e0-0756bee726de" -Version '2.1' -OutputDirectory $OutputDir -Content {
+            New-InstallerDirectory -PredefinedDirectory "LocalAppDataFolder" -Content {
+                New-InstallerDirectory -DirectoryName "PowerShell Tools" -Configurable {
+                    Get-ChildItem (Join-Path $PSScriptRoot "InstallerAssets\*.exe") | New-InstallerFile -Verbose
+                }
+            } 
+        }</dev:code>
+        <dev:remarks>
+          <maml:para>Creates a new installer that includes the LocalAppDataFolder. Within the LocalAppDataFolder a new PowerShell Tools folder is created. The configurable flag is specified so the user will be able to change this folder during installation.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-InstallerFile</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>InstallerFile</command:noun>
+      <maml:description>
+        <maml:para>Includes a new file in the installer.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Includes a new file in the installer.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-InstallerFile</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Source</maml:name>
+          <maml:Description>
+            <maml:para>The source of this file. The file must exist.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the ID of this file. The ID is autogenerated if not specified.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the ID of this file. The ID is autogenerated if not specified.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Source</maml:name>
+        <maml:Description>
+          <maml:para>The source of this file. The file must exist.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.IO.FileInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ChildItem (Join-Path $PSScriptRoot "InstallerAssets\*.exe") | New-InstallerFile -Verbose</dev:code>
+        <dev:remarks>
+          <maml:para>Includes all the exes within the InstallerAssets folder in the installer.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-InstallerShortcut</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>InstallerShortcut</command:noun>
+      <maml:description>
+        <maml:para>Adds a new shortcut to the installer.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Adds a new shortcut to the installer.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-InstallerShortcut</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Description</maml:name>
+          <maml:Description>
+            <maml:para>A description for the shortcut.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>FileId</maml:name>
+          <maml:Description>
+            <maml:para>The ID of the file for the shortcut to point to.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>IconPath</maml:name>
+          <maml:Description>
+            <maml:para>The path of an icon to use for the shortcut.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>The name of the shortcut.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Description</maml:name>
+        <maml:Description>
+          <maml:para>A description for the shortcut.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>FileId</maml:name>
+        <maml:Description>
+          <maml:para>The ID of the file for the shortcut to point to.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>IconPath</maml:name>
+        <maml:Description>
+          <maml:para>The path of an icon to use for the shortcut.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>The name of the shortcut.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt;  New-Installer -Manufacturer "Test" -ProductName "PowerShellTools" -UpgradeCode "25d7c902-c46c-44fd-87e0-0756bee726de" -Version '2.1' -OutputDirectory $OutputDir -Content {
+            New-InstallerDirectory -PredefinedDirectory "LocalAppDataFolder" -Content {
+                New-InstallerDirectory -DirectoryName "PowerShell Tools" -Content {
+                    New-InstallerFile (Join-Path $PSScriptRoot "InstallerAssets\heat.exe") -Id "heat"
+                }
+            } 
+            New-InstallerDirectory -PredefinedDirectory "DesktopFolder" -Content {
+                New-InstallerShortcut -FileId "heat" -Name "Launch heat" -IconPath (Join-Path $PSScriptRoot "InstallerAssets\app.ico")
+            }
+        }</dev:code>
+        <dev:remarks>
+          <maml:para>Creates a shortcut on the desktop the heat.exe filder that is installed into AppData.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-InstallerUserInterface</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>InstallerUserInterface</command:noun>
+      <maml:description>
+        <maml:para>Customizes the interface of the installer.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Customizes the interface of the installer.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-InstallerUserInterface</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Eula</maml:name>
+          <maml:Description>
+            <maml:para>The path to an end user license to include with the installer.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExclamationIcon</maml:name>
+          <maml:Description>
+            <maml:para>Exclamation icon on the WaitForCostingDlg. Recommended size is 32x32.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExitDialogText</maml:name>
+          <maml:Description>
+            <maml:para>Text to be displayed after completing installation.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>InformationIcon</maml:name>
+          <maml:Description>
+            <maml:para>Exclamation icon on the WaitForCostingDlg. Recommended size is 32x32.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>NewIcon</maml:name>
+          <maml:Description>
+            <maml:para>Button glyph on the BrowseDlg. Recommended size 16x16.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>TopBanner</maml:name>
+          <maml:Description>
+            <maml:para>Top banner to display while progressing through the installer. Recommended size is 493 � 58.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UpIcon</maml:name>
+          <maml:Description>
+            <maml:para>Button glyph on the BrowseDlg. Recommended size is 16x16.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>WelcomeAndCompletionBackground</maml:name>
+          <maml:Description>
+            <maml:para>Background bitmap used on the welcome and completion dialogs. Recommended size is 493 � 312.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Eula</maml:name>
+        <maml:Description>
+          <maml:para>The path to an end user license to include with the installer.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExclamationIcon</maml:name>
+        <maml:Description>
+          <maml:para>Exclamation icon on the WaitForCostingDlg. Recommended size is 32x32.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExitDialogText</maml:name>
+        <maml:Description>
+          <maml:para>Text to be displayed after completing installation.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>InformationIcon</maml:name>
+        <maml:Description>
+          <maml:para>Exclamation icon on the WaitForCostingDlg. Recommended size is 32x32.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>NewIcon</maml:name>
+        <maml:Description>
+          <maml:para>Button glyph on the BrowseDlg. Recommended size 16x16.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>TopBanner</maml:name>
+        <maml:Description>
+          <maml:para>Top banner to display while progressing through the installer. Recommended size is 493 � 58.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UpIcon</maml:name>
+        <maml:Description>
+          <maml:para>Button glyph on the BrowseDlg. Recommended size is 16x16.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>WelcomeAndCompletionBackground</maml:name>
+        <maml:Description>
+          <maml:para>Background bitmap used on the welcome and completion dialogs. Recommended size is 493 � 312.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $UserInterface = New-InstallerUserInterface -Eula (Join-Path $PSScriptRoot "InstallerAssets\eula.rtf")</dev:code>
+        <dev:remarks>
+          <maml:para>Includes a EULA with the installer. The user will be required to accept the EULA.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+</helpItems>

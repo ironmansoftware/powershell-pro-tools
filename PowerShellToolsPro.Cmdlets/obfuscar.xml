@@ -1,0 +1,9 @@
+﻿<Obfuscator>
+  <Var name="InPath" value=".\out" />
+  <Var name="OutPath" value=".\Obfuscator_Output" />
+  <Var name="HidePrivateApi" value="true" />
+  <Var name="KeyFile" value=".\..\build\FinalPublicKey.snk" />
+
+  <Module file="$(InPath)\PowerShellToolsPro.Licensing.Core.dll" />
+  <Module file="$(InPath)\Avalonia\PowerShellToolsPro.Licensing.Core.dll" />
+</Obfuscator>

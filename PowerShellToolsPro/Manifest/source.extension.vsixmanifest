@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="PowerShellToolsPro.AdamRDriscoll.6eeb32f4-0469-4cbd-836d-eca7cb725a06" Version="|%CurrentProject%;GetVsixVersion|"  Language="en-US" Publisher="Adam Driscoll" />
+        <DisplayName>PowerShell Pro Tools for Visual Studio 2017</DisplayName>
+        <Description xml:space="preserve">Professional enhancements to the PowerShell editing experience in Visual Studio.</Description>
+        <MoreInfo>https://www.poshtools.com</MoreInfo>
+        <Icon>logo.png</Icon>
+        <Tags>powershell</Tags>
+    </Metadata>
+    <Installation AllUsers="true">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0,17.0]" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" d:InstallSource="Download" Location="http://go.microsoft.com/fwlink/?linkid=863265" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+</PackageManifest>

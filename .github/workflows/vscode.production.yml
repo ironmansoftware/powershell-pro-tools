@@ -1,0 +1,57 @@
+name: VS Code Production
+on: [workflow_dispatch]
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Restore
+      shell: pwsh
+      run: |
+        dotnet restore PowerShellTools.sln
+        nuget restore PowerShellTools.sln
+
+    - name: Build Ironman Host
+      shell: pwsh
+      run: |
+        Push-Location IronmanPowerShellHost
+        dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
+        Pop-Location
+
+    - name: Build PSScriptPad
+      shell: pwsh
+      run: |
+        msbuild PowerShellTools.sln -t:rebuild -p:Configuration=Release -p:Platform=x64
+
+    - name: Build
+      shell: pwsh
+      run: |
+        Install-Module InvokeBuild -Scope CurrentUser -Force
+        Install-Module PlatyPS -Scope CurrentUser -Force
+        Invoke-Build -File .\vscode\vscode.build.ps1
+
+    - name: Publish
+      shell: pwsh
+      run: |
+        Set-Location .\vscode\powershellprotools\
+        $Version = (ConvertFrom-Json (Get-Content -Raw .\package.json)).Version
+
+        vsce publish --pat $ENV:VSCE --packagePath ".\kit\powershellprotools-$($Version).vsix"
+      env:
+        VSCE: ${{ secrets.VSCE }}
+        VSCODE_SAS: ${{ secrets.VSCODE_SAS }}

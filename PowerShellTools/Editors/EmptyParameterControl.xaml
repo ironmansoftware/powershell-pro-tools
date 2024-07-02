@@ -1,0 +1,15 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="HelpEditorOS.EmptyParameterControl"
+	x:Name="EmptyParameterControl1"
+	d:DesignWidth="900" d:DesignHeight="900">
+
+	<Grid Visibility="Visible" Margin="0,0,0,0" x:Name="EmptyParametersGrid" VerticalAlignment="Top" Height="282" >
+			<Label Margin="231,134,-39,76" x:Name="ParametersGridLabel" Content="Select a cmdlet parameter from the tree." FontSize="12" FontStyle="Italic" FontWeight="Bold" Foreground="{DynamicResource Brush2}"/>
+		    <Label Margin="241,0,-49,49" x:Name="ParametersGridLabel2" Content="To see the parameters, expand the cmdlet node and then expand the Parameters node." FontSize="12" FontStyle="Italic" FontWeight="Bold" Foreground="{DynamicResource Brush2}" VerticalAlignment="Bottom" Height="72"/>
+		</Grid>
+</UserControl>

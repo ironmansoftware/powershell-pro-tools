@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyOriginatorKeyFile>..\Build\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyName>PowerShellProTools.VSCode</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="PowerShellProTools.VSCode.psd1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PowerShellProTools.VSCode.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0" />
+    <PackageReference Include="ICSharpCode.Decompiler" Version="7.0.0.6488" />
+  </ItemGroup>
+    <ItemGroup>
+    <None Include="..\Build\FinalPublicKey.snk" Link="FinalPublicKey.snk" />
+  </ItemGroup>
+  
+  
+  <ItemGroup>
+    <ProjectReference Include="..\FormDesigner.Generator\FormDesigner.Generator.csproj" />
+  </ItemGroup>
+
+  <Target Name="BuiltProjectOutputGroupDependencies" />
+  <Target Name="BuiltProjectOutputGroup" />
+  <Target Name="GetCopyToOutputDirectoryItems" />
+  <Target Name="SatelliteDllsProjectOutputGroup" />
+  <Target Name="DebugSymbolsProjectOutputGroup" />
+</Project>

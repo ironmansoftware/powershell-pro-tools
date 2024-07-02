@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Function</Title>
+            <Shortcut>Function</Shortcut>
+            <Description>Code snippet for a function</Description>
+            <Author>Adam Driscoll</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+                <SnippetType>SurroundsWithStatement</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal>
+                  <ID>param1</ID>
+                    <ToolTip>Function Name</ToolTip>
+                    <Default>MyFunction</Default>
+                </Literal>
+                 <Literal>
+                  <ID>param2</ID>
+                    <ToolTip>Paramter 1</ToolTip>
+                    <Default>$parameter1</Default>
+                </Literal>
+                <Literal>
+                  <ID>param3</ID>
+                    <ToolTip>Paramter 2</ToolTip>
+                    <Default>$parameter2</Default>
+                </Literal>
+            </Declarations>
+            <References />
+          <Code Language="PowerShell">
+                <![CDATA[function $param1$ ($param2$, $param3$)
+{
+    $selected$ $end$
+}]]>
+            </Code>  
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <DefaultName>Script.psm1</DefaultName>
+    <Name>PowerShell Script Module</Name>
+    <ProjectType>PowerShell</ProjectType>
+    <Description>An empty PowerShell script module.</Description>
+    <TemplateID>PowerShellTools.PowerShell.PowerShellScriptModule</TemplateID>
+    <TemplateGroupID>PowerShellTools.PowerShell</TemplateGroupID>
+    <AppliesTo>PowerShell</AppliesTo>
+    <SortOrder>151</SortOrder>
+    <Icon>PowerShellScriptModule.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem ReplaceParameters="true">Script.psm1</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

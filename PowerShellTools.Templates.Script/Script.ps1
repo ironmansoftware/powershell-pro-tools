@@ -1,0 +1,3 @@
+#
+# $safeitemname$.ps1
+#

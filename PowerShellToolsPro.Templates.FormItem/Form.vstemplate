@@ -1,0 +1,17 @@
+﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>Form.ps1</DefaultName>
+    <Name>PowerShell Form</Name>
+    <Description>This is a form</Description>
+    <ProjectType>PowerShell</ProjectType>
+    <SortOrder>210</SortOrder>
+    <Icon>PowerShellWindowsForm.ico</Icon>
+    <TemplateID>PowerShellTools.PowerShell.PowerShellWinForm</TemplateID>
+    <TemplateGroupID>PowerShellTools.PowerShell</TemplateGroupID>
+  </TemplateData>
+  <TemplateContent>   
+    <ProjectItem SubType="Form" TargetFileName="$fileinputname$.ps1" ReplaceParameters="true">Form.ps1</ProjectItem>
+    <ProjectItem SubType="Code" TargetFileName="$fileinputname$.ps1/$fileinputname$.designer.ps1" ReplaceParameters="true">Form.designer.ps1</ProjectItem>
+    <ProjectItem TargetFileName="$fileinputname$.ps1/$fileinputname$.resx" ReplaceParameters="true">Resources.resx</ProjectItem>
+  </TemplateContent>
+</VSTemplate>
