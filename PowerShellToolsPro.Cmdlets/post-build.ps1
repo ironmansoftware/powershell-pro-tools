@@ -3,7 +3,7 @@
 $ManifestPath = Join-Path $OutDir PowerShellProTools.psd1
 Remove-Item $ManifestPath -ErrorAction SilentlyContinue
 
-$Version = "2024.3.0"
+$Version = "2024.7.0"
 #$prerelease = "-beta1"
 
 $powerShellGet = Import-Module PowerShellGet  -PassThru -ErrorAction Ignore -RequiredVersion 2.2.5
@@ -20,15 +20,7 @@ $Arguments = @{
 	Description     = "PowerShell script packaging, profiling, WPF and Windows Forms design, and desktop automation."
 	ReleaseNotes    = "https://docs.poshtools.com/powershell-pro-tools-module"
 	AliasesToExport = @("pad")
-	CmdletsToExport = @("Merge-Script",
-		"Measure-Block",
-		"Measure-Script",
-		"Show-WinFormDesigner",
-		"ConvertTo-WinForm",
-		"Show-PSScriptPad",
-		"Set-Hotkey",
-		"Get-Hotkey",
-		"Remove-Hotkey")
+	CmdletsToExport = @("Merge-Script", "Show-WinFormDesigner","ConvertTo-WinForm","Show-PSScriptPad")
 	ModuleVersion   = $Version
 }
 
