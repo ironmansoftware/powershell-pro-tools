@@ -14,9 +14,6 @@ namespace PowerShellToolsPro.Cmdlets
         [Parameter(Mandatory = true)]
         public string CodeFilePath { get; set; }
 
-        [Parameter()]
-        public string Key { get; set; }
-        
         protected override void EndProcessing()
         {
             var windows = SessionState.PSVariable.GetValue("IsWindows");
@@ -26,18 +23,12 @@ namespace PowerShellToolsPro.Cmdlets
             }
 
             var assemblyBasePath = Path.GetDirectoryName(GetType().Assembly.Location);
-            var designer = Path.Combine(assemblyBasePath, "FormDesigner", "PSScriptPad.exe");
-
-            var keyArg = string.Empty;
-            if (!string.IsNullOrEmpty(Key))
-            {
-                keyArg = $"-key=\"{Key}\"";
-            }
+            var designer = Path.Combine(assemblyBasePath, "FormDesigner", "WinFormDesigner.exe");
 
             var process = new Process();
             process.StartInfo = new ProcessStartInfo();
             process.StartInfo.FileName = designer;
-            process.StartInfo.Arguments = $"-c=\"{CodeFilePath}\" -d=\"{DesignerFilePath}\" {keyArg}";
+            process.StartInfo.Arguments = $"-c \"{CodeFilePath}\" -d \"{DesignerFilePath}\"";
             process.Start();
         }
     }

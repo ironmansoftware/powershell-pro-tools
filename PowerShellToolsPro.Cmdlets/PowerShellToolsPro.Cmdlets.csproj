@@ -37,11 +37,7 @@
     <None Include="app.config" />
     <None Include="CreateHelp.ps1" />
     <None Include="Help\about_MergeScriptConfig.md" />
-    <None Include="Help\ConvertTo-CSharp.md" />
-    <None Include="Help\ConvertTo-PowerShell.md" />
-    <None Include="Help\Install-PoshProToolsLicense.md" />
     <None Include="Help\Merge-Script.md" />
-    <None Include="Help\Send-PoshProToolsTrialLicense.md" />
     <None Include="packages.config" />
     <None Include="Tests\ConvertToCSharp.tests.ps1" />
     <None Include="Tests\ConvertToPowerShell.tests.ps1" />
