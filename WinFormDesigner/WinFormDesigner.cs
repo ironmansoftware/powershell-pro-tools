@@ -9,7 +9,7 @@ namespace WinFormDesigner
     public partial class frmWinFormDesigner : Form
     {
         private frmMain mainForm;
-        private bool dirty = false;
+        private bool dirty;
 
         public frmWinFormDesigner()
         {
