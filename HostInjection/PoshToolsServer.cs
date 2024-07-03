@@ -226,24 +226,12 @@ namespace PowerShellToolsPro
         public void ShowWinFormDesigner(string designerFileName, string codeFileName)
         {
             var assemblyBasePath = Path.GetDirectoryName(GetType().Assembly.Location);
-            var designer = Path.Combine(assemblyBasePath, "..", "PowerShellProTools", "FormDesigner", "PSScriptPad.exe");
+            var designer = Path.Combine(assemblyBasePath, "..", "PowerShellProTools", "FormDesigner", "WinFormDesigner.exe");
 
             var process = new Process();
             process.StartInfo = new ProcessStartInfo();
             process.StartInfo.FileName = designer;
-            process.StartInfo.Arguments = $"-c=\"{codeFileName}\" -d=\"{designerFileName}\"";
-            process.Start();
-        }
-
-        public void ShowWpfFormDesigner(string codeFileName)
-        {
-            var assemblyBasePath = Path.GetDirectoryName(GetType().Assembly.Location);
-            var designer = Path.Combine(assemblyBasePath, "..", "PowerShellProTools", "FormDesigner", "PSScriptPad.exe");
-
-            var process = new Process();
-            process.StartInfo = new ProcessStartInfo();
-            process.StartInfo.FileName = designer;
-            process.StartInfo.Arguments = $"-c=\"{codeFileName}\"";
+            process.StartInfo.Arguments = $"-c \"{codeFileName}\" -d \"{designerFileName}\"";
             process.Start();
         }
 

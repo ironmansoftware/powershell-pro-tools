@@ -21,11 +21,11 @@ New-Item -ItemType directory $FormDesigner
 
 Copy-Item -Path (Join-Path $PSScriptRoot 'PowerShellProTools.psm1') -Destination $OutputDirectory
 
-$PSScriptPad = (Join-Path $PSScriptRoot '..\FormDesigner.Host\bin\x64\Release\PSScriptPad.exe')
-if (-not (Test-Path $PSScriptPad)) {
-	$PSScriptPad = (Join-Path $PSScriptRoot '..\FormDesigner.Host\bin\Release\PSScriptPad.exe')
+$WinFormDesigner = (Join-Path $PSScriptRoot '..\WinFormDesigner\bin\x64\Release\WinFormDesigner.exe')
+if (-not (Test-Path $WinFormDesigner)) {
+	$WinFormDesigner = (Join-Path $PSScriptRoot '..\WinFormDesigner\bin\Release\WinFormDesigner.exe')
 }
-Copy-Item -Path $PSScriptPad -Destination $FormDesigner
+Copy-Item -Path $WinFormDesigner -Destination $FormDesigner
 
 if ($ENV:APPVEYOR) {
 	Copy-Item -Path (Join-Path $PSScriptRoot "bin\Any CPU\$Configuration\netstandard2.0\publish\*") -Destination $OutputDirectory -Recurse

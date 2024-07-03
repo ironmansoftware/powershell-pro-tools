@@ -4,7 +4,7 @@ import { Container } from '../container';
 
 async function LaunchEditor(context: vscode.ExtensionContext) {
     if (vscode.window.activeTextEditor == null) {
-        vscode.window.showErrorMessage("Open a PS1 or XAML file to edit with the form designer before running this command.");
+        vscode.window.showErrorMessage("Open a PS1 file to edit with the form designer before running this command.");
         return;
     }
 
@@ -17,11 +17,8 @@ async function LaunchEditor(context: vscode.ExtensionContext) {
         vscode.window.setStatusBarMessage("Starting form designer...", 3000);
         await Container.PowerShellService.ShowFormDesigner(codeFilePath, designerFilePath);
     }
-    else if (fsPath.endsWith(".xaml")) {
-        await Container.PowerShellService.ShowWpfFormDesigner(codeFilePath);
-    }
     else {
-        vscode.window.showErrorMessage("Open a PS1 or XAML file to edit with the form designer before running this command.");
+        vscode.window.showErrorMessage("Open a PS1 file to edit with the form designer before running this command.");
     }
 }
 

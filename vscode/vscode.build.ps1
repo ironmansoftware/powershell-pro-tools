@@ -31,14 +31,14 @@ task Init {
     }
 }
 
-task BuildPSScriptPad {
+task BuildWinFormDesigner {
     $instance = Get-VSSetupInstance -All -Prerelease | Select-VSSetupInstance -Require 'Microsoft.Component.MSBuild' -Latest
     $installDir = $instance.installationPath
     Write-Host "Visual Studio is found at $installDir"
     $msBuild = $installDir + '\MSBuild\Current\Bin\MSBuild.exe' 
     
-    Push-Location (Join-Path $RootDir ".\..\..\FormDesigner.Host")
-    & $msBuild -property:Configuration=Release .\PSScriptPad.csproj
+    Push-Location (Join-Path $RootDir ".\..\..\WinFormDesigner")
+    & $msBuild -property:Configuration=Release .\WinFormDesigner.csproj
     Pop-Location
 }
 
@@ -60,7 +60,7 @@ task BuildExtension {
         $ErrorActionPreference = 'SilentlyContinue'
         npm install -g npm
         npm install -g typescript@latest
-        npm install -g vsce
+        npm install -g @vscode/vsce
         npm install
 
         vsce package
@@ -70,7 +70,7 @@ task BuildExtension {
     Pop-Location
 }
 
-task Build BuildHost, BuildPSScriptPad, BuildCmdlets, BuildExtension
+task Build BuildHost, BuildWinFormDesigner, BuildCmdlets, BuildExtension
 
 task . Init, Clean, Build
 
