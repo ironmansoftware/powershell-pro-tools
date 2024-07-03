@@ -870,20 +870,13 @@
     "preview": false,
     "icon": "poshtools.png",
     "qna": "marketplace",
-    "homepage": "https://ironmansoftware.com/powershell-pro-tools-for-visual-studio-code",
+    "homepage": "https://github.com/ironmansoftware/powershell-pro-tools",
     "bugs": {
-        "url": "https://github.com/ironmansoftware/issues"
+        "url": "https://github.com/ironmansoftware/powershell-pro-tools"
     },
-    "badges": [
-        {
-            "url": "https://img.shields.io/badge/Trial-14%20Days-green",
-            "href": "https://ironmansoftware.com/trial/powershell-pro-tools",
-            "description": "14-day trial of PowerShell Pro Tools"
-        }
-    ],
+    "badges": [],
     "keywords": [
         "powershell",
-        "windowsforms",
-        "wpf"
+        "windowsforms"
     ]
 }

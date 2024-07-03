@@ -37,16 +37,6 @@
             ],
             "label": "Build Cmdlets",
             "problemMatcher": []
-        },
-        {
-            "type": "shell",
-            "command": ".\\out\\windows\\PowerShellProTools.Host.exe",
-            "args": [
-                "--pipe-name",
-                "test"
-            ],
-            "label": "Start Test Server",
-            "problemMatcher": []
         }
     ]
 }

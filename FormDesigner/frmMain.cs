@@ -47,6 +47,16 @@ namespace IM.WinForms
             try
             {
                 Initialize(eventGenerationType);
+
+                if (!File.Exists(designerFile))
+                {
+                    File.WriteAllText(designerFile, string.Empty);
+                }
+
+                if (!File.Exists(codeFile))
+                {
+                    File.WriteAllText(codeFile, string.Empty);
+                }
             }
             catch (Exception ex)
             {
