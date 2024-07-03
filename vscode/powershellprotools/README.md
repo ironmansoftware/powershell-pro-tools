@@ -1,18 +1,13 @@
 # PowerShell Pro Tools
 
-[![](https://img.shields.io/badge/Trial-14%20Days-green)](https://ironmansoftware.com/trial/powershell-pro-tools) [![](https://img.shields.io/badge/Purchase-License-yellowgreen)](https://ironmansoftware.com/pricing/powershell-pro-tools)
-
 > PowerShell Pro Tools adds script packaging, Form Designers, variable explorer, VS Code automation and more! 
 
 ❔ [About Powershell Pro Tools](https://ironmansoftware.com/powershell-pro-tools/)
 📕 [Documentation](https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code)
 🧾 [Changelog](https://docs.poshtools.com/poshtools-vscode-changelog) 
-🔑 [Purchasing](https://ironmansoftware.com/powershell-pro-tools-for-visual-studio-code/)
-🐛 [Issues](https://github.com/ironmansoftware/issues)
+🐛 [Issues](https://github.com/ironmansoftware/powershell-pro-tools)
 
-## Installation and Licensing
-
-When using the PowerShell Pro Tools extension for the first time, you will be prompted to enter a license if you do not have one already. 
+## Installation 
 
 [Learn More](https://docs.poshtools.com/powershell-pro-tools-documentation/installation-and-configuration#visual-studio-code-1)
 
@@ -60,7 +55,6 @@ When using the PowerShell Pro Tools extension for the first time, you will be pr
 - Out-VSCodeGridView
 - Quick Scripts
 - Windows Forms Designer
-- WPF Designer
 
 ## Automate Visual Studio Code
 
