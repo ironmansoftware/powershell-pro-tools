@@ -6,7 +6,7 @@
 
 ❔ [About Powershell Pro Tools](https://ironmansoftware.com/powershell-pro-tools/)
 📕 [Documentation](https://docs.poshtools.com/powershell-pro-tools-documentation/visual-studio-code)
-🧾 [Changelog](https://docs.poshtools.com/poshtools-vscode-changelog) 
+🧾 [Changelog](https://github.com/ironmansoftware/powershell-pro-tools/releases) 
 🐛 [Issues](https://github.com/ironmansoftware/powershell-pro-tools)
 
 ## Installation 

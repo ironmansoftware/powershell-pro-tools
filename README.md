@@ -2,13 +2,14 @@
 
 Powerful tools for PowerShell Developers.
 
-[Documentation](https://docs.poshtools.com)
+- [Documentation](https://docs.poshtools.com)
+- [Ironman Software](https://ironmansoftware.com)
 
 # Downloads 
 
 - [PowerShell Tools for Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsVS2022)
 - [PowerShell Tools for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsforVisualStudio2017-18561)
-- [PowerShell Pro Tools for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ironmansoftware.powershell-pro-tools)
+- [PowerShell Pro Tools for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ironmansoftware.powershellprotools)
 - [PowerShell Pro Tools Module](https://www.powershellgallery.com/packages/PowerShellProTools)
 
 # Tools
