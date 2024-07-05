@@ -6,20 +6,21 @@ export interface ISettings {
     showUpgradeNotification: boolean;
     debugModuleLoad: boolean;
     ignoredModules: string;
-    ignoredAssemblies : string;
-    ignoredTypes : string;
-    ignoredCommands : string;
-    ignoredVariables : string;
-    ignoredPaths : string;
+    ignoredAssemblies: string;
+    ignoredTypes: string;
+    ignoredCommands: string;
+    ignoredVariables: string;
+    ignoredPaths: string;
     checkForModuleUpdates: boolean;
     license: string;
     defaultPackagePsd1: string;
-    signOnSave: boolean; 
+    signOnSave: boolean;
     signOnSaveCertificate: string;
     excludeAutomaticVariables: boolean;
+    clearScreenAfterLoad: boolean;
 }
 
-export function load() : ISettings {
+export function load(): ISettings {
     const configuration: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration(PowerShellLanguageId);
     return {
         universalDashboardPreviewPort: configuration.get<number>("universalDashboardPreviewPort", 10000),
@@ -36,6 +37,7 @@ export function load() : ISettings {
         defaultPackagePsd1: configuration.get<string>("defaultPackagePsd1Path", ""),
         signOnSave: configuration.get<boolean>("signOnSave", false),
         signOnSaveCertificate: configuration.get<string>("signOnSaveCertificate", ""),
-        excludeAutomaticVariables: configuration.get<boolean>("excludeAutomaticVariables", false)
+        excludeAutomaticVariables: configuration.get<boolean>("excludeAutomaticVariables", false),
+        clearScreenAfterLoad: configuration.get<boolean>("clearScreenAfterLoad", true)
     }
 }

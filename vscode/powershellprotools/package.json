@@ -516,6 +516,11 @@
                     "type": "boolean",
                     "default": false,
                     "markdownDescription": "Whether to exclude automatic variables from the variables window."
+                },
+                "poshProTools.clearScreenAfterLoad": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "Whether to clear the terminal after loading PowerShell Pro Tools. Set to false to see any errors loading the module."
                 }
             }
         },

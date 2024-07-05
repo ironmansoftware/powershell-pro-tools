@@ -83,6 +83,7 @@ export class PowerShellService {
 
     Reconnect(callback) {
         if (this.status === SessionStatus.Initializing) {
+            Container.Log("Already trying to reconnect.");
             return;
         }
 
@@ -91,6 +92,7 @@ export class PowerShellService {
         this.logger?.destroy();
 
         if (this.reconnectDepth > 5) {
+            Container.Log("Reconnect depth exceeded. Connection failed.");
             this.setSessionStatus(SessionStatus.Failed);
             return;
         }
@@ -111,6 +113,7 @@ export class PowerShellService {
 
     Connect(callback) {
         if (this.status === SessionStatus.Connected) {
+            Container.Log("Already connected to PowerShell process.");
             callback();
             return;
         }
@@ -125,22 +128,26 @@ export class PowerShellService {
         }
 
         var terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
-        if (terminal == null) {
+        if (terminal != null) {
+            Container.Log("Importing module in PowerShell and starting server.");
+            terminal.sendText(`Import-Module '${cmdletPath}'`, true);
+            terminal.sendText(`Import-Module '${poshToolsModulePath}'`, true);
+            terminal.sendText(`Start-PoshToolsServer -PipeName '${this.pipeName}'`, true);
+
+            const settings = load();
+
+            if (settings.clearScreenAfterLoad) {
+                terminal.sendText('Clear-Host', true);
+            }
+
+        } else {
+            Container.Log("PowerShell Extension not found.");
             this.setSessionStatus(SessionStatus.Failed);
             throw ("PowerShell Extension not found.");
         }
 
-        var terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
-        if (terminal != null) {
-            // todo: logging
-            terminal.sendText(`Import-Module '${cmdletPath}'`, true);
-            terminal.sendText(`Import-Module '${poshToolsModulePath}'`, true);
-            terminal.sendText(`Start-PoshToolsServer -PipeName '${this.pipeName}'`, true);
-            terminal.sendText('Clear-Host', true);
-        }
-
         setTimeout(() => {
-            // todo: logging
+            Container.Log("Connecting named pipe to PoshTools server.");
             var pipePath = path.join(os.tmpdir(), `CoreFxPipe_${this.pipeName}_log`);
             if (process.platform === "win32") {
                 pipePath = `\\\\.\\pipe\\${this.pipeName}_log`;
@@ -207,6 +214,7 @@ export class PowerShellService {
             });
 
             client.on("error", (e) => {
+                Container.Log("Error sending data on named pipe. " + e);
                 client.destroy();
                 setTimeout(async () => {
                     await this.Reconnect(() => this.invokeMethod(method, args).then(any => resolve(any)));
