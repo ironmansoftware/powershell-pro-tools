@@ -57,6 +57,8 @@ export class Container {
 		// context.subscriptions.push(codeLensProviderDisposable)
 
 		this.outputChannel = vscode.window.createOutputChannel("PowerShell Pro Tools");
+
+		this.Log("Starting PowerShell Pro Tools...");
 	}
 
 	static FinishInitialize() {

@@ -85,6 +85,9 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 async function finishActivation(context: vscode.ExtensionContext) {
+
+    Container.Log("Finishing extension activation.");
+
     let terminal = null;
     do {
         terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
@@ -96,6 +99,8 @@ async function finishActivation(context: vscode.ExtensionContext) {
 
     const powershellProTools = vscode.extensions.getExtension("ironmansoftware.powershellprotools")!;
     const currentVersion = powershellProTools.packageJSON.version;
+
+    Container.Log("Creating tree views.");
 
     vscode.window.createTreeView<vscode.TreeItem>('astView', { treeDataProvider: new AstTreeViewProvider() });
     vscode.window.createTreeView<vscode.TreeItem>('hostProcessView', { treeDataProvider: new HostProcessViewProvider() });
@@ -110,7 +115,11 @@ async function finishActivation(context: vscode.ExtensionContext) {
     vscode.window.createTreeView<vscode.TreeItem>('sessionsView', { treeDataProvider: new SessionTreeViewProvider() });
     vscode.window.createTreeView<vscode.TreeItem>('jobView', { treeDataProvider: new JobTreeViewProvider() });
 
+    Container.Log("Connecting to PowerShell Editor Services.");
+
     powerShellService.Connect(() => {
+        Container.Log("Starting code analysis.");
+
         if (vscode.workspace.workspaceFolders) {
             for (let wsf of vscode.workspace.workspaceFolders) {
                 Container.PowerShellService.AddWorkspaceFolder(wsf.uri.fsPath);
