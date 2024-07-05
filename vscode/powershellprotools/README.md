@@ -1,5 +1,7 @@
 # PowerShell Pro Tools
 
+## PowerShell Pro Tools for VS Code is now free!
+
 > PowerShell Pro Tools adds script packaging, Form Designers, variable explorer, VS Code automation and more! 
 
 ❔ [About Powershell Pro Tools](https://ironmansoftware.com/powershell-pro-tools/)
@@ -328,12 +330,6 @@ Bookmark scripts found anywhere on your system and access them in any workspace.
 
 ## Windows Forms Designer
 
-Design Windows Forms using PSScriptPad integration in VS Code. 
+Design Windows Forms using the Windows Form Designer integrated with VS Code.
 
 ![](https://gblobscdn.gitbook.com/assets%2F-LNFE66tpE_51uobNA70%2F-LU7-k9sJoDGitc8k-Mb%2F-LU73h7_sjSmyrDnKmw0%2Fimage.png)
-
-## WPF Designer
-
-Design WPF Windows using PSScriptPad integration in VS Code. 
-
-![](https://gblobscdn.gitbook.com/assets%2F-LNFE66tpE_51uobNA70%2F-MQguAs16QK6mb2mzxeX%2F-MQh95mUAjxFHjN72AEn%2Fvscode.gif)
