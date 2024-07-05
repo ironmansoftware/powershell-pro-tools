@@ -6,15 +6,6 @@ import { RefactorInfo, RefactoringProperty, RefactorProperty, RefactorRequest, R
 
 //https://github.com/microsoft/vscode-extension-samples/blob/master/code-actions-sample/src/extension.ts
 export class RefactoringCommands implements ICommand, vscode.CodeActionProvider {
-
-    licensed: boolean;
-
-    constructor() {
-        // Container.PowerShellService.GetLicense().then(license => {
-        //     this.licensed = license.Status === 'Licensed';
-        // });
-    }
-
     async provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): Promise<(vscode.CodeAction | vscode.Command)[]> {
         if (!Container.initialize) return;
 
@@ -36,24 +27,13 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
             let we = await this.requestRefactor(request, false);
             if (we.entries().length == 0) continue;
 
-            if (this.licensed) {
-                var action = new vscode.CodeAction(r.Name, vscode.CodeActionKind.RefactorExtract);
-                action.edit = we;
-                action.command = {
-                    title: 'Rename',
-                    command: 'editor.action.rename'
-                }
-                codeActions.push(action);
+            var action = new vscode.CodeAction(r.Name, vscode.CodeActionKind.RefactorExtract);
+            action.edit = we;
+            action.command = {
+                title: 'Rename',
+                command: 'editor.action.rename'
             }
-            else {
-                var action = new vscode.CodeAction(r.Name, vscode.CodeActionKind.Refactor);
-                action.command = {
-                    command: 'poshProTools.refactoringInfo',
-                    title: 'Refactoring requires a PowerShell Pro Tools license',
-                    tooltip: 'Learn more.'
-                }
-                codeActions.push(action);
-            }
+            codeActions.push(action);
         }
 
         return codeActions;
