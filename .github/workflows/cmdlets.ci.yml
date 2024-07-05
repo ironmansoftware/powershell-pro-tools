@@ -54,3 +54,8 @@ jobs:
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: PowerShellTools.Cmdlets
+        path: ./PowerShellToolsPro.Cmdlets/out
