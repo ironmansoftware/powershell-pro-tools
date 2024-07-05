@@ -44,6 +44,10 @@ jobs:
         Install-Module InvokeBuild -Scope CurrentUser -Force
         Install-Module PlatyPS -Scope CurrentUser -Force
         Invoke-Build -File .\vscode\vscode.build.ps1
+      env:
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Publish
       shell: pwsh

@@ -1,6 +1,7 @@
 ﻿param($OutDir = $PSScriptRoot, $Configuration)
 
 $ManifestPath = Join-Path $OutDir PowerShellProTools.psd1
+$ModulePath = Join-Path $OutDir PowerShellProTools.psm1
 Remove-Item $ManifestPath -ErrorAction SilentlyContinue
 
 $Version = "2024.7.0"
@@ -17,13 +18,13 @@ $Arguments = @{
 	Copyright       = "Ironman Software, LLC"
 	RootModule      = "PowerShellProTools.psm1"
 	NestedModules   = @("PowerShellToolsPro.Cmdlets.dll")
-	Description     = "PowerShell script packaging, profiling, WPF and Windows Forms design, and desktop automation."
+	Description     = "PowerShell script packaging and Windows Forms design."
 	ReleaseNotes    = "https://docs.poshtools.com/powershell-pro-tools-module"
-	AliasesToExport = @("pad")
-	CmdletsToExport = @("Merge-Script", "Show-WinFormDesigner","ConvertTo-WinForm","Show-PSScriptPad")
+	CmdletsToExport = @("Merge-Script", "Show-WinFormDesigner", "ConvertTo-WinForm", "Show-PSScriptPad")
 	ModuleVersion   = $Version
 }
 
+& $PSScriptRoot\..\Build\sign.ps1 -Path $ModulePath
 
 New-ModuleManifest $ManifestPath @Arguments
 

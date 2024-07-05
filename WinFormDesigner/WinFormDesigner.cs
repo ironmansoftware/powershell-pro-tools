@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using IM.WinForms;
 using IMS.FormDesigner.Languages;
@@ -19,6 +20,12 @@ namespace WinFormDesigner
 
         public frmWinFormDesigner(string codeFile, string designerFile)
         {
+            if (!File.Exists(codeFile))
+            {
+                MessageBox.Show("Code file does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+
             mainForm = new frmMain(new PowerShellLanguage(), designerFile, codeFile, EventGenerationType.Variable);
             mainForm.DesignerDirty += MainFormOnDesignerDirty;
 
@@ -53,6 +60,19 @@ namespace WinFormDesigner
 
             tabToolbox.Controls.Add(mainForm.lstToolbox);
             mainForm.lstToolbox.Dock = DockStyle.Fill;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (dirty && keyData == (Keys.Control | Keys.S))
+            {
+                mainForm.Save();
+                dirty = false;
+                Text = "Windows Form Designer";
+                btnSave.Enabled = false;
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

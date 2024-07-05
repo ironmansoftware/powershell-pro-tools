@@ -41,7 +41,7 @@ jobs:
         dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
         Pop-Location
 
-    - name: Build PSScriptPad
+    - name: Build Windows Form Designer
       shell: pwsh
       run: |
         msbuild PowerShellTools.sln -t:rebuild -p:Configuration=Release -p:Platform=x64
@@ -51,4 +51,6 @@ jobs:
       run: |
         .\PowerShellToolsPro.Cmdlets\build.ps1
       env:
-        SIGNING_CODE: ${{ secrets.SIGNING_CODE }}
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}

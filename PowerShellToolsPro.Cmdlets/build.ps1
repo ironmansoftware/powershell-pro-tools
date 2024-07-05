@@ -25,7 +25,15 @@ $WinFormDesigner = (Join-Path $PSScriptRoot '..\WinFormDesigner\bin\x64\Release\
 if (-not (Test-Path $WinFormDesigner)) {
 	$WinFormDesigner = (Join-Path $PSScriptRoot '..\WinFormDesigner\bin\Release\WinFormDesigner.exe')
 }
+
+& $PSScriptRoot\..\Build\sign.ps1 -Path $WinFormDesigner
+
 Copy-Item -Path $WinFormDesigner -Destination $FormDesigner
+
+$OpenAuthenticode = Import-Module OpenAuthenticode -PassThru -ErrorAction Ignore
+if ($null -eq $OpenAuthenticode) {
+	Install-Module OpenAuthenticode -Force -Scope CurrentUser -AllowClobber
+}
 
 if ($ENV:APPVEYOR) {
 	Copy-Item -Path (Join-Path $PSScriptRoot "bin\Any CPU\$Configuration\netstandard2.0\publish\*") -Destination $OutputDirectory -Recurse
