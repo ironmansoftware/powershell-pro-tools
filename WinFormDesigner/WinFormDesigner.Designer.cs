@@ -114,6 +114,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "frmWinFormDesigner";
             this.Text = "Windows Forms Designer";
             this.Load += new System.EventHandler(this.frmWinFormDesigner_Load);

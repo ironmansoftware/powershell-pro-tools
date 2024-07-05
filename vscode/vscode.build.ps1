@@ -46,6 +46,8 @@ task BuildHost {
     Push-Location (Join-Path $RootDir ".\..\..\HostInjection")
     dotnet build -c $Configuration -o $RootDir\Modules\PowerShellProTools.VSCode
     Pop-Location
+
+    & $PSScriptRoot\..\Build\sign.ps1 -Path $RootDir\Modules\PowerShellProTools.VSCode\PowerShellProTools.VSCode.dll
 }
 
 task BuildCmdlets {

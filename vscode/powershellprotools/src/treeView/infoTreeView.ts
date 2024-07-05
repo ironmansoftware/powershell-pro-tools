@@ -7,15 +7,14 @@ export class InfoViewProvider extends TreeViewProvider {
     }
 
     requiresLicense(): boolean {
-		return false;
-	}
+        return false;
+    }
 
     async getNodes(): Promise<vscode.TreeItem[]> {
         return [
             new Node("Documentation", "book"),
             new Node("Forums", "account"),
-            new Node("Licensing", "lock"),
-            new Node("Support", "inbox")
+            new Node("GitHub", "github")
         ];
     }
 }

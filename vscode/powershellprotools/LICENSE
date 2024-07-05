@@ -1,159 +1,21 @@
-Ironman Software, LLC PowerShell Pro Tools Commercial Software License
-1. General Terms
-1.1 In this Licence, unless the context otherwise requires or is specified otherwise:
-Commercial Release means the standard release version of the Ironman Software, LLC Software;
-Customermeans the entity you represent when you click to accept the terms of this Licence and includes your employees, consultants, representatives and agents;
-Documentation means instruction manuals and other information relating to the Ironman Software, LLC Software made available to Customer by Ironman Software, LLC;
-Intellectual Property Rights means any patent, trade mark, service mark, copyright, know-how and any other intellectual property rights;
-Licence means this software licence agreement;
-Licence Fee means the licence fee set out on the Ironman Software, LLC Store for the version of the Ironman Software, LLC Software used by Customer;
-Major Version means an improved version of the Ironman Software, LLC Software made available to Customer through Support Subscription;
-Minor Version means an improved version to the current Major Version of Ironman Software, LLC Software made available to Customer through Support Subscription and includes pre-release builds;
-Modifications means any modification, adaptation, alteration, translation, or derivative works made from or including the Ironman Software, LLC Software;
-Ironman Software, LLC Store means Ironman Software, LLC's online store;
-Ironman Software, LLC Software means Ironman Software, LLC's proprietary software made available to Customer on Ironman Software, LLC's website;
-Product Source Code means the inclusion of access to the source code with the Commercial Release;
-Support Services means the support and maintenance services provided by Ironman Software, LLC in accordance with clause 7 if a Customer purchases Support Subscription;
-Support Subscription means the availability of Support Services and Major Versions, Minor Versions and Updates provided by Ironman Software, LLC for the subscription period purchased;
-Subscription Fee means the fee for Support Subscription set out on the Ironman Software, LLC Store for the applicable Ironman Software, LLC Software; and
-Updates mean the releases of fixes and software enhancements made available to the Customer through Support Subscription.
-2. Licence
-2.1 Upon payment of the Licence Fee, Ironman Software, LLC grants Customer a limited, perpetual, non-exclusive, non-transferable, worldwide, royalty-free licence, to use the Ironman Software, LLC Software subject to the following terms. The licence so granted is per developer (not per machine) and to the developers employed by the Customer for a site license.
-2.2 All right, title and interest in all Intellectual Property Rights for the Ironman Software, LLC Software, any Modifications and the related Documentation remain vested in Ironman Software, LLC. Customer acknowledges that the Ironman Software, LLC Software and its structure and organisation constitute valuable trade secrets of Ironman Software, LLC.
-2.3 Accordingly, subject to clause 2.4 and clause 2.5, Customer agrees not to:
-(a) modify, adapt, alter, translate, or create derivative works from the Ironman Software, LLC Software;
+MIT License
 
-(b) sublicense, lease, rent, loan or otherwise transfer the Ironman Software, LLC Software to any third party; or
+Copyright (c) 2024 Ironman Software, LLC
 
-(c) reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code for the Ironman Software, LLC Software, and
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-Customer must reproduce, on all copies made by or for Customer, and must not remove, alter or obscure in any way all proprietary rights notices (including copyright notices) of Ironman Software, LLC on or within the copies of the Ironman Software, LLC Software and the Documentation furnished by Ironman Software, LLC to Customer.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-2.4 Customer may use any Product Source Code to the Ironman Software, LLC Software and make Modifications provided that:
-(a) Customer may only use the Product Source Code or create Modifications for testing, operating and supporting the Ironman Software, LLC Software for Customer’s own internal (non-commercial) purposes;
-
-(b) it will not use the Ironman Software, LLC Software or its Product Source Code in a manner that is or may be detrimental to Ironman Software, LLC or its reputation;
-
-(c) Customer has no right to distribute, sublicense, lease, rent, loan or otherwise transfer the Product Source Code or the Modifications to any other person anywhere in the world; and
-
-(d) Ironman Software, LLC is under no obligation to provide any Support Services in respect of any Modifications not provided directly by Ironman Software, LLC (support will only be provided in respect of the original compiled version of the Ironman Software, LLC Software).
-
-2.5 Where the Customer purchases a licence for the Ironman Software, LLC Software that contains a runtime component (as will be specified on the Ironman Software, LLC Store), Customer may package that runtime component with Customer’s software to form a bundled software solution for selling or distributing to its end users provided that such a software solution:
-(a) is developed by the Customer’s developer that holds the licence;
-
-(b) adds material functionality beyond the functionality provided by the Ironman Software, LLC Software; and
-
-(c) does not compete in the software market with, or are not alternative products in that market to, any Ironman Software, LLC Software.
-
-2.6 At the written request of Ironman Software, LLC, Customer will provide Ironman Software, LLC with a signed statement verifying that the Ironman Software, LLC Software and related Documentation is being used in accordance with this Ironman Software, LLC Software Licence.
-2.7 The Customer agrees that it is solely responsible for complying with any applicable export control laws with respect of the export or use of the Ironman Software, LLC Software, a direct product from the Ironman Software, LLC Software, or any technical data relating to the Ironman Software, LLC Software, outside this jurisdiction.
-2.8Customer will pay any third party licence fees for any other software not provided by Ironman Software, LLC that may be required to operate the Ironman Software, LLC Software on Customer’s computers.
-3. Term and Termination
-3.1 The term of this Licence will commence on the date this Licence is accepted by Customer and will end on the date this Licence is terminated under this Licence or otherwise.
-3.2 Ironman Software, LLC, in its discretion, may terminate this Licence immediately by notice in writing if:
-(a) Customer fails to pay any sum payable under this Licence for a period of 30 business days after that sum is due and payable under this Licence and the Customer has received notice from Ironman Software, LLC that such amounts are overdue; or
-
-(b) there is a material breach of this Licence by Customer and:
-
-(i) the material breach cannot be rectified; or
-
-(ii) the material breach can be rectified but Customer has not rectified the material breach within 45 days after receiving written notice of that material breach.
-
-3.3 On termination of this Licence, Customer will remain liable for any Licence Fees and any Support Subscription Fees payable by it to Ironman Software, LLC which become due for payment before termination.
-3.4 On termination of this Ironman Software, LLC Software Licence, Customer will, within 90 days, cease to use the Ironman Software, LLC Software and the related Documentation and return to Ironman Software, LLC, or destroy, all copies of the Ironman Software, LLC Software and the related Documentation in Customer’s possession.
-3.5 Within 30 days of termination and written notification by Ironman Software, LLC, Customer must certify to Ironman Software, LLC in writing that it has fully complied with its obligations under clause 3.4.
-3.6 Termination of this Licence will not affect the provisions of this Licence which are intended to continue, or should reasonably, continue after termination (whether expressly stated so or not). Termination will not affect any claim by either party against the other party arising out of any breach or failure under this Licence prior to termination.
-3.7 If Customer fails to pay any amount when due under this Licence, and non-payment continues for 30 days after written notification by Ironman Software, LLC, then Ironman Software, LLC may withhold services and/or supplies under this Licence until all amounts due have been paid in full.
-4. Confidentiality
-4.1 Customer will treat as confidential all information obtained from Ironman Software, LLC. Ironman Software, LLC’s confidential information means any information relating to the business or affairs of Ironman Software, LLC and includes, without limitation its designs, drawings, manufacturing know how, object codes, source codes, planned modifications to hardware or software, planned enhancements to hardware or software, product knowledge, quality standards, research and development, unpublished specifications, technical information, pricing and manipulated data.
-4.2 Clause 4.1 does not extend to information which:
-(a) can be established by written records to be already known to the recipient at the time of disclosure; and
-
-(b) which is in or enters the public domain through no fault of the recipient.
-
-4.3 This clause 4 will survive termination of this Licence.
-5. Warranties and Remedies
-5.1 Ironman Software, LLC warrants that it has full power and authority to license the Ironman Software, LLC Software.
-5.2 Ironman Software, LLC does not warrant that the Ironman Software, LLC Software will meet Customer’s requirements or that operation of the Ironman Software, LLC Software will be uninterrupted or error free. Customer acknowledges that the Ironman Software, LLC Software is of a complicated and technical nature and may have minor or inherent defects.
-5.3 Ironman Software, LLC will not be liable for any failure of the Ironman Software, LLC Software if Modifications to the Ironman Software, LLC Software, or changes to the operating environment of the Ironman Software, LLC Software have been made by any person other than Ironman Software, LLC.
-5.4 Customer’s sole and exclusive remedy under the warranty given in clause 5.1 will be limited to (at Ironman Software, LLC’s option):
-(a) the correction or reconfiguration of defects in the Ironman Software, LLC Software;
-
-(b) replacement or modification of the Ironman Software, LLC Software in whole or in part if Ironman Software, LLC considers acting reasonably, that such replacement or modification is justified or that the Ironman Software, LLC Software will become non-infringing; or
-
-(c) obtaining the appropriate licence to allow Customer to continue using the Ironman Software, LLC Software.
-
-5.5 Except for the warranties expressly given under this Licence, all express or implied warranties and representations by Ironman Software, LLC (including warranties as to condition, quality, performance, merchantability, durability or fitness for purpose) are excluded to the extent permitted by law. In particular, Customer confirms that it has not relied, and will not rely, on any oral representation made by Ironman Software, LLC or upon any descriptions, illustrations or specifications contained in any catalogues and publicity material produced by Ironman Software, LLC and Customer understands that such materials are only intended to convey a general idea of the products and services to which they relate. The Customer acknowledges that it is entering into this Licence for the purposes of a business and that the Consumer Guarantees Act does not apply to any goods or services delivered by Ironman Software, LLC under this Licence.
-6. Liability
-6.1 Ironman Software, LLC will not be liable to Customer in relation to any claim in respect of or arising out of this Licence or the subject matter of this Licence (whether in tort, contract, in respect of any indemnity, or otherwise) for:
-(a) loss of profits, revenue, anticipated savings or goodwill;
-
-(b) any indirect, special, incidental or consequential loss or damage, even if Ironman Software, LLC has been advised of the possibility; or
-
-(c) any data which is lost, corrupted, deleted or altered.
-
-6.2 If Ironman Software, LLC is held liable to Customer for claims in respect of or arising out of the supply of Ironman Software, LLC Software, then Ironman Software, LLC’s total liability (whether in contract tort, equity, in respect of any indemnity or otherwise) is not to exceed (in the aggregate) the lesser of:
-(a) the actual loss or damage directly suffered by Customer; and
-
-(b) the total Licence Fee actually paid to Ironman Software, LLC by Customer for the Ironman Software, LLC Software giving rise to the claim,
-
-provided that:
-
-(c) in respect of the warranty set out in clause 5.1, Customer’s sole remedy and Ironman Software, LLC’s total liability is limited to the terms of clause 5.4; and
-
-(d) in respect of the warranty set out in clause 8.1, Customer’s sole remedy and Ironman Software, LLC’s total liability is limited to the terms of clause 8.2.
-
-6.3 Ironman Software, LLC will not be liable for any claim made in relation to this Licence later than six months after the initial event giving rise to the claim.
-7. Support and Maintenance
-7.1 Upon the payment of the Support Subscription Fee and for the period of Customer’s Support Subscription, Ironman Software, LLC, or a third party nominated by Ironman Software, LLC, will, in relation to any Commercial Release (including any Commercial Release that includes Product Source Code provided that it has not been modified):
-(a) provide online support in a dedicated forum;
-
-(b) make Minor Versions available to Customer to download until the next available Major Version is made commercially available by Ironman Software, LLC;
-
-(c) make Major Versions available to Customer; and
-
-(d) endeavour to resolve identified issues with the Commercial Release by [making Updates available through its online support].
-
-7.2 The Support Services do not include services provided by Ironman Software, LLC relating to or resulting from:
-(a) Product Source Code with Modifications;
-
-(b) misuse of the Ironman Software, LLC Software or failure to use the Ironman Software, LLC Software in accordance with the related Documentation;
-
-(c) unauthorised attempts to repair, replace, modify or maintain the Ironman Software, LLC Software by persons other than Ironman Software, LLC; or
-
-(d) support of prior releases or versions of the Ironman Software, LLC Software after six months from the date Ironman Software, LLC offered a Major Version to Customer.
-
-7.3 Customer must renew its Support Subscription prior to the expiry of the then current period to maintain continuous support. Renewals can be made via the Ironman Software, LLC Store and require payment of a Support Subscription Fee.
-8. Support Warranties
-8.1 Ironman Software, LLC warrants that the Support Services will be of a professional quality conforming to generally accepted industry standards and procedures.
-8.2 Customer’s exclusive remedy, and Ironman Software, LLC’s entire liability, if Ironman Software, LLC is unable to perform the Support Services as warranted, will be the re-supply of the deficient Support Services.
-9. Obligations of Customer
-9.1 Customer will:
-(a) pay the Licence Fee and any Support Subscription Fee (if applicable) in accordance with Ironman Software, LLC’s payment terms posted on Ironman Software, LLC’s website or otherwise advised to Customer;
-
-(b) promptly report to Ironman Software, LLC all program errors which Customer discovers;
-
-(c) ensure that:
-
-(i) an authorised representative is available to be the prime point of contact with Ironman Software, LLC in the event of any problems and queries; and
-
-(ii) such authorised representative has a good understanding of the Ironman Software, LLC Software, its operation and its hardware and operating environment;
-
-(d) make all reasonable efforts at investigation and diagnosis of any suspected defects or errors before contacting Ironman Software, LLC. Persistent failure to do this may result in the levying of additional charges by Ironman Software, LLC, at its option, after warning in writing of such charges being levied; and
-
-(e) maintain a list of all hardware, communications and software problems to assist with the diagnosis and resolution of any defects or errors.
-
-10. Disputes
-10.1 The parties will attempt to settle any dispute arising from or relating to this Licence in accordance with this clause 10.1 before resorting to external dispute resolution mechanisms, except where the party seeks urgent interlocutory relief.
-10.2 A party claiming that a dispute has arisen under or relating to this Licence will immediately notify the other party in writing specifying the nature of the dispute.
-10.3 On receipt of the notice, the parties will use all reasonable endeavours to resolve the dispute by discussion, consultation, negotiation or other informal means.
-10.4 If, within 14 business days of the notice of the dispute, the parties do not agree on a dispute resolution technique or if the dispute is not resolved, then either party may refer the dispute to mediation. The mediation will be conducted in terms of the LEADR The United States of America Inc. standard mediation agreement. The mediation must be conducted by a mediator and at a fee agreed by the parties. Failing agreement between the parties within three business days of referral to mediation, the mediator will be selected and his/her fee determined by the Chair for the time being of LEADR The United States of America Inc. Each party is to bear its own costs in mediation and pay half the costs of the mediation.
-11. General
-11.1 This Licence constitutes the entire agreement of the parties about its subject matter and supersedes any previous understandings or agreements on that subject matter. Without limiting the generality of the foregoing, where any invoice terms, delivery terms, shipping terms, payment terms or order terms conflict with or are inconsistent with the terms of this Licence, the parties agree that the terms of this Licence will prevail.
-11.2 Neither party will be responsible or liable for any delay or failure in the performance of its obligations under this Licence if such delay or failure is due to circumstances outside its reasonable control including, without limitation, acts, omissions, systems, networks, equipment or data of the other party or the acts, omissions, systems, networks, equipment or data of any third party (including, without limitation, the Internet or any telecommunications network or equipment), acts of God, natural disaster, riot, terrorism, malicious damage, fire, or acts of any governmental authority. This clause 11.2 does not apply to any obligation to pay money for liabilities incurred prior to any such extraordinary circumstance occurring.
-11.3 If any part or a provision of this Licence is judged invalid or unenforceable in a jurisdiction it is severed for that jurisdiction and the remainder of this Licence will continue to operate.
-11.4 A provision or a right under this Licence may not be waived except in writing signed by the party granting the waiver.
-11.5 A party may exercise a right, power or remedy under this Licence at its discretion, and separately or concurrently with another right, power or remedy. A single or partial exercise of a right, power or remedy by a party under this Licence does not prevent a further exercise of that or of any other right, power or remedy.
-11.6 This Licence may not be varied except by agreement in writing signed by the parties.
-11.7 Customer will not assign or otherwise transfer this Licence or any of its rights or obligations under this Licence, whether in whole or in part, without the prior written consent of Ironman Software, LLC.
-11.8 This Licence is to be governed by and construed in accordance with the laws of The United States of America and the parties submit to the exclusive jurisdiction of the The United States of America courts.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
