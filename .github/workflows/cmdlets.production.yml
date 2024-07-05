@@ -57,3 +57,8 @@ jobs:
         Publish-Module -Path .\PowerShellToolsPro.Cmdlets\PowerShellProTools -NuGetApiKey $ENV:PSGALLERY
       env:
         PSGALLERY: ${{ secrets.PSGALLERY }}
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: PowerShellTools.Cmdlets
+        path: ./PowerShellToolsPro.Cmdlets/out
