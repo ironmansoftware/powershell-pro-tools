@@ -57,5 +57,4 @@ jobs:
 
         vsce publish --pat $ENV:VSCE --packagePath ".\kit\powershellprotools-$($Version).vsix"
       env:
-        VSCE: ${{ secrets.VSCE }}
-        VSCODE_SAS: ${{ secrets.VSCODE_SAS }}
+        VSCE: ${{ secrets.VSCODE_MARKETPLACE_KEY }}
