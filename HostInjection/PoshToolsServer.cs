@@ -55,7 +55,7 @@ namespace PowerShellToolsPro
 
         public void WriteLog(string output)
         {
-            _serverLogger.WriteLog($"[{DateTime.Now}] {output}");
+            _serverLogger.WriteLog(output);
         }
 
         public static void StartAsync(string pipeName)
