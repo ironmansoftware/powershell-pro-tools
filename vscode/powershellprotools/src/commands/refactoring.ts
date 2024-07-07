@@ -4,10 +4,9 @@ import { Container } from '../container';
 import { ICommand } from './command';
 import { RefactorInfo, RefactoringProperty, RefactorProperty, RefactorRequest, RefactorTextEdit, RefactorType, TextEditorState, TextEditType } from '../types';
 
-//https://github.com/microsoft/vscode-extension-samples/blob/master/code-actions-sample/src/extension.ts
 export class RefactoringCommands implements ICommand, vscode.CodeActionProvider {
     async provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): Promise<(vscode.CodeAction | vscode.Command)[]> {
-        if (!Container.initialize) return;
+        if (!Container.IsInitialized(false)) return;
 
         var request = this.getRefactorRequest();
 

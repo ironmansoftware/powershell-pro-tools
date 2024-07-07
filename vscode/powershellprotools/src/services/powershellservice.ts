@@ -214,7 +214,7 @@ export class PowerShellService {
             });
 
             client.on("error", (e) => {
-                Container.Log("Error sending data on named pipe. " + e);
+                Container.Log(`Invoke method: ${method} Error sending data on named pipe. ${e}`);
                 client.destroy();
                 setTimeout(async () => {
                     await this.Reconnect(() => this.invokeMethod(method, args).then(any => resolve(any)));

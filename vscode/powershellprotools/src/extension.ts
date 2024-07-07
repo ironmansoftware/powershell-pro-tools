@@ -100,24 +100,24 @@ async function finishActivation(context: vscode.ExtensionContext) {
     const powershellProTools = vscode.extensions.getExtension("ironmansoftware.powershellprotools")!;
     const currentVersion = powershellProTools.packageJSON.version;
 
-    Container.Log("Creating tree views.");
-
-    vscode.window.createTreeView<vscode.TreeItem>('astView', { treeDataProvider: new AstTreeViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('hostProcessView', { treeDataProvider: new HostProcessViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('moduleView', { treeDataProvider: new ModuleViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('providerView', { treeDataProvider: new ProviderViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('quickScriptView', { treeDataProvider: new QuickScriptViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('variableView', { treeDataProvider: new VariableViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('infoView', { treeDataProvider: new InfoViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('reflectionView', { treeDataProvider: new ReflectionViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('customView', { treeDataProvider: new CustomTreeViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('historyView', { treeDataProvider: new HistoryTreeViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('sessionsView', { treeDataProvider: new SessionTreeViewProvider() });
-    vscode.window.createTreeView<vscode.TreeItem>('jobView', { treeDataProvider: new JobTreeViewProvider() });
-
     Container.Log("Connecting to PowerShell Editor Services.");
 
     powerShellService.Connect(() => {
+        Container.Log("Creating tree views.");
+
+        vscode.window.createTreeView<vscode.TreeItem>('astView', { treeDataProvider: new AstTreeViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('hostProcessView', { treeDataProvider: new HostProcessViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('moduleView', { treeDataProvider: new ModuleViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('providerView', { treeDataProvider: new ProviderViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('quickScriptView', { treeDataProvider: new QuickScriptViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('variableView', { treeDataProvider: new VariableViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('infoView', { treeDataProvider: new InfoViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('reflectionView', { treeDataProvider: new ReflectionViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('customView', { treeDataProvider: new CustomTreeViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('historyView', { treeDataProvider: new HistoryTreeViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('sessionsView', { treeDataProvider: new SessionTreeViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('jobView', { treeDataProvider: new JobTreeViewProvider() });
+
         Container.Log("Starting code analysis.");
 
         if (vscode.workspace.workspaceFolders) {

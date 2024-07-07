@@ -127,8 +127,8 @@ export class Container {
 		return load();
 	}
 
-	static IsInitialized() {
-		if (!this._initialized) {
+	static IsInitialized(showWaring: boolean = true) {
+		if (showWaring && !this._initialized) {
 			vscode.window.showWarningMessage("PowerShell Pro Tools is still starting.");
 		}
 
