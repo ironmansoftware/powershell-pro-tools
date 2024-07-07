@@ -115,8 +115,18 @@ export class Container {
 	}
 
 	static Log(msg: string) {
-		this.outputChannel.appendLine(msg);
-		console.log(msg);
+		this.outputChannel.appendLine(`[${this.TimeStamp()}] ${msg}`);
+		console.log(`[${this.TimeStamp()}] ${msg}`);
+	}
+
+	static TimeStamp() {
+		const dateObject = new Date();
+		const hours = dateObject.getHours();
+		const minutes = dateObject.getMinutes();
+		const seconds = dateObject.getSeconds();
+		const milliseconds = dateObject.getMilliseconds();
+
+		return `${hours}:${minutes}:${seconds}.${milliseconds}`;
 	}
 
 	static FocusLog() {
