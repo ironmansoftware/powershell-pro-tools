@@ -758,7 +758,12 @@ $RS.Events.SubscribeEvent($null, 'PowerShell.OnIdle',  'PowerShell.OnIdle', $nul
 
         public IEnumerable<TreeView> GetTreeViews()
         {
-            var json = ExecutePowerShellMainRunspace<string>("[PowerShellToolsPro.VSCode.TreeViewService]::Instance.GetTreeViews() | ConvertTo-Json -WarningAction SilentlyContinue").First();
+            var json = ExecutePowerShellMainRunspace<string>("[PowerShellToolsPro.VSCode.TreeViewService]::Instance.GetTreeViews() | ConvertTo-Json -WarningAction SilentlyContinue").FirstOrDefault();
+
+            if (json == null)
+            {
+                return Array.Empty<TreeView>();
+            }
 
             if (json.StartsWith("["))
             {
@@ -850,7 +855,12 @@ $RS.Events.SubscribeEvent($null, 'PowerShell.OnIdle',  'PowerShell.OnIdle', $nul
 
         public IEnumerable<PSJob> GetJobs()
         {
-            var json = ExecutePowerShellMainRunspace<string>("Get-Job | ForEach-Object { [PowerShellToolsPro.Cmdlets.VSCode.PSJob]$_ } | ConvertTo-Json -WarningAction SilentlyContinue").First();
+            var json = ExecutePowerShellMainRunspace<string>("Get-Job | ForEach-Object { [PowerShellToolsPro.Cmdlets.VSCode.PSJob]$_ } | ConvertTo-Json -WarningAction SilentlyContinue").FirstOrDefault();
+
+            if (json == null)
+            {
+                return Array.Empty<PSJob>();
+            }
 
             if (json.StartsWith("["))
             {
