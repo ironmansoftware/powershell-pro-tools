@@ -82,11 +82,6 @@ export class PowerShellService {
     }
 
     Reconnect(callback) {
-        if (this.status === SessionStatus.Initializing) {
-            Container.Log("Already trying to reconnect.");
-            return;
-        }
-
         this.reconnectDepth++;
         this.setSessionStatus(SessionStatus.Initializing);
         this.logger?.destroy();
