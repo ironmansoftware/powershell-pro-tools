@@ -9,7 +9,6 @@ import { PowerShellService } from './services/powershellservice';
 import { Container } from './container';
 import { showDataGrid } from './commands/showDataGrid';
 import { statusBarItemMenu } from './commands/statusBarItemMenu';
-import { openPsScriptPad } from './commands/openPsScriptPad';
 import { InstallPoshToolsModule } from './commands/installPoshToolsModule';
 import { generateTool } from './commands/generateTool';
 import { AstTreeViewProvider } from './treeView/astTreeView';
@@ -58,7 +57,6 @@ export async function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(showWinFormDesigner(context));
     context.subscriptions.push(generateWinForm());
     context.subscriptions.push(generateTool());
-    context.subscriptions.push(openPsScriptPad());
     context.subscriptions.push(InstallPoshToolsModule());
     context.subscriptions.push(help());
     context.subscriptions.push(statusBarItemMenu());
