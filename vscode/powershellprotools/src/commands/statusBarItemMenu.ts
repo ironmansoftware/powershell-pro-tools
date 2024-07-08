@@ -37,7 +37,7 @@ export function statusBarItemMenu() {
             vscode.env.openExternal(vscode.Uri.parse("https://forums.ironmansoftware.com"))
         }
         else if (result === "Report an Issue") {
-            vscode.env.openExternal(vscode.Uri.parse("https://github.com/ironmansoftware/issues"))
+            vscode.env.openExternal(vscode.Uri.parse("https://github.com/ironmansoftware/powershell-pro-tools/issues"))
         }
     });
 }
