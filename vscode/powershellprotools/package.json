@@ -2,7 +2,7 @@
     "name": "powershellprotools",
     "displayName": "PowerShell Pro Tools",
     "description": "Powerful extensions for PowerShell development.",
-    "version": "2024.7.3",
+    "version": "2024.7.4",
     "publisher": "ironmansoftware",
     "repository": {
         "type": "git",
@@ -18,7 +18,6 @@
         "onLanguage:powershell",
         "onLanguage:csharp",
         "onCommand:powershell.packageAsExe",
-        "onCommand:poshProTools.openPsScriptPad",
         "onView:astView",
         "onView:hostProcessView",
         "onView:moduleView",
@@ -69,12 +68,6 @@
                     "light": "media/light/box.svg",
                     "dark": "media/dark/box.svg"
                 }
-            },
-            {
-                "category": "PowerShell Pro Tools",
-                "command": "poshProTools.openPsScriptPad",
-                "title": "Open with PSScriptPad",
-                "icon": "$(note)"
             },
             {
                 "category": "PowerShell Pro Tools",
@@ -462,11 +455,6 @@
                     "default": true,
                     "description": "Whether to display the form designer button."
                 },
-                "poshProTools.toolbar.psScriptPad": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether to display the PSScriptPad button."
-                },
                 "poshProTools.ignoredModules": {
                     "type": "string",
                     "default": "",
@@ -624,11 +612,6 @@
                     "command": "powershell.packageAsExe",
                     "group": "7_modification",
                     "when": "resourceExtname == .ps1"
-                },
-                {
-                    "command": "poshProTools.openPsScriptPad",
-                    "group": "7_modification",
-                    "when": "resourceExtname == .ps1"
                 }
             ],
             "view/title": [
@@ -724,11 +707,6 @@
                     "when": "config.poshProTools.toolbar.formDesigner && resourceExtname == .ps1 || resourceExtname == .xaml",
                     "command": "powershell.showWinFormDesigner",
                     "group": "navigation@102"
-                },
-                {
-                    "command": "poshProTools.openPsScriptPad",
-                    "group": "navigation@102",
-                    "when": "resourceExtname == .ps1 && config.poshProTools.toolbar.psScriptPad"
                 }
             ],
             "view/item/context": [
