@@ -45,7 +45,9 @@ PowerShell tools for Visual Studio Code.
 
 # Contributing 
 
-We are open to contributions via pull requests. 
+We are open to contributions via pull requests. We have contribution documentation at the following locations. 
+
+- [PowerShell Pro Tools for VS Code](https://github.com/ironmansoftware/powershell-pro-tools/wiki/Contribuing-to-PowerShell-Pro-Tools-for-Visual-Studio-Code)
 
 ## Required Software 
 
