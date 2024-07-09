@@ -704,7 +704,7 @@
                     "group": "navigation@102"
                 },
                 {
-                    "when": "config.poshProTools.toolbar.formDesigner && resourceExtname == .ps1 || resourceExtname == .xaml",
+                    "when": "config.poshProTools.toolbar.formDesigner && resourceExtname == .ps1",
                     "command": "powershell.showWinFormDesigner",
                     "group": "navigation@102"
                 }
