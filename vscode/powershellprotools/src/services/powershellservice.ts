@@ -86,7 +86,7 @@ export class PowerShellService {
         this.setSessionStatus(SessionStatus.Initializing);
         this.logger?.destroy();
 
-        if (this.reconnectDepth > 5) {
+        if (this.reconnectDepth > 10) {
             Container.Log("Reconnect depth exceeded. Connection failed.");
             this.setSessionStatus(SessionStatus.Failed);
             return;
