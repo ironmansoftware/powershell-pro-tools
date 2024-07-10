@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="PowerShellTools.ToolWindows.VariablesControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:grids="http://schemas.actiprosoftware.com/winfx/xaml/grids"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
@@ -12,28 +11,109 @@
              d:DesignHeight="300" d:DesignWidth="300"
              Name="Variables">
     <Grid>
-        <grids:TreeListView RootItem="{Binding PowerShellVariables}" ItemMenuRequested="TreeListView_ItemMenuRequested" IsDataVirtualizationEnabled="True">
-            <grids:TreeListBox.ItemAdapter>
-                <common:PSObjectTreeItemAdapter />
-            </grids:TreeListBox.ItemAdapter>
+        <Grid Margin="10">
 
-            <grids:TreeListView.Columns>
-                <grids:TreeListViewColumn Header="Name" Width="150">
-                    <DataTemplate>
-                        <TextBlock Text="{Binding VarName}" />
-                    </DataTemplate>
-                </grids:TreeListViewColumn>
-                <grids:TreeListViewColumn Header="Value" Width="250" >
-                    <DataTemplate>
-                        <TextBlock Text="{Binding VarValue}" />
-                    </DataTemplate>
-                </grids:TreeListViewColumn>
-                <grids:TreeListViewColumn Header="Type" Width="250">
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Type}" />
-                    </DataTemplate>
-                </grids:TreeListViewColumn>
-            </grids:TreeListView.Columns>
-        </grids:TreeListView>
+            <!-- TreeGrid "Control" -->
+            <Border BorderBrush="Black" BorderThickness="1">
+
+                <!-- Resources -->
+                <Border.Resources>
+                    <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Margin" Value="3 0 3 0"/>
+                    </Style>
+                    <Style x:Key="TextBlockBoldStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextBlockStyle}">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                </Border.Resources>
+
+                <!-- Content -->
+                <Grid Grid.IsSharedSizeScope="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Column headers -->
+                    <TreeViewItem Grid.Row="0" BorderThickness="1">
+                        <TreeViewItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="Name"/>
+                                    <!-- Placeholders for two columns of ToggleButton -->
+                                    <ColumnDefinition SharedSizeGroup="Toggle"/>
+                                    <ColumnDefinition SharedSizeGroup="Toggle"/>
+                                    <ColumnDefinition SharedSizeGroup="Value"/>
+                                    <ColumnDefinition SharedSizeGroup="Type"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Name" Style="{StaticResource TextBlockBoldStyle}"/>
+                                <!-- Empty TreeViewItem to measure the size of its ToggleButton into the "Toggle" group-->
+                                <TreeViewItem Grid.Column="1" Padding="0"/>
+                                <TextBlock Grid.Column="3" Text="Value" Style="{StaticResource TextBlockBoldStyle}"/>
+                                <TextBlock Grid.Column="4" Text="Type" Style="{StaticResource TextBlockBoldStyle}"/>
+                            </Grid>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+
+                    <!-- Data rows -->
+                    <TreeView Grid.Row="1" ItemsSource="{Binding Children}" BorderBrush="Gray" BorderThickness="0 1 0 0">
+                        <TreeView.ItemTemplate>
+
+                            <!-- Level 0 template leaves space for 2 child "Toggle" levels -->
+                            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition SharedSizeGroup="Name"/>
+                                        <ColumnDefinition SharedSizeGroup="Toggle"/>
+                                        <ColumnDefinition SharedSizeGroup="Toggle"/>
+                                        <ColumnDefinition SharedSizeGroup="Value"/>
+                                        <ColumnDefinition SharedSizeGroup="Type"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding VarName}" Style="{StaticResource TextBlockStyle}"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding Type}" Style="{StaticResource TextBlockStyle}"/>
+                                    <TextBlock Grid.Column="4" Text="{Binding Type}" Style="{StaticResource TextBlockStyle}"/>
+                                </Grid>
+
+                                <!-- Level 1 template leaves space for 1 child "Toggle" level -->
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition SharedSizeGroup="Name"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition SharedSizeGroup="Toggle"/>
+                                                <ColumnDefinition SharedSizeGroup="Value"/>
+                                                <ColumnDefinition SharedSizeGroup="Type"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding VarName}" Style="{StaticResource TextBlockStyle}"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding VarValue}" Style="{StaticResource TextBlockStyle}"/>
+                                            <TextBlock Grid.Column="4" Text="{Binding Type}" Style="{StaticResource TextBlockStyle}"/>
+                                        </Grid>
+
+                                        <!-- Level 2 template has no children -->
+                                        <HierarchicalDataTemplate.ItemTemplate>
+                                            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition SharedSizeGroup="Task"/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition SharedSizeGroup="Duration"/>
+                                                        <ColumnDefinition SharedSizeGroup="Notes"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" Text="{Binding Task}" Style="{StaticResource TextBlockStyle}"/>
+                                                    <TextBlock Grid.Column="3" Text="{Binding Duration}" Style="{StaticResource TextBlockStyle}"/>
+                                                    <TextBlock Grid.Column="4" Text="{Binding Notes}" Style="{StaticResource TextBlockStyle}"/>
+                                                </Grid>
+                                            </HierarchicalDataTemplate>
+                                        </HierarchicalDataTemplate.ItemTemplate>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </Grid>
+            </Border>
+
+        </Grid>
     </Grid>
 </UserControl>
