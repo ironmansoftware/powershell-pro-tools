@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Xml;
+using Newtonsoft.Json;
 
 namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
 {
@@ -11,14 +12,30 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
     {
         public string VarName { get; set; }
         public string VarValue { get; set; }
-        public string Type { get; set; }        
+        public string Type { get; set; }
         public bool HasChildren { get; set; }
         private Variable Parent { get; set; }
+
+        [JsonIgnore]
+        public IEnumerable<Variable> StaticChildren { get; set; }
 
         public string Path { get; set; }
 
         private readonly PSObject _source;
         private readonly PSPropertyInfo _propertyInfo;
+
+        public IEnumerable<Variable> Children
+        {
+            get
+            {
+                if (StaticChildren != null)
+                {
+                    return StaticChildren;
+                }
+
+                return GetChildren();
+            }
+        }
 
         private Type[] baseTypes = new[] { typeof(string), typeof(int), typeof(bool) };
 
@@ -84,7 +101,7 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
 
         public Variable(PSObject psobject, Variable parent = null)
         {
-            _source = psobject; 
+            _source = psobject;
 
             VarName = psobject.Properties["Name"].Value.ToString();
             var value = psobject.Properties["Value"].Value;
@@ -136,7 +153,7 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
                 {
                     child = c.FindChild(path);
                 }
-                
+
                 if (child != null)
                 {
                     return child;
@@ -148,10 +165,10 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
 
         private static string GetPath(Variable variable)
         {
-            var rootPath = string.Empty;   
+            var rootPath = string.Empty;
             if (variable.Parent != null)
             {
-                rootPath += GetPath(variable.Parent);            
+                rootPath += GetPath(variable.Parent);
             }
 
             if (variable.Parent == null)
@@ -167,7 +184,7 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
                 rootPath += "." + variable.VarName;
             }
 
-            
+
 
             return rootPath;
         }

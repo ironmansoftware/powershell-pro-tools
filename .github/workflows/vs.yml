@@ -6,7 +6,7 @@ on:
 jobs:
 
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     steps:
     - name: Checkout
@@ -43,8 +43,6 @@ jobs:
       run: |
         $devenv = .\Build\vswhere.exe -latest -property productPath | Split-Path
         msbuild PowerShellTools.sln -p:Configuration=Release -p:Platform="Any CPU" -p:DevEnvDir="$devenv"
-      env:
-        signing_code: ${{ secrets.SIGNING_CODE }}
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3

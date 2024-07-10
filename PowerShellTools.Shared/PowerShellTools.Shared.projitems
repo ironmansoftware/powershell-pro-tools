@@ -519,7 +519,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Project\Utils\DropDownListPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Project\Utils\FileListTypeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Project\Utils\VersionConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Project\XamlDesignerSupport.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProToolsPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProvideDiffSupportedContentTypeAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PSExtensions.cs" />
@@ -644,8 +643,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ModulesControl.xaml.cs">
       <DependentUpon>ModulesControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ModuleTreeItemAdapter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\PSObjectTreeItemAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
@@ -666,10 +663,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Workspace\PowerShellFileIconProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Workspace\PowerShellLaunchConfigurationProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Workspace\PowerShellLaunchDebugTargetProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\PowerShellWpfEventBindingProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\WpfAssemblyReferenceProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\WpfEventProviderFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WpfSupport\XamlUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="$(MSBuildThisFileDirectory)Commands\UserInterface\Resources\StatusAnnotations_Invalid_color_16x.png" />
@@ -817,7 +810,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)WpfSupport\Remove-EventHandlers.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)DebugEngine\PowerShellTools.DebugEngine.csproj" />
