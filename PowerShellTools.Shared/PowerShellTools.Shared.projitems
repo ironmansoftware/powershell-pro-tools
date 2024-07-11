@@ -654,10 +654,6 @@
       <DependentUpon>VariablesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UiContextUtilities.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UpdateMargin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UpdateMarginControl.xaml.cs">
-      <DependentUpon>UpdateMarginControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)VisualStudio.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VsShellDialogWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Workspace\PowerShellFileIconProvider.cs" />
@@ -742,10 +738,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)ToolWindows\VariablesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)UpdateMarginControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
