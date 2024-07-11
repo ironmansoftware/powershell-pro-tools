@@ -115,7 +115,6 @@
     <Compile Include="TestAdapter\PowerShellTestExecutor.Test.cs" />
     <Compile Include="TestUtilities.cs" />
     <Compile Include="VsxHostTest.cs" />
-    <Compile Include="WpfSupport\WpfEventBindingProviderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -192,7 +191,6 @@
     <None Include="Ugly.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="WpfSupport\Resources\PowerShell\BlankWpfCodeBehind.ps1" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK">
@@ -228,11 +226,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="WpfSupport\Resources\Xaml\XamlWithNamedButton.xaml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
