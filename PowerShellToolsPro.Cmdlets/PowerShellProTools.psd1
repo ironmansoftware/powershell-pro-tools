@@ -18,7 +18,7 @@ ModuleVersion = '2024.7.0'
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '4b0c2845-3560-4dc6-b3d7-d56787a77d07'
+GUID = '67c5dc55-fa45-4f33-856f-fbab0a85e9eb'
 
 # Author of this module
 Author = 'Ironman Software, LLC'
