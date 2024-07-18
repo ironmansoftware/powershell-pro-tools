@@ -20,6 +20,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
         cache: true
+        cache-dependency-path: PowerShellToolsPro.Cmdlets/packages.lock.json
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
