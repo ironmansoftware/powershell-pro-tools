@@ -12,6 +12,7 @@
     <Product>PowerShellToolsPro.Packager2</Product>
     <Description>2</Description>
     <Version>2.0.0</Version>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
