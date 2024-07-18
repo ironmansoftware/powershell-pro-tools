@@ -34,9 +34,15 @@ jobs:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
 
+    - uses: actions/cache@v4
+      id: cache2
+      with:
+        path: .\packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
+
     - name: Restore
       shell: pwsh
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || steps.cache2.outputs.cache-hit != 'true'
       run: |
         dotnet restore PowerShellTools.sln
         nuget restore PowerShellTools.sln
