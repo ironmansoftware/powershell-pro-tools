@@ -234,7 +234,7 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
                 yield break;
             }
 
-            if (_propertyInfo.Value == null) yield break;
+            if (_propertyInfo?.Value == null) yield break;
 
             foreach (var item in ProcessObject(_propertyInfo.Value))
             {
