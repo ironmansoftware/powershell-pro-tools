@@ -42,6 +42,7 @@ jobs:
 
     - name: Restore
       shell: pwsh
+      if: steps.cache.outputs.cache-hit != 'true' || steps.cache2.outputs.cache-hit != 'true'
       run: |
         dotnet restore PowerShellTools.sln
         nuget restore PowerShellTools.sln
