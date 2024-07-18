@@ -18,6 +18,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
         cache: true
+        cache-dependency-path: IronmanPowerShellHost/packages.lock.json
 
     - name: Build and Release
       shell: pwsh
