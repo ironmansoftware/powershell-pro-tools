@@ -12,7 +12,8 @@ namespace PowerShellProTools.Host.Refactoring
         public string Content { get; set; }
         public string FileName { get; set; }
         public TextEditType Type { get; set; }
-        
+        public string Uri { get; set; }
+
 
         public static TextEdit None
         {
@@ -30,7 +31,8 @@ namespace PowerShellProTools.Host.Refactoring
                    EqualityComparer<TextPosition>.Default.Equals(Cursor, edit.Cursor) &&
                    Content == edit.Content &&
                    FileName == edit.FileName &&
-                   Type == edit.Type;
+                   Type == edit.Type &&
+                   Uri == edit.Uri;
         }
 
         public override int GetHashCode()
@@ -41,6 +43,7 @@ namespace PowerShellProTools.Host.Refactoring
             hashCode = hashCode * -1521134295 + EqualityComparer<TextPosition>.Default.GetHashCode(Cursor);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Content);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FileName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Uri);
             hashCode = hashCode * -1521134295 + Type.GetHashCode();
             return hashCode;
         }
@@ -62,12 +65,14 @@ namespace PowerShellProTools.Host.Refactoring
         public TextPosition SelectionEnd { get; set; }
         public TextPosition DocumentEnd { get; set; }
         public IPoshToolsServer Server { get; set; }
+        public string Uri { get; set; }
 
         public override bool Equals(object obj)
         {
             return obj is TextEditorState state &&
                    Content == state.Content &&
                    FileName == state.FileName &&
+                   Uri == state.Uri &&
                    EqualityComparer<TextPosition>.Default.Equals(SelectionStart, state.SelectionStart) &&
                    EqualityComparer<TextPosition>.Default.Equals(SelectionEnd, state.SelectionEnd) &&
                    EqualityComparer<TextPosition>.Default.Equals(DocumentEnd, state.DocumentEnd) &&
@@ -82,6 +87,7 @@ namespace PowerShellProTools.Host.Refactoring
             hashCode = hashCode * -1521134295 + EqualityComparer<TextPosition>.Default.GetHashCode(SelectionStart);
             hashCode = hashCode * -1521134295 + EqualityComparer<TextPosition>.Default.GetHashCode(SelectionEnd);
             hashCode = hashCode * -1521134295 + EqualityComparer<TextPosition>.Default.GetHashCode(DocumentEnd);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Uri);
             hashCode = hashCode * -1521134295 + EqualityComparer<IPoshToolsServer>.Default.GetHashCode(Server);
             return hashCode;
         }
@@ -156,7 +162,7 @@ namespace PowerShellProTools.Host.Refactoring
         public RefactorInfo(string name, RefactorType type)
         {
             Name = name;
-            Type = type; 
+            Type = type;
         }
 
         public string Name { get; set; }

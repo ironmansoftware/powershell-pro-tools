@@ -27,6 +27,7 @@ namespace PowerShellProTools.Host.Refactoring
 
             yield return new TextEdit
             {
+                Uri = state.Uri,
                 Content = "$_",
                 FileName = state.FileName,
                 Type = TextEditType.Replace,

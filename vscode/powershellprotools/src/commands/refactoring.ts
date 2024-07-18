@@ -117,6 +117,7 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         request.editorState = new TextEditorState();
         request.editorState.content = document.getText()
         request.editorState.fileName = document.fileName
+        request.editorState.uri = document.uri.toString()
         request.editorState.documentEnd = {
             Character: document.lineAt(document.lineCount - 1).range.end.character,
             Line: document.lineCount - 1
@@ -205,7 +206,8 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         let we = new vscode.WorkspaceEdit();
 
         for (var edit of result) {
-            let uri = vscode.Uri.file(edit.FileName);
+
+            let uri = edit.Uri ? vscode.Uri.parse(edit.Uri) : vscode.Uri.file(edit.Uri);
 
             switch (edit.Type) {
                 case TextEditType.replace:

@@ -51,6 +51,7 @@ namespace PowerShellProTools.Host.Refactoring
 
             yield return new TextEdit
             {
+                Uri = state.Uri,
                 Content = $"using namespace {namespaceName}{Environment.NewLine}",
                 FileName = state.FileName,
                 Type = TextEditType.Insert,

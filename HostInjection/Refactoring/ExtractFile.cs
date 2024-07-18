@@ -43,6 +43,7 @@ namespace PowerShellProTools.Host.Refactoring
 
             yield return new TextEdit
             {
+                Uri = state.Uri,
                 Content = $"& \"$PSScriptRoot\\{fileName}\"",
                 Start = new TextPosition
                 {

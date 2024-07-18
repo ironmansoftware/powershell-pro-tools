@@ -37,6 +37,7 @@ namespace PowerShellProTools.Host.Refactoring
             {
                 yield return new TextEdit
                 {
+                    Uri = state.Uri,
                     Type = TextEditType.Insert,
                     Content = $"{Environment.NewLine}Export-ModuleMember -Variable '{variableExpression.VariablePath.UserPath}'",
                     Start = new TextPosition
@@ -51,6 +52,7 @@ namespace PowerShellProTools.Host.Refactoring
             {
                 yield return new TextEdit
                 {
+                    Uri = state.Uri,
                     Type = TextEditType.Insert,
                     Content = $"{Environment.NewLine}Export-ModuleMember -Function '{functionDef.Name}'",
                     Start = new TextPosition
