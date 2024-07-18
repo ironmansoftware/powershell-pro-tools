@@ -20,6 +20,18 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    - uses: actions/cache@v4
+      id: cache
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+    - uses: actions/cache@v4
+      id: cache2
+      with:
+        path: .\packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
+
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
 

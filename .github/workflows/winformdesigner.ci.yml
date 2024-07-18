@@ -31,6 +31,18 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
 
+    - uses: actions/cache@v4
+      id: cache
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+    - uses: actions/cache@v4
+      id: cache2
+      with:
+        path: .\packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
+
     - name: Restore
       shell: pwsh
       run: |

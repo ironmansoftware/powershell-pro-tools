@@ -10,7 +10,8 @@
     <Configurations>Debug;Release;NoPowerShell</Configurations>
     <NoWarn>$(NoWarn);IL3000;IL3002;SYSLIB0012</NoWarn>
     <PowerShellVersion Condition="'$(PowerShellVersion)'==''">7.2.7</PowerShellVersion>
-</PropertyGroup>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
 
   <ItemGroup>
     <None Remove="pslogo.ico" />
@@ -56,6 +57,10 @@
     <Exec Command="xcopy /y $(TargetPath) $(ProjectDir)..\PowerShellToolsPro.Packager\Hosts" Condition="'$(TargetFramework)' == 'net472'" />
   </Target>
 
-  <ProjectExtensions><VisualStudio><UserProperties host_1manifest_1json__JsonSchema="https://carafe.fm/schema/draft-02/bundle.schema.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties host_1manifest_1json__JsonSchema="https://carafe.fm/schema/draft-02/bundle.schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 
 </Project>
