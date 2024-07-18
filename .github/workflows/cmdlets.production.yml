@@ -19,8 +19,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-        cache: true
-        cache-dependency-path: PowerShellToolsPro.Cmdlets/packages.lock.json
 
     - uses: actions/cache@v4
       id: cache
