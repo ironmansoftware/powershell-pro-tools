@@ -22,11 +22,18 @@ jobs:
         cache: true
         cache-dependency-path: PowerShellToolsPro.Cmdlets/packages.lock.json
 
+    - uses: actions/cache@v4
+      id: cache
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Restore
       shell: pwsh
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
         dotnet restore PowerShellTools.sln
         nuget restore PowerShellTools.sln
