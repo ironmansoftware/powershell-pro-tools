@@ -5,6 +5,7 @@ export class RefactorTextEdit {
     Content: string;
     FileName: string;
     Type: TextEditType;
+    Uri: string;
 }
 
 export class RefactorInfo {
@@ -22,6 +23,7 @@ export enum TextEditType {
 export class TextEditorState {
     content: string;
     fileName: string;
+    uri: string;
     selectionStart: TextPosition;
     selectionEnd: TextPosition;
     documentEnd: TextPosition;

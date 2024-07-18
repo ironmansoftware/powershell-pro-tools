@@ -41,6 +41,7 @@ namespace PowerShellProTools.Host.Refactoring
 
             edits.Add(new TextEdit
             {
+                Uri = state.Uri,
                 Content = stringBuilder.ToString(),
                 Type = TextEditType.Insert,
                 Start = new TextPosition

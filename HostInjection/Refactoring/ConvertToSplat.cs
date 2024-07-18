@@ -93,6 +93,7 @@ namespace PowerShellProTools.Host.Refactoring
 
             yield return new TextEdit
             {
+                Uri = state.Uri,
                 Content = stringBuilder.ToString(),
                 Type = TextEditType.Insert,
                 Start = new TextPosition
@@ -103,9 +104,10 @@ namespace PowerShellProTools.Host.Refactoring
                 },
                 FileName = state.FileName
             };
-            
+
             yield return new TextEdit
             {
+                Uri = state.Uri,
                 Content = $"{commandName} @Parameters",
                 Type = TextEditType.Replace,
                 Start = new TextPosition

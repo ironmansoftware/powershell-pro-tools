@@ -82,7 +82,7 @@ namespace PowerShellProTools.Host.Refactoring
             }
 
             if (direction == "Right")
-            {   
+            {
                 if (targetParameterIndex + 1 == currentParameterIndex)
                 {
                     yield break;
@@ -143,6 +143,7 @@ namespace PowerShellProTools.Host.Refactoring
 
             yield return new TextEdit
             {
+                Uri = state.Uri,
                 Content = stringBuilder.ToString(),
                 Type = TextEditType.Replace,
                 Start = new TextPosition

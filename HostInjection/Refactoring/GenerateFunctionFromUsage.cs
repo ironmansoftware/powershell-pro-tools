@@ -121,6 +121,7 @@ namespace PowerShellProTools.Host.Refactoring
 
             yield return new TextEdit
             {
+                Uri = state.Uri,
                 Content = stringBuilder.ToString(),
                 Type = TextEditType.Insert,
                 Start = new TextPosition
