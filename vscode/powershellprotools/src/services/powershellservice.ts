@@ -13,7 +13,8 @@ const fs = require('fs');
 export enum SessionStatus {
     Initializing,
     Failed,
-    Connected
+    Connected,
+    Disabled
 }
 
 export class PowerShellService {
@@ -59,7 +60,7 @@ export class PowerShellService {
         this.setSessionStatus(SessionStatus.Initializing);
     }
 
-    private setSessionStatus(status: SessionStatus): void {
+    setSessionStatus(status: SessionStatus): void {
         // Set color and icon for 'Running' by default
         let statusIconText = "$(sync) PowerShell Pro Tools";
         let statusColor = "#f3fc74";
@@ -73,6 +74,10 @@ export class PowerShellService {
             statusIconText = "$(alert) PowerShell Pro Tools";
             statusColor = "#fcc174";
             toolTip = "PowerShell Pro Tools failed to connect. Check out the Output channel for PowerShell Pro Tools for more information.";
+        } else if (status === SessionStatus.Disabled) {
+            statusIconText = "$(circle-slash) PowerShell Pro Tools";
+            statusColor = "#fcc174";
+            toolTip = "PowerShell Pro Tools is disabled because Persistent Terminal Sessions is enabled. Please disable Persistent Terminal Sessions and reload the window.";
         }
 
         this.statusBarItem.color = statusColor;

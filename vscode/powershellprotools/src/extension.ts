@@ -5,7 +5,7 @@ import { convertToUdElement } from './commands/convertToUdElement';
 import { profile, clearProfiling } from './commands/profile';
 import { showWinFormDesigner } from './commands/formsDesigner';
 import { generateWinForm } from './commands/generateWinForm';
-import { PowerShellService } from './services/powershellservice';
+import { PowerShellService, SessionStatus } from './services/powershellservice';
 import { Container } from './container';
 import { showDataGrid } from './commands/showDataGrid';
 import { statusBarItemMenu } from './commands/statusBarItemMenu';
@@ -48,7 +48,7 @@ export interface IPowerShellExtensionClient {
 
 
 export async function activate(context: vscode.ExtensionContext) {
-    powerShellService = new PowerShellService(context);
+    var service = powerShellService = new PowerShellService(context);
     context.subscriptions.push(showDataGrid(context));
     context.subscriptions.push(packageAsExe());
     context.subscriptions.push(convertToUdElement());
@@ -69,6 +69,25 @@ export async function activate(context: vscode.ExtensionContext) {
 
     if (!extension) {
         vscode.window.showErrorMessage("PowerShell Pro Tools requires the Microsoft PowerShell or PowerShell Preview extension.");
+        return;
+    }
+
+    const configuration: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration("terminal.integrated");
+    var persistentSessions = configuration.get<boolean>("enablePersistentSessions");
+    if (persistentSessions) {
+        var result = await vscode.window.showErrorMessage("PowerShell Pro Tools requires the terminal.integrated.enablePersistentSessions setting to be disabled.", "Disable", "Learn About Persistent Sessions");
+        if (result == "Learn About Persistent Sessions") {
+            vscode.env.openExternal(vscode.Uri.parse("https://code.visualstudio.com/docs/terminal/advanced#_persistent-sessions"));
+        }
+        else if (result == "Disable") {
+            await configuration.update("enablePersistentSessions", false, true);
+            vscode.window.showInformationMessage("Persistent sessions have been disabled. Please reload the window for the changes to take effect.");
+        }
+        else {
+            vscode.window.showErrorMessage("PowerShell Pro Tools did not start because Persistent Terminal Sessions is enabled.");
+            service.setSessionStatus(SessionStatus.Disabled);
+        }
+
         return;
     }
 
