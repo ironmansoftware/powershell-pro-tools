@@ -2,7 +2,7 @@
     "name": "powershellprotools",
     "displayName": "PowerShell Pro Tools",
     "description": "Powerful extensions for PowerShell development.",
-    "version": "2024.7.5",
+    "version": "2024.7.6",
     "publisher": "ironmansoftware",
     "repository": {
         "type": "git",
