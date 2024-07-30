@@ -18,6 +18,7 @@ export interface ISettings {
     signOnSaveCertificate: string;
     excludeAutomaticVariables: boolean;
     clearScreenAfterLoad: boolean;
+    disableNewsNotification: boolean;
 }
 
 export function load(): ISettings {
@@ -38,6 +39,7 @@ export function load(): ISettings {
         signOnSave: configuration.get<boolean>("signOnSave", false),
         signOnSaveCertificate: configuration.get<string>("signOnSaveCertificate", ""),
         excludeAutomaticVariables: configuration.get<boolean>("excludeAutomaticVariables", false),
-        clearScreenAfterLoad: configuration.get<boolean>("clearScreenAfterLoad", true)
+        clearScreenAfterLoad: configuration.get<boolean>("clearScreenAfterLoad", true),
+        disableNewsNotification: configuration.get<boolean>("disableNewsNotification", false)
     }
 }

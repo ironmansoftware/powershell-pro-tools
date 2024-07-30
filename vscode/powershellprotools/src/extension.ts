@@ -26,6 +26,8 @@ import { SessionTreeViewProvider } from './treeView/sessionTreeView';
 import { JobTreeViewProvider } from './treeView/jobTreeView';
 import { PowerShellRenameProvider } from './services/renameProvider';
 import { registerWelcomeCommands } from './commands/welcomeCommand';
+import { NewsViewProvider } from './treeView/newsTreeView';
+import { notifyAboutNews } from './commands/news';
 
 const version = "PowerShellProTools.Version";
 
@@ -48,6 +50,7 @@ export interface IPowerShellExtensionClient {
 
 
 export async function activate(context: vscode.ExtensionContext) {
+    notifyAboutNews(context);
     var service = powerShellService = new PowerShellService(context);
     context.subscriptions.push(showDataGrid(context));
     context.subscriptions.push(packageAsExe());
@@ -125,6 +128,7 @@ async function finishActivation(context: vscode.ExtensionContext) {
         vscode.window.createTreeView<vscode.TreeItem>('astView', { treeDataProvider: new AstTreeViewProvider() });
         vscode.window.createTreeView<vscode.TreeItem>('hostProcessView', { treeDataProvider: new HostProcessViewProvider() });
         vscode.window.createTreeView<vscode.TreeItem>('moduleView', { treeDataProvider: new ModuleViewProvider() });
+        vscode.window.createTreeView<vscode.TreeItem>('newsView', { treeDataProvider: new NewsViewProvider() });
         vscode.window.createTreeView<vscode.TreeItem>('providerView', { treeDataProvider: new ProviderViewProvider() });
         vscode.window.createTreeView<vscode.TreeItem>('quickScriptView', { treeDataProvider: new QuickScriptViewProvider() });
         vscode.window.createTreeView<vscode.TreeItem>('variableView', { treeDataProvider: new VariableViewProvider() });

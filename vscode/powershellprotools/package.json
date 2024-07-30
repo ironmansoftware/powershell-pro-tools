@@ -2,7 +2,7 @@
     "name": "powershellprotools",
     "displayName": "PowerShell Pro Tools",
     "description": "Powerful extensions for PowerShell development.",
-    "version": "2024.7.5",
+    "version": "2024.7.6",
     "publisher": "ironmansoftware",
     "repository": {
         "type": "git",
@@ -29,6 +29,7 @@
         "onView:customView",
         "onView:historyView",
         "onView:sessionsView",
+        "onView:newsView",
         "onView:jobView",
         "onCommand:powershell.showWinFormDesigner",
         "onCommand:powershell.generateWinForm",
@@ -142,6 +143,11 @@
             },
             {
                 "command": "moduleView.refresh",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "newsView.refresh",
                 "title": "Refresh",
                 "icon": "$(refresh)"
             },
@@ -359,6 +365,11 @@
                 "command": "jobView.refresh",
                 "title": "Refresh",
                 "icon": "$(refresh)"
+            },
+            {
+                "command": "newsView.open",
+                "title": "Open",
+                "icon": "$(link-external)"
             }
         ],
         "configuration": {
@@ -509,6 +520,11 @@
                     "type": "boolean",
                     "default": true,
                     "markdownDescription": "Whether to clear the terminal after loading PowerShell Pro Tools. Set to false to see any errors loading the module."
+                },
+                "poshProTools.disableNewsNotification": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Disables the notification when Ironman Software publishes news."
                 }
             }
         },
@@ -603,6 +619,10 @@
                 {
                     "id": "infoView",
                     "name": "Help and Information"
+                },
+                {
+                    "id": "newsView",
+                    "name": "What's New?"
                 }
             ]
         },
@@ -628,6 +648,11 @@
                 {
                     "command": "moduleView.refresh",
                     "when": "view == moduleView",
+                    "group": "navigation"
+                },
+                {
+                    "command": "newsView.refresh",
+                    "when": "view == newsView",
                     "group": "navigation"
                 },
                 {
@@ -840,6 +865,7 @@
         "typescript": "^4.0.2"
     },
     "dependencies": {
+        "axios": "^0.21.1",
         "cheerio": "^1.0.0-rc.2",
         "extract-zip": "^2.0.1",
         "json-rpc2": "^2.0.0",
