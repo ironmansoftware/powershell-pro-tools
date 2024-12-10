@@ -7,7 +7,6 @@ using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Language;
 using System.Management.Automation.Runspaces;
-using System.Reflection;
 using System.Threading.Tasks;
 using Common.Analysis;
 using Common.ServiceManagement;
@@ -25,7 +24,7 @@ namespace PowerShellTools.HostService.Services
         private readonly BlockingCollection<AnalysisRequest> requests;
         private Runspace analysisRunspace;
         private static readonly object RunspaceLock = new object();
-        private readonly string ScriptAnalyzerSettings = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PowerShell Pro Tools", "PSScriptAnalyzerSettings.psd1");
+        private string scriptAnalyzerSettings;
         private Process _process;
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AnalysisService));
         private readonly IVsStatusbar _statusBar;
@@ -68,6 +67,9 @@ namespace PowerShellTools.HostService.Services
             var version = GeneralOptions.Instance.PowerShellVersion;
             var hostProcess = PowershellHostProcessHelper.CreatePowerShellHostProcess(version);
 
+            scriptAnalyzerSettings = AnalysisOptions.Instance.ConfigurationFile ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PowerShell Pro Tools", "PSScriptAnalyzerSettings.psd1");
+            AnalysisOptions.Instance.ConfigurationFileChanged += Instance_ConfigurationFileChanged; ;
+
             if (hostProcess != null)
             {
                 _process = hostProcess.Process;
@@ -81,6 +83,15 @@ namespace PowerShellTools.HostService.Services
             {
                 analysisRunspace = RunspaceFactory.CreateRunspace();
                 analysisRunspace.Open();
+            }
+        }
+
+        private void Instance_ConfigurationFileChanged(object sender, DebugEngine.EventArgs<string> e)
+        {
+            scriptAnalyzerSettings = e.Value;
+            if (string.IsNullOrEmpty(scriptAnalyzerSettings))
+            {
+                scriptAnalyzerSettings = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PowerShell Pro Tools", "PSScriptAnalyzerSettings.psd1");
             }
         }
 
@@ -293,18 +304,18 @@ namespace PowerShellTools.HostService.Services
                 {
                     ps.AddCommand("Invoke-ScriptAnalyzer").AddParameter("Path", analysisRequest.FileName);
 
-                    if (File.Exists(ScriptAnalyzerSettings))
+                    if (File.Exists(scriptAnalyzerSettings))
                     {
-                        ps.AddParameter("Setting", ScriptAnalyzerSettings);
+                        ps.AddParameter("Setting", scriptAnalyzerSettings);
                     }
                 }
                 else
                 {
                     ps.AddCommand("Invoke-ScriptAnalyzer").AddParameter("ScriptDefinition", analysisRequest.String);
 
-                    if (File.Exists(ScriptAnalyzerSettings))
+                    if (File.Exists(scriptAnalyzerSettings))
                     {
-                        ps.AddParameter("Setting", ScriptAnalyzerSettings);
+                        ps.AddParameter("Setting", scriptAnalyzerSettings);
                     }
                 }
 

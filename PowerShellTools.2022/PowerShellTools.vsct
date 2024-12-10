@@ -231,14 +231,6 @@
           <ButtonText>PowerShell Modules</ButtonText>
         </Strings>
       </Button>
-
-      <Button guid="guidPoshToolsCmdSet" id="SettingsCommandId" priority="0x7f03" type="Button">
-        <Parent guid="guidPoshToolsCmdSet" id="SubMenuGroup"/>
-        <Icon guid="guidSettingsImage" id="1"/>
-        <Strings>
-          <ButtonText>Settings</ButtonText>
-        </Strings>
-      </Button>
     </Buttons>
 
     <Bitmaps>

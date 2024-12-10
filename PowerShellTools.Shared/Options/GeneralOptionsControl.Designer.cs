@@ -40,7 +40,6 @@
             this.chkTabComplete = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.chkSta = new System.Windows.Forms.CheckBox();
-            this.chkDontDisplayLicenseInfo = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chkOverrideExecutionPolicy
@@ -164,17 +163,6 @@
             this.chkSta.UseVisualStyleBackColor = true;
             this.chkSta.CheckedChanged += new System.EventHandler(this.chkSta_CheckedChanged);
             // 
-            // chkDisplayLicenseInfo
-            // 
-            this.chkDontDisplayLicenseInfo.AutoSize = true;
-            this.chkDontDisplayLicenseInfo.Location = new System.Drawing.Point(8, 353);
-            this.chkDontDisplayLicenseInfo.Name = "chkDontDisplayLicenseInfo";
-            this.chkDontDisplayLicenseInfo.Size = new System.Drawing.Size(282, 21);
-            this.chkDontDisplayLicenseInfo.TabIndex = 16;
-            this.chkDontDisplayLicenseInfo.Text = "Don't Display License Info on Startup";
-            this.chkDontDisplayLicenseInfo.UseVisualStyleBackColor = true;
-            this.chkDontDisplayLicenseInfo.CheckedChanged += new System.EventHandler(this.chkDisplayLicenseInfo_CheckedChanged);
-            // 
             // GeneralOptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -191,7 +179,6 @@
             this.Controls.Add(this.chkMultiLineRepl);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chkOverrideExecutionPolicy);
-            this.Controls.Add(this.chkDontDisplayLicenseInfo);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GeneralOptionsControl";
             this.Size = new System.Drawing.Size(924, 645);
@@ -213,6 +200,5 @@
         private System.Windows.Forms.CheckBox chkTabComplete;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chkSta;
-        private System.Windows.Forms.CheckBox chkDontDisplayLicenseInfo;
     }
 }
