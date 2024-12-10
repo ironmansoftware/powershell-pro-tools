@@ -14,7 +14,6 @@ namespace PowerShellTools.Options
             this.ShouldLoadProfiles = true;
             this.TabComplete = true;
             this.Sta = false;
-            this.DontShowLicenseInfoOnStartup = false;
 
             var powershellLocator = new PowerShellLocator();
             this.PowerShellVersion = powershellLocator.DefaultVersion;
@@ -73,7 +72,5 @@ namespace PowerShellTools.Options
 
         [DisplayName(@"Apartment State")]
         public bool Sta { get; set; }
-        [DisplayName(@"Don't Show License Info On Startup")]
-        public bool DontShowLicenseInfoOnStartup { get; set; }
     }
 }

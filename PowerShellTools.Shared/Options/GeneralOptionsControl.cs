@@ -33,7 +33,6 @@ namespace PowerShellTools.Options
             this.chkOverrideExecutionPolicy.Checked = options.OverrideExecutionPolicyConfiguration;
             this.chkTabComplete.Checked = options.TabComplete;
             this.chkSta.Checked = options.Sta;
-            this.chkDontDisplayLicenseInfo.Checked = options.DontShowLicenseInfoOnStartup;
         }
 
         private void chkOverrideExecutionPolicy_CheckedChanged(object sender, System.EventArgs e)
@@ -67,11 +66,6 @@ namespace PowerShellTools.Options
         private void chkSta_CheckedChanged(object sender, System.EventArgs e)
         {
             _options.Sta = chkSta.Checked;
-        }
-
-        private void chkDisplayLicenseInfo_CheckedChanged(object sender, System.EventArgs e)
-        {
-            _options.DontShowLicenseInfoOnStartup = chkDontDisplayLicenseInfo.Checked;
         }
     }
 }
