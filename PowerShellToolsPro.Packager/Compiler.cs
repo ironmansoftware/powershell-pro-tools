@@ -513,7 +513,7 @@ namespace PowerShellToolsPro.Packager
 
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && config.RuntimeIdentifier != "linux-x64" && !config.Lightweight)
                 {
-                    if (dotnetversion == "net5.0" || dotnetversion == "net6.0" || dotnetversion == "net7.0" || dotnetversion == "net8.0")
+                    if (dotnetversion == "net5.0" || dotnetversion == "net6.0" || dotnetversion == "net7.0" || dotnetversion == "net8.0" || dotnetversion == "net9.0")
                     {
                         dotnetversion += "-windows";
                     }
@@ -899,7 +899,7 @@ namespace PowerShellToolsPro.Packager
 
         private bool IsDotNetFrameworkInstalled(string version)
         {
-            if (version.StartsWith("netcoreapp") || version == "net5.0" || version == "net6.0" || version == "net7.0" || version == "net8.0") return true;
+            if (version.StartsWith("netcoreapp") || version == "net5.0" || version == "net6.0" || version == "net7.0" || version == "net8.0" || version == "net9.0") return true;
 
             var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
             var referenceAssemblies = Path.Combine(programFiles, @"Reference Assemblies\Microsoft\Framework\.NETFramework");
