@@ -42,7 +42,7 @@ namespace PowerShellToolsPro.Packager
             var tempDirectory = Path.Combine(outputDirectory, "bin"); // Path.GetTempPath();
             tempDirectory = Path.Combine(tempDirectory, Guid.NewGuid().ToString("N"));
 
-            if (config.RuntimeIdentifier.Equals("win7-x64") && config.DotNetVersion.StartsWith("net8"))
+            if (config.RuntimeIdentifier.Equals("win7-x64") && (config.DotNetVersion.StartsWith("net8") || config.DotNetVersion.StartsWith("net9")))
             {
                 config.RuntimeIdentifier = "win-x64";
             }
