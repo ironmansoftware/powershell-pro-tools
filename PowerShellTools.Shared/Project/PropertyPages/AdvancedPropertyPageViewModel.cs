@@ -93,7 +93,8 @@ namespace PowerShellTools.Shared.Project.PropertyPages
                 "net5.0",
                 "net6.0",
                 "net7.0",
-                "net8.0"
+                "net8.0",
+                "net9.0"
             };
 
             OutputTypes = new[]

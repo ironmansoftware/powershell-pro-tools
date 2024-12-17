@@ -643,11 +643,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ModulesControl.xaml.cs">
       <DependentUpon>ModulesControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsControl.xaml.cs">
-      <DependentUpon>SettingsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\Variables.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\VariablesCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\VariablesControl.xaml.cs">
@@ -730,10 +725,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)ToolWindows\ModulesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)ToolWindows\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

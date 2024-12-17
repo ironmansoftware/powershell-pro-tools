@@ -906,6 +906,8 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
                 yield break;
             }
 
+            var variables = PSSerializer.Deserialize(_varaiables);
+
             var varaibles = JsonConvert.DeserializeObject<Variable[]>(_varaiables);
             foreach(var variable in varaibles)
             {
@@ -1299,8 +1301,8 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
         {
             if (Runspace.Debugger.InBreakpoint)
             {
-                PSCommand psCommand = new PSCommand();
-                psCommand.AddScript("Get-Variable -Exclude @('foreach', 'switch') | Out-PoshToolsVariable -PassThru | ConvertTo-Json -Depth 1 -WarningAction SilentlyContinue");
+                var psCommand = new PSCommand();
+                psCommand.AddScript("Get-Variable -Exclude @('foreach', 'switch') | Out-PoshToolsVariable -PassThru");
                 var output = new PSDataCollection<PSObject>();
                 psCommand.Commands[0].MergeMyResults(PipelineResultTypes.Error, PipelineResultTypes.Output);
                 Runspace.Debugger.ProcessCommand(psCommand, output);
@@ -1311,7 +1313,7 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
                 using (var powershell = PowerShell.Create())
                 {
                     powershell.Runspace = Runspace;
-                    powershell.AddScript("Get-Variable -Exclude @('foreach', 'switch') | Out-PoshToolsVariable -PassThru | ConvertTo-Json -Depth 1 -WarningAction SilentlyContinue");
+                    powershell.AddScript("Get-Variable -Exclude @('foreach', 'switch') | Out-PoshToolsVariable -PassThru");
                     var json = powershell.Invoke<string>().FirstOrDefault();
                     _varaiables = json;
                 }

@@ -37,14 +37,10 @@ using PowerShellTools.Common.ServiceManagement.ExplorerContract;
 using Microsoft.VisualStudio.ComponentModelHost;
 using PowerShellTools.Diagnostics;
 using Common.ServiceManagement;
-using System.IO;
 using System.Windows.Media;
-using PowerShellProTools.Host;
 using PowerShellTools.ToolWindows;
-using PowerShellTools.Shared.ToolWindows;
 using PowerShellToolsPro.Commands;
 using PowerShellToolsPro;
-using System.ComponentModel.Composition;
 using ModernWpf;
 using Microsoft.VisualStudio.PlatformUI;
 
@@ -119,6 +115,7 @@ namespace PowerShellTools
     [ProvideIncompatibleEngineInfo("{92EF0900-2251-11D2-B72E-0000F87572EF}")]
     [ProvideIncompatibleEngineInfo("{F200A7E7-DEA5-11D0-B854-00A0244A1DE2}")]
     [ProvideOptionPage(typeof(DialogPageProvider.General), PowerShellConstants.LanguageDisplayName, "General", 101, 106, true)]
+    [ProvideOptionPage(typeof(DialogPageProvider.Analysis), PowerShellConstants.LanguageDisplayName, "Analysis", 101, 106, true)]
     [ProvideOptionPage(typeof(DialogPageProvider.Diagnostics), PowerShellConstants.LanguageDisplayName, "Diagnostics", 101, 106, true)]
     [ProvideDiffSupportedContentType(".ps1;.psm1;.psd1", ";")]
     [ProvideLanguageExtension(typeof(PowerShellLanguageInfo), ".ps1")]
@@ -298,11 +295,6 @@ namespace PowerShellTools
             }
         }
 
-        public static SettingsControl Settings
-        {
-            get; private set;
-        }
-
         private async System.Threading.Tasks.Task InitializeInternalAsync()
         {
             Log.Info(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this));
@@ -326,12 +318,8 @@ namespace PowerShellTools
                 ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
             }
 
-            Settings = new SettingsControl(new SettingsViewModel());
-            Settings.ViewModel.FullSettingsVisibility = Visibility.Hidden;
-
             await VariablesCommand.InitializeAsync(this);
             await ModulesCommand.InitializeAsync(this);
-            await SettingsCommand.InitializeAsync(this);
 
             RefreshCommands(new ExecuteSelectionCommand(),
                             new ExecuteSelectionCommandToolbar(),
