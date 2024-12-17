@@ -523,6 +523,12 @@
         "dependencies": {
           "PowerShellStandard.Library": "[5.1.0, )"
         }
+      },
+      "powershellprotools.sharedcommands": {
+        "type": "Project",
+        "dependencies": {
+          "PowerShellStandard.Library": "[5.1.0, )"
+        }
       }
     }
   }

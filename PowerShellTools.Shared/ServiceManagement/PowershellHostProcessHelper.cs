@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using PowerShellTools.Common.Logging;
 using PowerShellTools.Options;
-using PowerShellTools.HostService;
-using PowerShellProTools.Host;
 using PowerShellProTools.Common;
-using System.Text.RegularExpressions;
 
 namespace PowerShellTools.ServiceManagement
 {

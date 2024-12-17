@@ -1444,7 +1444,7 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
 
         private void ImportCommon()
         {
-            var commonModule = Path.Combine(Path.GetDirectoryName(GetType().GetTypeInfo().Assembly.Location), "PowerShellProTools.VSCode.dll");
+            var commonModule = Path.Combine(Path.GetDirectoryName(GetType().GetTypeInfo().Assembly.Location), "PowerShellProTools.SharedCommands.dll");
             using (PowerShell ps = PowerShell.Create())
             {
                 ps.Runspace = Runspace;

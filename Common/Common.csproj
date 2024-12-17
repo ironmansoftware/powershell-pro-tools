@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HostInjection\PowerShellProTools.Common.csproj" />
+    <ProjectReference Include="..\PowerShellProTools.SharedCommands\PowerShellProTools.SharedCommands.csproj" />
   </ItemGroup>
 
   <ItemGroup>

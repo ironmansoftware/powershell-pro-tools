@@ -7,6 +7,7 @@ using PowerShellProTools.Common.Models;
 using PowerShellProTools.Common.Refactoring;
 using PowerShellProTools.Host;
 using PowerShellProTools.Host.Refactoring;
+using PowerShellProTools.SharedCommands;
 using PowerShellTools.Common.ServiceManagement.DebuggingContract;
 using PowerShellToolsPro.Cmdlets.Profiling;
 using PowerShellToolsPro.Cmdlets.VSCode;
