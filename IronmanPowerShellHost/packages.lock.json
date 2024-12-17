@@ -2,7 +2,7 @@
   "version": 1,
   "dependencies": {
     ".NETFramework,Version=v4.7.2": {},
-    ".NETFramework,Version=v4.7.2/win7-x86": {},
+    ".NETFramework,Version=v4.7.2/win-x86": {},
     "net6.0": {
       "Microsoft.PowerShell.ConsoleHost": {
         "type": "Direct",
@@ -1008,7 +1008,7 @@
         }
       }
     },
-    "net6.0/win7-x86": {
+    "net6.0/win-x86": {
       "Microsoft.PowerShell.ConsoleHost": {
         "type": "Direct",
         "requested": "[7.2.7, )",
@@ -1063,14 +1063,6 @@
         "type": "Transitive",
         "resolved": "2.0.0",
         "contentHash": "vjBWQeDOjgernkrOdbEgn7M70SF7hof7ORdKPSlL06Uc15+oYdth5dZju9KsgUoti/cwnkZTiwtDx/lRtay0sA=="
-      },
-      "Microsoft.NETCore.Windows.ApiSets": {
-        "type": "Transitive",
-        "resolved": "1.0.1",
-        "contentHash": "SaToCvvsGMxTgtLv/BrFQ5IFMPRE1zpWbnqbpwykJa8W5XiX82CXI6K2o7yf5xS7EP6t/JzFLV0SIDuWpvBZVw==",
-        "dependencies": {
-          "runtime.win7-x86.Microsoft.NETCore.Windows.ApiSets": "1.0.1"
-        }
       },
       "Microsoft.PowerShell.Commands.Diagnostics": {
         "type": "Transitive",
@@ -1279,16 +1271,6 @@
           "System.Private.Uri": "4.3.0"
         }
       },
-      "runtime.win7-x86.Microsoft.NETCore.Windows.ApiSets": {
-        "type": "Transitive",
-        "resolved": "1.0.1",
-        "contentHash": "bPLbJzMJpczV+EMU4CK2Hb+DJrX3C93dXPMe+JsArqFTnJ9ou+xAa3lHt2qbWvzVVR1OMpgQUpB7aug6PcRPbA=="
-      },
-      "runtime.win7.System.Private.Uri": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "Q+IBgaPYicSQs2tBlmXqbS25c/JLIthWrgrpMwxKSOobW/OqIMVFruUGfuaz4QABVzV8iKdCAbN7APY7Tclbnw=="
-      },
       "System.Collections": {
         "type": "Transitive",
         "resolved": "4.3.0",
@@ -1456,8 +1438,7 @@
         "contentHash": "I4SwANiUGho1esj4V4oSlPllXjzCZDE+5XXso2P03LW2vOda2Enzh8DWOxwN6hnrJyp314c7KuVu31QYhRzOGg==",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "runtime.win7.System.Private.Uri": "4.3.0"
+          "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
       "System.Reflection": {
@@ -2659,7 +2640,7 @@
         }
       }
     },
-    "net6.0-windows7.0/win7-x86": {
+    "net6.0-windows7.0/win-x86": {
       "Microsoft.PowerShell.ConsoleHost": {
         "type": "Direct",
         "requested": "[7.2.7, )",
@@ -2714,14 +2695,6 @@
         "type": "Transitive",
         "resolved": "2.0.0",
         "contentHash": "vjBWQeDOjgernkrOdbEgn7M70SF7hof7ORdKPSlL06Uc15+oYdth5dZju9KsgUoti/cwnkZTiwtDx/lRtay0sA=="
-      },
-      "Microsoft.NETCore.Windows.ApiSets": {
-        "type": "Transitive",
-        "resolved": "1.0.1",
-        "contentHash": "SaToCvvsGMxTgtLv/BrFQ5IFMPRE1zpWbnqbpwykJa8W5XiX82CXI6K2o7yf5xS7EP6t/JzFLV0SIDuWpvBZVw==",
-        "dependencies": {
-          "runtime.win7-x86.Microsoft.NETCore.Windows.ApiSets": "1.0.1"
-        }
       },
       "Microsoft.PowerShell.Commands.Diagnostics": {
         "type": "Transitive",
@@ -2930,16 +2903,6 @@
           "System.Private.Uri": "4.3.0"
         }
       },
-      "runtime.win7-x86.Microsoft.NETCore.Windows.ApiSets": {
-        "type": "Transitive",
-        "resolved": "1.0.1",
-        "contentHash": "bPLbJzMJpczV+EMU4CK2Hb+DJrX3C93dXPMe+JsArqFTnJ9ou+xAa3lHt2qbWvzVVR1OMpgQUpB7aug6PcRPbA=="
-      },
-      "runtime.win7.System.Private.Uri": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "Q+IBgaPYicSQs2tBlmXqbS25c/JLIthWrgrpMwxKSOobW/OqIMVFruUGfuaz4QABVzV8iKdCAbN7APY7Tclbnw=="
-      },
       "System.Collections": {
         "type": "Transitive",
         "resolved": "4.3.0",
@@ -3107,8 +3070,7 @@
         "contentHash": "I4SwANiUGho1esj4V4oSlPllXjzCZDE+5XXso2P03LW2vOda2Enzh8DWOxwN6hnrJyp314c7KuVu31QYhRzOGg==",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "runtime.win7.System.Private.Uri": "4.3.0"
+          "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
       "System.Reflection": {

@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FormDesigner.Generator\FormDesigner.Generator.csproj" />
+    <ProjectReference Include="..\PowerShellProTools.SharedCommands\PowerShellProTools.SharedCommands.csproj" />
   </ItemGroup>
 
   <Target Name="BuiltProjectOutputGroupDependencies" />

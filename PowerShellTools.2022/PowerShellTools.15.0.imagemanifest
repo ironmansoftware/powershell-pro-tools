@@ -2,7 +2,7 @@
 <ImageManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/VisualStudio/ImageManifestSchema/2014">
   <Symbols>
     <!--;v1.2.3.4;32cd18849a3a99f8-->
-    <String Name="Resources" Value="/PowerShellTools.2022.2024.7.1;component/Resources" />
+    <String Name="Resources" Value="/PowerShellTools.2022.2024.12.0;component/Resources" />
     <Guid Name="ProjectGuid" Value="{072A9D46-0C24-4CFA-990A-25D7E12271F5}" />
     <ID Name="ProjectIcon" Value="1" />
     <ID Name="ScriptIcon" Value="2" />

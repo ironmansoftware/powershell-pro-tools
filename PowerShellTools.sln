@@ -110,6 +110,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{AC3316
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormDesigner", "WinFormDesigner\WinFormDesigner.csproj", "{D298DDAC-E45A-4CFC-92F9-25B260CD033B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellProTools.SharedCommands", "PowerShellProTools.SharedCommands\PowerShellProTools.SharedCommands.csproj", "{B57C312A-8907-49B5-9B49-A799276B5BAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -415,6 +417,18 @@ Global
 		{D298DDAC-E45A-4CFC-92F9-25B260CD033B}.Release|x64.Build.0 = Release|Any CPU
 		{D298DDAC-E45A-4CFC-92F9-25B260CD033B}.Release|x86.ActiveCfg = Release|Any CPU
 		{D298DDAC-E45A-4CFC-92F9-25B260CD033B}.Release|x86.Build.0 = Release|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Debug|x64.Build.0 = Debug|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Debug|x86.Build.0 = Debug|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Release|x64.ActiveCfg = Release|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Release|x64.Build.0 = Release|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Release|x86.ActiveCfg = Release|Any CPU
+		{B57C312A-8907-49B5-9B49-A799276B5BAB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

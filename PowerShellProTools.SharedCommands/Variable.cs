@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Xml;
-using Newtonsoft.Json;
 
 namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
 {
@@ -15,8 +13,6 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
         public string Type { get; set; }
         public bool HasChildren { get; set; }
         private Variable Parent { get; set; }
-
-        [JsonIgnore]
         public IEnumerable<Variable> StaticChildren { get; set; }
 
         public string Path { get; set; }

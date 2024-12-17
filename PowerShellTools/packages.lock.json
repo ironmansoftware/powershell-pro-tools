@@ -1135,6 +1135,7 @@
         "dependencies": {
           "Microsoft.Win32.Registry": "[4.5.0, )",
           "Newtonsoft.Json": "[9.0.1, )",
+          "PowerShellProTools.SharedCommands": "[1.0.0, )",
           "PowerShellProTools.VSCode": "[1.0.0, )",
           "PowerShellStandard.Library": "[5.1.0, )",
           "Serilog.Sinks.File": "[5.0.0, )"
@@ -1149,12 +1150,19 @@
           "PowerShellStandard.Library": "[5.1.0, )"
         }
       },
+      "powershellprotools.sharedcommands": {
+        "type": "Project",
+        "dependencies": {
+          "PowerShellStandard.Library": "[5.1.0, )"
+        }
+      },
       "PowerShellProTools.VSCode": {
         "type": "Project",
         "dependencies": {
           "FormDesigner.Generator": "[1.0.0, )",
           "ICSharpCode.Decompiler": "[7.0.0.6488, )",
           "Newtonsoft.Json": "[9.0.1, )",
+          "PowerShellProTools.SharedCommands": "[1.0.0, )",
           "PowerShellStandard.Library": "[5.1.0, )"
         }
       },
