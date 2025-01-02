@@ -46,15 +46,7 @@ namespace PowerShellTools.ServiceManagement
                 powershellPath = powershellLocator.PowerShellVersions[powershellLocator.DefaultVersion];
             }
 
-            bool windowsPs = false;
-            if (powershellVersion != "Windows PowerShell (x86)" && powershellVersion != "Windows PowerShell (x64)")
-            {
-                powershellPath = powershellLocator.PowerShellVersions[powershellLocator.DefaultVersion];
-            }
-            else
-            {
-                windowsPs = true;
-            }
+            var windowsPs = powershellVersion.StartsWith("Windows PowerShell");
 
             if (string.IsNullOrEmpty(powershellPath))
             {

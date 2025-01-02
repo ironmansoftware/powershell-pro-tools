@@ -30,7 +30,7 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
     public class PowerShellDebuggingService : PSHost, IHostSupportsInteractiveSession, IPowerShellDebuggingService
     {
         private PowerShell _currentPowerShell;
-        private string _varaiables;
+        private IEnumerable<Variable> _varaiables;
         private IEnumerable<PSObject> _callstack;
         private Collection<PSVariable> _localVariables;
         private Dictionary<string, object> _propVariables;
@@ -901,18 +901,7 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
                 ServiceCommon.Log("Failed to get variables. " + ex.Message);
             }
 
-            if (string.IsNullOrEmpty(_varaiables))
-            {
-                yield break;
-            }
-
-            var variables = PSSerializer.Deserialize(_varaiables);
-
-            var varaibles = JsonConvert.DeserializeObject<Variable[]>(_varaiables);
-            foreach(var variable in varaibles)
-            {
-                yield return variable;
-            }
+            return _varaiables;
         }
 
         public IEnumerable<PowerShellProTools.Host.Module> GetModules()
@@ -1306,7 +1295,12 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
                 var output = new PSDataCollection<PSObject>();
                 psCommand.Commands[0].MergeMyResults(PipelineResultTypes.Error, PipelineResultTypes.Output);
                 Runspace.Debugger.ProcessCommand(psCommand, output);
-                _varaiables = output.FirstOrDefault()?.BaseObject.ToString();
+                _varaiables = output.OfType<PSObject>().Select(m => new Variable(m.Members[nameof(Variable.VarName)].Value.ToString(), m.Members[nameof(Variable.VarValue)].Value)
+                {
+                    HasChildren = (bool)m.Members[nameof(Variable.HasChildren)].Value,
+                    Path = m.Members[nameof(Variable.Path)].Value.ToString(),
+                    Type = m.Members[nameof(Variable.Type)].Value.ToString()
+                });
             }
             else
             {
@@ -1314,8 +1308,7 @@ namespace PowerShellTools.HostService.ServiceManagement.Debugging
                 {
                     powershell.Runspace = Runspace;
                     powershell.AddScript("Get-Variable -Exclude @('foreach', 'switch') | Out-PoshToolsVariable -PassThru");
-                    var json = powershell.Invoke<string>().FirstOrDefault();
-                    _varaiables = json;
+                    _varaiables = powershell.Invoke<Variable>();
                 }
             }
         }
