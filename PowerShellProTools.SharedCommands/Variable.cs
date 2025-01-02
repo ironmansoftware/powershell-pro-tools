@@ -67,6 +67,13 @@ namespace PowerShellTools.Common.ServiceManagement.DebuggingContract
 
         public Variable() { }
 
+        public Variable(string name, object value)
+        {
+            VarName = name;
+            VarValue = value?.ToString();
+            GetVariableInfo(value);
+        }
+
         public Variable(PSVariable psVariable)
         {
             if (psVariable.Value != null)
