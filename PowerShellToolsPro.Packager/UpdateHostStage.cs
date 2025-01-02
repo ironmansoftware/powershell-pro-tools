@@ -2,11 +2,8 @@
 using AsmResolver.IO;
 using AsmResolver.PE;
 using AsmResolver.PE.DotNet.Builder;
-using AsmResolver.PE.File;
 using AsmResolver.PE.File.Headers;
 using AsmResolver.PE.Win32Resources;
-using AsmResolver.PE.Win32Resources.Builder;
-using AsmResolver.PE.Win32Resources.Icon;
 using AsmResolver.PE.Win32Resources.Version;
 using PowerShellToolsPro.Packager.Config;
 using System;
@@ -22,11 +19,77 @@ using System.Threading;
 using System.Xml.Serialization;
 using PSPackager;
 using System.Security.Cryptography.X509Certificates;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Reflection;
 
 namespace PowerShellToolsPro.Packager
 {
     public class UpdateHostStage : Stage
     {
+        private async Task DownloadHostAsync()
+        {
+            var version = GetVersion();
+
+            string url = $"https://github.com/ironmansoftware/powershell-pro-tools/releases/download/host-{version}/host.zip";
+            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string targetDirectory = Path.Combine(localAppData, "IronmanPowerShellHost", version);
+
+            Directory.CreateDirectory(targetDirectory);
+
+            string tempZipPath = Path.Combine(Path.GetTempPath(), "tempDownload.zip");
+
+            try
+            {
+                await DownloadFileAsync(url, tempZipPath);
+                ZipFile.ExtractToDirectory(tempZipPath, targetDirectory);
+            }
+            catch (Exception ex)
+            {
+                WriteErrorMessage($"Failed to download host: {ex.Message}");
+            }
+            finally
+            {
+                if (File.Exists(tempZipPath))
+                {
+                    File.Delete(tempZipPath);
+                }
+            }
+        }
+
+        static async Task DownloadFileAsync(string url, string destinationPath)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    response.EnsureSuccessStatusCode();
+
+                    using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                           fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                    {
+                        await contentStream.CopyToAsync(fileStream);
+                    }
+                }
+            }
+        }
+
+        private static string GetVersion()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream("PowershellToolsPro.Packager.poshtools.version.txt"))
+            {
+                if (stream == null)
+                {
+                    throw new FileNotFoundException($"Embedded resource 'poshtools.version.txt' not found.");
+                }
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd().Trim();
+                }
+            }
+        }
+
         public override StageResult Execute(PackageProcess process, StageResult previousStage)
         {
             var hostDownloadService = new HostDownloadService();
@@ -36,15 +99,23 @@ namespace PowerShellToolsPro.Packager
 
             WriteDebugMessage($"Generating assembly");
 
+            var version = GetVersion();
+
             if (string.IsNullOrEmpty(hostPath))
             {
-                var parentPath = Path.GetDirectoryName(GetType().Assembly.Location);
-                hostPath = Path.Combine(parentPath, "Hosts");
+                string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string targetDirectory = Path.Combine(localAppData, "IronmanPowerShellHost", version);
+
+                if (!Directory.Exists(targetDirectory))
+                {
+                    DownloadHostAsync().Wait();
+                }
+
                 switch (process.Config.Package.Host)
                 {
                     case PowerShellHosts.IronmanPowerShellHost:
                     case PowerShellHosts.IronmanPowerShellWinFormsHost:
-                        hostPath = Path.Combine(hostPath, "IronmanPowerShellHost.exe");
+                        hostPath = Path.Combine(targetDirectory, "IronmanPowerShellHost.exe");
                         break;
                     default:
                         return new StageResult(false);

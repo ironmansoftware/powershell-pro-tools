@@ -36,15 +36,11 @@
     <None Remove="FodyWeavers.xml" />
     <None Remove="GetBoundParameters.ps1" />
     <None Remove="Hosts\Console\app.manifest" />
-    <None Remove="Hosts\IronmanPowerShellHost.exe" />
-    <None Remove="Hosts\IronmanPowerShellHost7.exe" />
     <None Remove="Obfuscar.Console.exe" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Hosts\IronmanPowerShellHost.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="..\poshtools.version.txt" Link="poshtools.version.txt" />
   </ItemGroup>
 
   <ItemGroup>
