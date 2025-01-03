@@ -6,34 +6,34 @@ import Versioning from '../utilities/versioning';
 import { load } from '../settings';
 
 export class ModuleViewProvider extends TreeViewProvider {
-    getRefreshCommand(): string {
-        return "moduleView.refresh";
+	getRefreshCommand(): string {
+		return "moduleView.refresh";
 	}
-	
+
 	requiresLicense(): boolean {
 		return true;
 	}
 
-    private highestVersion: any[] = [];
-    
-	public static Instance : ModuleViewProvider;
+	private highestVersion: any[] = [];
 
-    constructor() {
-        super();
-        ModuleViewProvider.Instance = this;
-        vscode.commands.registerCommand('moduleExplorer.updateModule', this.updateModule);
-        vscode.commands.registerCommand('moduleExplorer.uninstallModule', this.uninstallModule);
-    }
+	public static Instance: ModuleViewProvider;
 
-    async getNodes(): Promise<vscode.TreeItem[]> {
-        var modules = await Container.PowerShellService.GetModules();
+	constructor() {
+		super();
+		ModuleViewProvider.Instance = this;
+		vscode.commands.registerCommand('moduleExplorer.updateModule', this.updateModule);
+		vscode.commands.registerCommand('moduleExplorer.uninstallModule', this.uninstallModule);
+	}
+
+	async getNodes(): Promise<vscode.TreeItem[]> {
+		var modules = await Container.PowerShellService.GetModules();
 		return modules.map(m => {
 			return new Module(m.Name, m.Versions.map(x => new ModuleVersion(x.Version, x.ModuleBase, m.FromRepository)), m.FromRepository);
 		})
-    }
+	}
 
-    	
-	async updateModule(item : Module) {
+
+	async updateModule(item: Module) {
 		await item.setUpdating(true);
 		await Container.PowerShellService.SendTerminalCommand(`Update-Module -Name '${item.label}' -RequiredVersion '${item.higherVersion}'`);
 		await item.setUpdating(false);
@@ -46,13 +46,13 @@ export class ModuleViewProvider extends TreeViewProvider {
 		vscode.window.showInformationMessage(`Uninstalled module ${item.label} (${item.version})`);
 		vscode.window.setStatusBarMessage('');
 		_this.refresh();
-    }
-    
-    cacheHighestVersion(moduleVersion : any) {
+	}
+
+	cacheHighestVersion(moduleVersion: any) {
 		this.highestVersion.push(moduleVersion);
 	}
 
-	findHighestVersion(module : Module) {
+	findHighestVersion(module: Module) {
 		var highest = this.highestVersion.find(m => m.Name === module.label);
 		if (highest != null) {
 			return highest.version;
@@ -68,31 +68,31 @@ export class Module extends ParentTreeItem {
 		return Promise.resolve(this.versions);
 	}
 
-	foundHigherVersion : boolean = false;
-	public higherVersion : string;
+	foundHigherVersion: boolean = false;
+	public higherVersion: string;
 
-	public updating : boolean = false;
+	public updating: boolean = false;
 
 	constructor(
-        public readonly label: string,
+		public readonly label: string,
 		public readonly versions: ModuleVersion[],
 		public readonly fromGallery: boolean
 	) {
 		super(label, vscode.TreeItemCollapsibleState.Collapsed);
 
+		this.iconPath = new vscode.ThemeIcon('package');
+
 		var settings = load();
-		if (settings.checkForModuleUpdates)
-		{
+		if (settings.checkForModuleUpdates) {
 			if (this.fromGallery) {
 				vscode.window.setStatusBarMessage(`Checking for new version of module ${label}...`);
 				var highestVersion = ModuleViewProvider.Instance.findHighestVersion(this);
-	
+
 				if (highestVersion == null) {
 					Container.PowerShellService.FindModuleVersion(this.label).then(version => {
 						this.checkVersion(version);
 					})
-				} else 
-				{
+				} else {
 					this.checkVersion(highestVersion);
 				}
 				vscode.window.setStatusBarMessage('');
@@ -100,7 +100,7 @@ export class Module extends ParentTreeItem {
 		}
 	}
 
-	async setUpdating(updating : boolean) {
+	async setUpdating(updating: boolean) {
 		if (updating) {
 			this.updating = updating;
 			this.contextValue = '';
@@ -118,7 +118,7 @@ export class Module extends ParentTreeItem {
 
 	checkVersion(version) {
 		var versioning = new Versioning();
-	
+
 		var uptodate = false;
 		this.versions.forEach(x => {
 			if (versioning.compare(x.version, version) >= 0) {
@@ -126,7 +126,7 @@ export class Module extends ParentTreeItem {
 			}
 		})
 
-		ModuleViewProvider.Instance.cacheHighestVersion({Name: this.label, Version: version});
+		ModuleViewProvider.Instance.cacheHighestVersion({ Name: this.label, Version: version });
 
 		if (!uptodate) {
 			this.contextValue = 'update'
@@ -135,16 +135,16 @@ export class Module extends ParentTreeItem {
 			ModuleViewProvider.Instance.refresh(this);
 		}
 	}
-	
+
 	public getTreeItem(): vscode.TreeItem {
-        return {
+		return {
 			tooltip: this._tooltip,
 			contextValue: this.contextValue,
-			collapsibleState: this.collapsibleState, 
+			collapsibleState: this.collapsibleState,
 			label: this.label,
 			description: this._description
 		};
-    }
+	}
 
 	get _tooltip(): string {
 		return `${this.label}`;
@@ -162,19 +162,14 @@ export class Module extends ParentTreeItem {
 		}
 
 		return updateAvailable;
-    }
-
-	iconPath = {
-		light: path.join(__filename, '..', '..', 'resources', 'light', 'dependency.svg'),
-		dark: path.join(__filename, '..', '..', 'resources', 'dark', 'dependency.svg')
-	};
+	}
 }
 
 class ModuleVersion extends vscode.TreeItem {
 	constructor(
-        public readonly version: string,
+		public readonly version: string,
 		public readonly location: string,
-		public readonly fromRepository : boolean
+		public readonly fromRepository: boolean
 	) {
 		super(version, vscode.TreeItemCollapsibleState.None);
 
@@ -182,18 +177,18 @@ class ModuleVersion extends vscode.TreeItem {
 			this.contextValue = 'uninstall'
 		}
 	}
-	
+
 	public getTreeItem(): vscode.TreeItem {
-        return {
+		return {
 			tooltip: this._tooltip,
 			contextValue: this.contextValue,
-			collapsibleState: this.collapsibleState, 
+			collapsibleState: this.collapsibleState,
 			label: this.label,
 			description: this._description
 		};
-    }
-    
-    get _tooltip(): string {
+	}
+
+	get _tooltip(): string {
 		return this.location;
 	}
 
