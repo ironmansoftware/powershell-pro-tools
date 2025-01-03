@@ -11,10 +11,14 @@
 
   <ItemGroup>
     <None Remove="PowerShellProTools.VSCode.psd1" />
+    <None Remove="PowerShellProTools.VSCode.psm1" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="PowerShellProTools.VSCode.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PowerShellProTools.VSCode.psm1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

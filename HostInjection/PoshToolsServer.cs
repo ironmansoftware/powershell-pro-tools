@@ -812,24 +812,36 @@ $RS.Events.SubscribeEvent($null, 'PowerShell.OnIdle',  'PowerShell.OnIdle', $nul
             ExecutePowerShell($"[PowerShellToolsPro.VSCode.TreeViewService]::Instance.RefreshTreeView('{treeViewId}')");
         }
 
-        public IEnumerable<string> GetHistory()
+        public IEnumerable<string> GetHistory(int count)
         {
-            var history = ExecutePowerShellMainRunspace<string>("Get-Content (Get-PSReadLineOption).HistorySavePath | Select-Object -First 25");
+            var history = ExecutePowerShellMainRunspace<string>("Get-Content (Get-PSReadLineOption).HistorySavePath");
             var result = new List<string>();
+
+            var regEx = new System.Text.RegularExpressions.Regex(@"Get-Content \(Get-PSReadLineOption\).HistorySavePath|Clear-Host|Import-Module '.*PowerShellProTools(?:\.VSCode)?\.psd1'|Start-PoshToolsServer -PipeName '\w+'(?:\nClear-Host)?");
 
             StringBuilder multiLine = null;
             foreach (var item in history)
             {
-                if (item.EndsWith("`"))
+                // Skip the import and start server commands
+                if (regEx.Match(item).Success)
+                {
+                    continue;
+                }
+
+                if (item.EndsWith("`") && multiLine == null)
                 {
                     multiLine = new StringBuilder();
                     multiLine.AppendLine(item.TrimEnd('`'));
                 }
+                else if (item.EndsWith("`") && multiLine != null)
+                {
+                    multiLine.AppendLine(item.TrimEnd('`'));
+                }
                 else if (multiLine != null)
                 {
+                    multiLine.AppendLine(item.TrimEnd('`'));
                     result.Add(multiLine.ToString());
                     multiLine = null;
-                    result.Add(item);
                 }
                 else
                 {
@@ -839,7 +851,7 @@ $RS.Events.SubscribeEvent($null, 'PowerShell.OnIdle',  'PowerShell.OnIdle', $nul
 
             result.Reverse();
 
-            return result;
+            return result.Take(count);
         }
 
         public IEnumerable<PSJob> GetJobs()

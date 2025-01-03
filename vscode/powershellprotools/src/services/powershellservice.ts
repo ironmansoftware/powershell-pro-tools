@@ -529,7 +529,9 @@ export class PowerShellService {
     }
 
     async GetHistory(): Promise<Array<string>> {
-        var result = await this.invokeMethod("GetHistory", []);
+        const count = vscode.workspace.getConfiguration("terminal.integrated.shellIntegration").get("history") as Number;
+
+        var result = await this.invokeMethod("GetHistory", [count]);
         return result.Data;
     }
 
