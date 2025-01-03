@@ -36,3 +36,9 @@ jobs:
         dotnet publish -f net6.0 -c Release .\IronmanPowerShellHost.csproj
         dotnet publish -f net6.0 -c NoPowerShell .\IronmanPowerShellHost.csproj
         dotnet publish -f net6.0-windows -c NoPowerShell .\IronmanPowerShellHost.csproj -p:UseWindowsForms=true
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: PowerShellTools
+        path: IronmanPowerShellHost/bin/Release
