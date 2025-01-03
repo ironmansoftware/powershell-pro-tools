@@ -43,13 +43,6 @@ jobs:
         dotnet restore PowerShellTools.sln
         nuget restore PowerShellTools.sln
 
-    - name: Build Ironman Host
-      shell: pwsh
-      run: |
-        Push-Location IronmanPowerShellHost
-        dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
-        Pop-Location
-
     - name: Build Windows Form Designer
       shell: pwsh
       run: |
