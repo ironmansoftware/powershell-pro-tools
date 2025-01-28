@@ -48,27 +48,31 @@ namespace PowerShellTools.Shared.Project.PropertyPages
             PowerShellVersions = new[]
             {
                 "Windows PowerShell",
-                "7.0.0",
-                "7.0.1",
-                "7.0.2",
-                "7.0.3",
-                "7.0.6",
-                "7.1.0",
-                "7.1.1",
-                "7.1.2",
-                "7.1.3",
-                "7.1.4",
-                "7.1.5",
                 "7.2.0",
                 "7.2.1",
+                "7.2.10",
+                "7.2.12",
+                "7.2.13",
+                "7.2.14",
+                "7.2.16",
+                "7.2.17",
+                "7.2.18",
                 "7.2.2",
+                "7.2.21",
+                "7.2.22",
+                "7.2.23",
+                "7.2.24",
                 "7.2.3",
                 "7.2.4",
                 "7.2.5",
                 "7.2.6",
                 "7.2.7",
+                "7.2.8",
+                "7.2.9",
                 "7.3.0",
                 "7.3.1",
+                "7.3.10",
+                "7.3.11",
                 "7.3.2",
                 "7.3.3",
                 "7.3.4",
@@ -77,9 +81,15 @@ namespace PowerShellTools.Shared.Project.PropertyPages
                 "7.3.7",
                 "7.3.8",
                 "7.3.9",
-                "7.3.10",
-                "7.4.0"
-
+                "7.4.0",
+                "7.4.1",
+                "7.4.2",
+                "7.4.3",
+                "7.4.4",
+                "7.4.5",
+                "7.4.6",
+                "7.4.7",
+                "7.5.0"
             };
 
             NetVersions = new[]
@@ -89,6 +99,7 @@ namespace PowerShellTools.Shared.Project.PropertyPages
                 "net471",
                 "net472",
                 "net480",
+                "net481",
                 "netcoreapp31",
                 "net5.0",
                 "net6.0",
@@ -248,6 +259,18 @@ namespace PowerShellTools.Shared.Project.PropertyPages
                 if (Version.TryParse(value, out Version version3) && version2.Major == 7 && version2.Minor == 3)
                 {
                     NetVersion = "net7.0";
+                    DotNetVersionEnabled = false;
+                }
+
+                if (Version.TryParse(value, out Version version4) && version2.Major == 7 && version2.Minor == 4)
+                {
+                    NetVersion = "net8.0";
+                    DotNetVersionEnabled = false;
+                }
+
+                if (Version.TryParse(value, out Version version5) && version2.Major == 7 && version2.Minor == 5)
+                {
+                    NetVersion = "net9.0";
                     DotNetVersionEnabled = false;
                 }
 
