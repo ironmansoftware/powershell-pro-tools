@@ -129,10 +129,10 @@ namespace PowerShellToolsPro.Packager
 
     public class ValidateStage : Stage
     {
-        public string[] validPSVersions = new[] { "7.0.0", "7.0.1", "7.0.2", "7.0.3", "7.0.6", "7.1.0", "7.1.1", "7.1.2", "7.1.3", "7.1.4", "7.1.5", "7.2.0", "7.2.1", "7.2.2", "7.2.3", "7.2.4", "7.2.5", "7.2.6", "7.2.7", "7.3.0", "7.3.1", "7.3.2", "7.3.3", "7.3.4", "7.3.5", "7.3.6", "7.3.7", "7.3.8", "7.3.9", "7.3.10", "7.4.0" };
-        public string[] validNetVersionsForSystemDefault = new[] { "net462", "net470", "net471", "net472", "net480" };
-        public string[] validNetVersionsForNew = new[] { "netcoreapp31", "net50", "net60", "net70", "net80" };
-        public string[] validNetVersions = new[] { "net462", "net470", "net471", "net472", "net480", "netcoreapp31", "net50", "net60", "net70", "net80" };
+        public string[] validPSVersions = new[] { "7.2.0", "7.2.1", "7.2.10", "7.2.12", "7.2.13", "7.2.14", "7.2.16", "7.2.17", "7.2.18", "7.2.2", "7.2.21", "7.2.22", "7.2.23", "7.2.24", "7.2.3", "7.2.4", "7.2.5", "7.2.6", "7.2.7", "7.2.8", "7.2.9", "7.3.0", "7.3.1", "7.3.10", "7.3.11", "7.3.2", "7.3.3", "7.3.4", "7.3.5", "7.3.6", "7.3.7", "7.3.8", "7.3.9", "7.4.0", "7.4.1", "7.4.2", "7.4.3", "7.4.4", "7.4.5", "7.4.6", "7.4.7", "7.5.0" };
+        public string[] validNetVersionsForSystemDefault = new[] { "net462", "net470", "net471", "net472", "net480", "net481" };
+        public string[] validNetVersionsForNew = new[] { "netcoreapp31", "net50", "net60", "net70", "net80", "net81", "net90" };
+        public string[] validNetVersions = new[] { "net462", "net470", "net471", "net472", "net480", "net481", "netcoreapp31", "net50", "net60", "net70", "net80", "net90" };
 
         public override StageResult Execute(PackageProcess process, StageResult previousStage)
         {
