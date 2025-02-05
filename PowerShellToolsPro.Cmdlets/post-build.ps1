@@ -4,7 +4,7 @@ $ManifestPath = Join-Path $OutDir PowerShellProTools.psd1
 $ModulePath = Join-Path $OutDir PowerShellProTools.psm1
 Remove-Item $ManifestPath -ErrorAction SilentlyContinue
 
-$Version = "2024.7.0"
+$Version = "2025.2.0"
 #$prerelease = "-beta1"
 
 $powerShellGet = Import-Module PowerShellGet  -PassThru -ErrorAction Ignore -RequiredVersion 2.2.5
