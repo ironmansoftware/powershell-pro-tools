@@ -60,7 +60,7 @@ jobs:
         msbuild PowerShellTools.sln -p:Configuration=Release -p:Platform="Any CPU" -p:DevEnvDir="$devenv"
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: PowerShellTools
         path: bin/Release/PowerShellTools.*.vsix

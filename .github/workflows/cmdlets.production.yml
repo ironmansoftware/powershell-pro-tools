@@ -70,7 +70,7 @@ jobs:
       env:
         PSGALLERY: ${{ secrets.PSGALLERY }}
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: PowerShellTools.Cmdlets
         path: ./PowerShellToolsPro.Cmdlets/out
