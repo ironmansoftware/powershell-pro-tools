@@ -34,7 +34,7 @@ jobs:
         dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: PowerShellTools
         path: IronmanPowerShellHost/bin/Release
