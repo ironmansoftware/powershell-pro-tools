@@ -372,162 +372,202 @@
                 "icon": "$(link-external)"
             }
         ],
-        "configuration": {
-            "type": "object",
-            "title": "PowerShell Pro Tools",
-            "properties": {
-                "poshProTools.universalDashboardPreviewPort": {
-                    "type": "number",
-                    "default": 10000,
-                    "description": "The port to start Universal Dashboard on when running the Preview Universal Dashboard command."
-                },
-                "poshProTools.showUpgradeNotification": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Show upgrade notification."
-                },
-                "poshProTools.checkForModuleUpdates": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Whether to check for updated versions of the modules you have installed. This can be slow if you have a lot of modules installed."
-                },
-                "poshProTools.sideBar.astVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of the Abstract Syntax Tree in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.hostProcessVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Host Processes in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.moduleVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Modules in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.providerVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Providers in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.reflectionVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Reflection in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.quickScriptVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Quick Scripts in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.jobVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Jobs in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.variableVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Variables in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.customVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Custom in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.historyVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of History Explorer in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.sideBar.sessionVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of Sessions in the PowerShell Pro Tools Side Bar."
-                },
-                "poshProTools.toolbar.runInNewTerminal": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether to display the Run in New Terminal button."
-                },
-                "poshProTools.toolbar.quickScripts": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether to display the Quick Scripts button."
-                },
-                "poshProTools.toolbar.packageAsExecutable": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether to display the package as executable button."
-                },
-                "poshProTools.toolbar.formDesigner": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether to display the form designer button."
-                },
-                "poshProTools.ignoredModules": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "RapidSense: Modules to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
-                },
-                "poshProTools.ignoredAssemblies": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "RapidSense: Assemblies to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
-                },
-                "poshProTools.ignoredTypes": {
-                    "type": "string",
-                    "default": ".*AnonymousType.*;.*ImplementationDetails.*;_.*",
-                    "markdownDescription": "RapidSense: Types to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
-                },
-                "poshProTools.ignoredCommands": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "RapidSense: Commands to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
-                },
-                "poshProTools.ignoredVariables": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "RapidSense: Variables to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
-                },
-                "poshProTools.ignoredPaths": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "RapidSense: Paths to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
-                },
-                "poshProTools.defaultPackagePsd1Path": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "Default package.psd1 file path."
-                },
-                "poshProTools.signOnSave": {
-                    "type": "boolean",
-                    "default": false,
-                    "markdownDescription": "Sign PS1 files when they are saved."
-                },
-                "poshProTools.signOnSaveCertificate": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "The certificate to use when signing a script on save. This should be the Get-ChildItem path to the certificate."
-                },
-                "poshProTools.excludeAutomaticVariables": {
-                    "type": "boolean",
-                    "default": false,
-                    "markdownDescription": "Whether to exclude automatic variables from the variables window."
-                },
-                "poshProTools.clearScreenAfterLoad": {
-                    "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Whether to clear the terminal after loading PowerShell Pro Tools. Set to false to see any errors loading the module."
-                },
-                "poshProTools.disableNewsNotification": {
-                    "type": "boolean",
-                    "default": false,
-                    "markdownDescription": "Disables the notification when Ironman Software publishes news."
+        "configuration": [
+            {
+                "title": "General",
+                "properties": {
+                    "poshProTools.showUpgradeNotification": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Show upgrade notification."
+                    },
+                    "poshProTools.checkForModuleUpdates": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Whether to check for updated versions of the modules you have installed. This can be slow if you have a lot of modules installed."
+                    },
+                    "poshProTools.toolbar.runInNewTerminal": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Whether to display the Run in New Terminal button."
+                    },
+                    "poshProTools.toolbar.quickScripts": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Whether to display the Quick Scripts button."
+                    },
+                    "poshProTools.toolbar.packageAsExecutable": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Whether to display the package as executable button."
+                    },
+                    "poshProTools.toolbar.formDesigner": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Whether to display the form designer button."
+                    },
+                    "poshProTools.defaultPackagePsd1Path": {
+                        "type": "string",
+                        "default": "",
+                        "markdownDescription": "Default package.psd1 file path."
+                    },
+                    "poshProTools.signOnSave": {
+                        "type": "boolean",
+                        "default": false,
+                        "markdownDescription": "Sign PS1 files when they are saved."
+                    },
+                    "poshProTools.signOnSaveCertificate": {
+                        "type": "string",
+                        "default": "",
+                        "markdownDescription": "The certificate to use when signing a script on save. This should be the Get-ChildItem path to the certificate."
+                    },
+                    "poshProTools.excludeAutomaticVariables": {
+                        "type": "boolean",
+                        "default": false,
+                        "markdownDescription": "Whether to exclude automatic variables from the variables window."
+                    },
+                    "poshProTools.clearScreenAfterLoad": {
+                        "type": "boolean",
+                        "default": true,
+                        "markdownDescription": "Whether to clear the terminal after loading PowerShell Pro Tools. Set to false to see any errors loading the module."
+                    },
+                    "poshProTools.disableNewsNotification": {
+                        "type": "boolean",
+                        "default": false,
+                        "markdownDescription": "Disables the notification when Ironman Software publishes news."
+                    }
+                }
+            },
+            {
+                "title": "RapidSense",
+                "properties": {
+                    "poshProTools.ignoredModules": {
+                        "type": "string",
+                        "default": "",
+                        "markdownDescription": "RapidSense: Modules to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                    },
+                    "poshProTools.ignoredAssemblies": {
+                        "type": "string",
+                        "default": "",
+                        "markdownDescription": "RapidSense: Assemblies to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                    },
+                    "poshProTools.ignoredTypes": {
+                        "type": "string",
+                        "default": ".*AnonymousType.*;.*ImplementationDetails.*;_.*",
+                        "markdownDescription": "RapidSense: Types to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                    },
+                    "poshProTools.ignoredCommands": {
+                        "type": "string",
+                        "default": "",
+                        "markdownDescription": "RapidSense: Commands to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                    },
+                    "poshProTools.ignoredVariables": {
+                        "type": "string",
+                        "default": "",
+                        "markdownDescription": "RapidSense: Variables to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                    },
+                    "poshProTools.ignoredPaths": {
+                        "type": "string",
+                        "default": "",
+                        "markdownDescription": "RapidSense: Paths to ignore. Separate items by a semicolon (;). This setting can include regular expressions."
+                    }
+                }
+            },
+            {
+                "title": "Side Bar",
+                "properties": {
+                    "poshProTools.sideBar.astVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of the Abstract Syntax Tree in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.hostProcessVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Host Processes in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.moduleVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Modules in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.providerVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Providers in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.reflectionVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Reflection in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.quickScriptVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Quick Scripts in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.jobVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Jobs in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.variableVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Variables in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.customVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Custom in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.historyVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of History Explorer in the PowerShell Pro Tools Side Bar."
+                    },
+                    "poshProTools.sideBar.sessionVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Specifies the visibility of Sessions in the PowerShell Pro Tools Side Bar."
+                    }
+                }
+            },
+            {
+                "title": "Status Bar",
+                "properties": {
+                    "poshProTools.statusBar.performanceVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "markdownDescription": "Visibility of the performance indicator in the status bar."
+                    },
+                    "poshProTools.statusBar.performanceAlignment": {
+                        "type": "string",
+                        "default": "left",
+                        "anyOf": [
+                            "left",
+                            "right"
+                        ],
+                        "markdownDescription": "The alignment of the performance indicator in the status bar."
+                    },
+                    "poshProTools.statusBar.performanceRefreshInterval": {
+                        "type": "integer",
+                        "default": 5,
+                        "markdownDescription": "The refresh interval for the performance indicator in the status bar."
+                    },
+                    "poshProTools.statusBar.statusVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "markdownDescription": "Visibility of the status indicator in the status bar."
+                    },
+                    "poshProTools.statusBar.rapidSenseVisibility": {
+                        "type": "boolean",
+                        "default": true,
+                        "markdownDescription": "Visibility of the RapidSense indicator in the status bar."
+                    }
                 }
             }
-        },
+        ],
         "keybindings": [
             {
                 "command": "poshProTools.runInNewTerminal",

@@ -12,14 +12,18 @@ export class RapidSenseCommand implements ICommand {
     register(context: vscode.ExtensionContext) {
         context.subscriptions.push(this.toggleRapidSense());
 
-        this.statusBarItem =
-            vscode.window.createStatusBarItem(
-                vscode.StatusBarAlignment.Right,
-                1);
+        const settings = load();
 
-        this.statusBarItem.command = "poshProTools.toggleRapidSense";
-        this.statusBarItem.text = "IntelliSense";
-        this.statusBarItem.show();
+        if (settings.statusBar.rapidSenseVisibility) {
+            this.statusBarItem =
+                vscode.window.createStatusBarItem(
+                    vscode.StatusBarAlignment.Right,
+                    1);
+
+            this.statusBarItem.command = "poshProTools.toggleRapidSense";
+            this.statusBarItem.text = "IntelliSense";
+            this.statusBarItem.show();
+        }
 
         const provider1 = vscode.languages.registerCompletionItemProvider('powershell', this, "$", ".", "-", "[", "\\");
 

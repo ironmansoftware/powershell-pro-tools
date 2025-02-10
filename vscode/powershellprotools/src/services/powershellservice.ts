@@ -29,23 +29,27 @@ export class PowerShellService {
     }
 
     constructor(context: vscode.ExtensionContext, pipeName?: string) {
-        this.statusBarItem =
-            vscode.window.createStatusBarItem(
-                vscode.StatusBarAlignment.Right,
-                1);
+        const settings = load();
+        if (settings.statusBar.statusVisibility) {
+            this.statusBarItem =
+                vscode.window.createStatusBarItem(
+                    vscode.StatusBarAlignment.Right,
+                    1);
 
-        this.statusBarItem.command = "poshProTools.statusBarMenu";
-        this.statusBarItem.show();
-        vscode.window.onDidChangeActiveTextEditor((textEditor) => {
-            if (textEditor === undefined
-                || textEditor.document.languageId !== "powershell") {
-                this.statusBarItem.hide();
-            } else {
-                this.statusBarItem.show();
-            }
-        });
+            this.statusBarItem.command = "poshProTools.statusBarMenu";
+            this.statusBarItem.show();
 
-        context.subscriptions.push(this.statusBarItem)
+            vscode.window.onDidChangeActiveTextEditor((textEditor) => {
+                if (textEditor === undefined
+                    || textEditor.document.languageId !== "powershell") {
+                    this.statusBarItem.hide();
+                } else {
+                    this.statusBarItem.show();
+                }
+            });
+
+            context.subscriptions.push(this.statusBarItem)
+        }
 
         if (pipeName) {
             this.pipeName = pipeName;
@@ -80,9 +84,13 @@ export class PowerShellService {
             toolTip = "PowerShell Pro Tools is disabled because Persistent Terminal Sessions is enabled. Please disable Persistent Terminal Sessions and reload the window.";
         }
 
-        this.statusBarItem.color = statusColor;
-        this.statusBarItem.text = statusIconText;
-        this.statusBarItem.tooltip = toolTip;
+        const settings = load();
+        if (settings.statusBar.statusVisibility) {
+            this.statusBarItem.color = statusColor;
+            this.statusBarItem.text = statusIconText;
+            this.statusBarItem.tooltip = toolTip;
+        }
+
         this.sessionStatus = status;
     }
 
