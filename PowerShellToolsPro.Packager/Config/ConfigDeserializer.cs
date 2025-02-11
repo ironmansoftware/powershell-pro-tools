@@ -21,6 +21,7 @@ namespace PowerShellToolsPro.Packager.Config
             var config = new PsPackConfig();
             config.Root = ReadScalarValue<string>(configTable, "Root");
             config.Root = _pathResolver.Resolve(config.Root);
+
             config.OutputPath = ReadScalarValue<string>(configTable, "OutputPath");
             config.OutputPath = _pathResolver.Resolve(config.OutputPath);
 
@@ -81,7 +82,7 @@ namespace PowerShellToolsPro.Packager.Config
             Hashtable configTable;
             using (var ps = PowerShell.Create())
             {
-                ps.AddScript(contents);
+                ps.AddCommand("Import-PowerShellDataFile").AddParameter("Path", file);
                 configTable = ps.Invoke<Hashtable>().FirstOrDefault();
 
                 if (ps.HadErrors)
@@ -108,35 +109,24 @@ namespace PowerShellToolsPro.Packager.Config
                     return (T)pSObject.BaseObject;
                 }
 
+                if (typeof(T) == typeof(string))
+                {
+                    var stringValue = value as string;
+                    if (stringValue == null)
+                    {
+                        return defaultValue;
+                    }
+
+                    value = Environment.ExpandEnvironmentVariables(stringValue);
+
+                    return (T)value;
+                }
+
                 return (T)value;
             }
             catch (Exception ex)
             {
                 throw new Exception($"Failed to read '{key}'. Expected '{typeof(T)}' but was '{table[key].GetType()}'.", ex);
-            }
-
-        }
-
-        private static T ReadScalarValue<T>(PSObject table, string key, T defaultValue = default(T))
-        {
-            try
-            {
-                if (!table.Properties.Any(x => x.Name.Equals(key, StringComparison.OrdinalIgnoreCase)))
-                {
-                    return defaultValue;
-                }
-
-                var value = table.Properties[key].Value;
-                if (value is PSObject pSObject)
-                {
-                    return (T)pSObject.BaseObject;
-                }
-
-                return (T)value;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Failed to read '{key}'. Expected '{typeof(T)}' but was '{table.Properties[key].GetType()}'.", ex);
             }
 
         }
