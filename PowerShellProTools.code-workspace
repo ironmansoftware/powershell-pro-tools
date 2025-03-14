@@ -1,0 +1,53 @@
+{
+	"folders": [
+		{
+			"name": "PS Pro Tools",
+			"path": "..\\powershell-pro-tools"
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			"**/*.rpyc": true,
+			"**/*.rpa": true,
+			"**/*.rpymc": true,
+			"**/cache/": true
+		},
+		"[csharp]": {
+			"editor.maxTokenizationLineLength": 2500
+		},
+		"powershell.sideBar.CommandExplorerVisibility": false,
+		"powershell.buttons.showPanelMovementButtons": false,
+		"powershell.pester.codeLens": true,
+		"powershell.enableProfileLoading": true,
+		"powershell.cwd": "Source",
+		"powershell.developer.editorServicesLogLevel": "Information",
+		"powershell.trace.server": "messages",
+		"dotnet.defaultSolution": "Source/powershell-pro-tools",
+		"dotnet.preferCSharpExtension": false,
+		"xml.fileAssociations": [
+			{
+				"pattern": "**/*.csproj",
+				"systemId": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Microsoft.Build.xsd",
+				// "systemId": "https://github.com/dotnet/msbuild/raw/refs/heads/main/src/MSBuild/Microsoft.Build.xsd"
+			}
+		],
+		"xml.codeLens.enabled": true,
+		"xml.format.joinContentLines": true,
+		"xml.trace.server": "messages",
+		"xml.validation.namespaces.enabled": "onNamespaceEncountered",
+		"xml.colors": [
+			{
+				"expressions": [
+					{
+						"xpath": "/Project/PropertyGroup/TargetFramework",
+						// goldenrod
+						"color": "#DAA520"
+					}
+				],
+				"pattern": "**/*.csproj"
+			}
+		],
+		// "xml.format.xsiSchemaLocationSplit": "none",
+		"todo-tree.tree.scanMode": "open files"
+	}
+}

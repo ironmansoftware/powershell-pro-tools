@@ -3,6 +3,10 @@
   "title": "PowerShell Pro Tools for VS Code",
   "steps": [
     {
+      "title": "Overview",
+      "description": "PowerShell Pro Tools is a collection of extensions for Visual Studio and Visual Studio Code to enhance the PowerShell editing experience.\r\n\r\nIt includes tools that do the following:\r\n\r\n- Windows Form Designer for PowerShell\r\n- PowerShell Script Executable Packaging\r\n- Refactoring\r\n- Variable Window\r\n- Module Window"
+    },
+    {
       "title": "Requirements",
       "description": "You'll need the following installed:\r\n- [VS Code](https://code.visualstudio.com/)\r\n- [NodeJS](https://nodejs.org/en)\r\n- [.NET](https://dotnet.microsoft.com/en-us/download)\r\n- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/community/)\r\n- [InvokeBuild](https://github.com/nightroman/Invoke-Build)"
     },
