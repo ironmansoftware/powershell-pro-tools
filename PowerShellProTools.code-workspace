@@ -17,7 +17,7 @@
 		},
 		"powershell.sideBar.CommandExplorerVisibility": false,
 		"powershell.buttons.showPanelMovementButtons": false,
-		"powershell.pester.codeLens": true,
+		"powershell.pester.codeLens": false,
 		"powershell.enableProfileLoading": true,
 		"powershell.cwd": "Source",
 		"powershell.developer.editorServicesLogLevel": "Information",
