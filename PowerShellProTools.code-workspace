@@ -7,19 +7,12 @@
 	],
 	"settings": {
 		"files.exclude": {
-			"**/*.rpyc": true,
-			"**/*.rpa": true,
-			"**/*.rpymc": true,
-			"**/cache/": true
+			".vs/": true,
+			"bin/": true,
+			"obj/": true,
+			"node_modules/": false,
 		},
-		"[csharp]": {
-			"editor.maxTokenizationLineLength": 2500
-		},
-		"powershell.sideBar.CommandExplorerVisibility": false,
-		"powershell.buttons.showPanelMovementButtons": false,
-		"powershell.pester.codeLens": false,
-		"powershell.enableProfileLoading": true,
-		"powershell.cwd": "Source",
+		"powershell.cwd": "PS Pro Tools",
 		"powershell.developer.editorServicesLogLevel": "Information",
 		"powershell.trace.server": "messages",
 		"dotnet.defaultSolution": "Source/powershell-pro-tools",
@@ -34,20 +27,5 @@
 		"xml.codeLens.enabled": true,
 		"xml.format.joinContentLines": true,
 		"xml.trace.server": "messages",
-		"xml.validation.namespaces.enabled": "onNamespaceEncountered",
-		"xml.colors": [
-			{
-				"expressions": [
-					{
-						"xpath": "/Project/PropertyGroup/TargetFramework",
-						// goldenrod
-						"color": "#DAA520"
-					}
-				],
-				"pattern": "**/*.csproj"
-			}
-		],
-		// "xml.format.xsiSchemaLocationSplit": "none",
-		"todo-tree.tree.scanMode": "open files"
 	}
 }
