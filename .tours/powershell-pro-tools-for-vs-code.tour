@@ -1,0 +1,44 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "PowerShell Pro Tools for VS Code",
+  "steps": [
+    {
+      "title": "Overview",
+      "description": "PowerShell Pro Tools is a collection of extensions for Visual Studio and Visual Studio Code to enhance the PowerShell editing experience.\r\n\r\nIt includes tools that do the following:\r\n\r\n- Windows Form Designer for PowerShell\r\n- PowerShell Script Executable Packaging\r\n- Refactoring\r\n- Variable Window\r\n- Module Window"
+    },
+    {
+      "title": "Requirements",
+      "description": "You'll need the following installed:\r\n- [VS Code](https://code.visualstudio.com/)\r\n- [NodeJS](https://nodejs.org/en)\r\n- [.NET](https://dotnet.microsoft.com/en-us/download)\r\n- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/community/)\r\n- [InvokeBuild](https://github.com/nightroman/Invoke-Build)"
+    },
+    {
+      "title": "Build Process",
+      "description": "You can use the `./vscode/vscode.build.ps1` build script to build the extension. It will install the necessary NPM\r\npackages, build the .NET libraries and package the VSIX.\r\n```ps1\r\nSet-Location ./vscode\r\nInvoke-Build\r\n```",
+      "file": "vscode/vscode.build.ps1"
+    },
+    {
+      "title": "Debugging",
+      "description": "You will need to run the `./vscode/vscode.build.ps1` script once to ensure all the proper binaries are generated. Once this is done, you can open VS Code in the `./vscode/powershellprotools` directory.\r\n```ps1\r\ncode ./vscode/powershellprotools\r\n```\r\nOnce open, you can begin debugging by pressing `F5`. You can set breakpoints and step through the extension.",
+      "file": "vscode/vscode.build.ps1"
+    },
+    {
+      "directory": "vscode/powershellprotools",
+      "description": "### VS Code Extension\r\nThe Typescript project that integrates with Visual Studio Code. "
+    },
+    {
+      "directory": "HostInjection",
+      "description": "### VS Code Module\r\nThe .NET DLL that is loaded into the PowerShell Extension terminal. This includes the bulk of the functionality and the Named Pipe Server that accepts commands from the VS Code extension. This includes the implementation for features such as:\r\n\r\n- Refactoring\r\n- Profiling\r\n- Code Decompilation\r\n- VS Code Automation Cmdlets"
+    },
+    {
+      "directory": "PowerShellToolsPro.Cmdlets",
+      "description": "### PowerShell Pro Tools Module\r\nThis module is included with the extension and used for packaging PowerShell scripts into executables."
+    },
+    {
+      "directory": "WinFormDesigner",
+      "description": "### Windows Form Designer\r\nThe Windows Form Designer executable."
+    },
+    {
+      "directory": "FormDesigner",
+      "description": "### Windows Form Designer Library\r\nThe bulk of the form designer parsing and generation logic."
+    }
+  ]
+}

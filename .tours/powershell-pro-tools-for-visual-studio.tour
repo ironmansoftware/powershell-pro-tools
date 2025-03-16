@@ -1,0 +1,63 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "PowerShell Pro Tools for Visual Studio",
+  "steps": [
+    {
+      "title": "Overview",
+      "description": "PowerShell Pro Tools is a collection of extensions for Visual Studio and Visual Studio Code to enhance the PowerShell editing experience.\r\n\r\nIt includes tools that do the following:\r\n\r\n- Windows Form Designer for PowerShell\r\n- PowerShell Script Executable Packaging\r\n- Refactoring\r\n- Variable Window\r\n- Module Window"
+    },
+    {
+      "title": "Requirements",
+      "description": "### Requirements\r\n- [.NET](https://dotnet.microsoft.com/en-us/download)\r\n- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/community/)\r\n  - .NET Desktop Development Workload\r\n  - Visual Studio Extensibility Workload\r\n- [InvokeBuild](https://github.com/nightroman/Invoke-Build)"
+    },
+    {
+      "title": "Build Process",
+      "description": "Start Visual Studio as Administrator. Administrator access is required because the PowerShell Pro Tools build copies files into the Visual Studio directory for debugging purposes.\r\n\r\nBuild the `PowerShellTools` project to build the *Visual Studio 2019* extension and the `PowerShellTools.2022` to build the *Visual Studio 2022* and later extension."
+    },
+    {
+      "title": "Debugging",
+      "description": "Debugging can be accomplished through Visual Studio. Set the startup project to `PowerShellTools.2022` and press `F5` to launch the experimental instance and debug the extension.\r\n\r\nIf you launch Visual Studio and the extension fails to load, you may need to remove the `VS 2019` extension. If you\r\nbuilt the entire solution of the `PowerShellTools` project in *Visual Studio 2022*, then the older version of the\r\nextension was also installed in the experimental instance. This results in the extension failing to load and duplicate\r\nproject and item templates.\r\n1. Remove the 2019 extension by clicking `Extensions > Manage Extensions`.\r\n2. Uninstall `PowerShell Tools for Visual Studio`. You will need to restart the experimental instance.\r\n3. You do not need to remove `PowerShell Tools for Visual Studio 2022`."
+    },
+    {
+      "directory": "Build",
+      "description": "Contains MSBuild settings and targets files that are used in the PoshTools projects."
+    },
+    {
+      "directory": "Common",
+      "description": "Common models, interfaces and helpers for PoshTools."
+    },
+    {
+      "directory": "HostInjection",
+      "description": "Refactoring used in both the VS and VS Code extensions."
+    },
+    {
+      "directory": "PowerShellTools.Shared",
+      "description": "Contains the bulk of the Visual Studio extension. Includes the Project system, IntelliSense, debugging system and more. Shared between the VS2019 and VS2022+ extensions."
+    },
+    {
+      "directory": "PowerShellTools",
+      "description": "The base project for the VS2019 extension. Mainly references the Shared project."
+    },
+    {
+      "directory": "PowerShellTools.2022",
+      "description": "The base project for the VS2022+ extension. Mainly references the Shared project."
+    },
+    {
+      "directory": "PowerShellTools.MSBuild",
+      "description": "MSBuild targets for packaging."
+    },
+    {
+      "directory": "PowerShellTools.Templates.Data",
+      "description": "Project and file templates like modules, scripts and form projects.\r\n- PowerShellTools.Templates.Data\r\n- PowerShellTools.Templates.FormProject\r\n- PowerShellTools.Templates.Module\r\n- PowerShellTools.Templates.ModuleProject\r\n- PowerShellTools.Templates.Script\r\n- PowerShellTools.Templates.ScriptProject\r\n- PowerShellTools.Templates.Test"
+    },
+    {
+      "directory": "PowerShellToolsPro.Packager",
+      "description": "Packager library used to turn PowerShell scripts into executables."
+    },
+    {
+      "directory": "FormDesigner",
+      "description": "Form designer parsing and generation logic."
+    }
+  ],
+  "ref": "main"
+}
