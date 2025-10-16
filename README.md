@@ -7,16 +7,14 @@ Powerful tools for PowerShell Developers.
 
 # Downloads 
 
-- [PowerShell Tools for Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsVS2022)
-- [PowerShell Tools for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsforVisualStudio2017-18561)
-- [PowerShell Pro Tools for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ironmansoftware.powershellprotools)
-- [PowerShell Pro Tools Module](https://www.powershellgallery.com/packages/PowerShellProTools)
+- [PowerShell Pro Tools - Extension for Visual Studio 2022 and later](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsVS2022)
+- [PowerShell Pro Tools - Extension for Visual Studio 2019 and earlier](https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsforVisualStudio2017-18561)
+- [PowerShell Pro Tools - Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=ironmansoftware.powershellprotools)
+- [PowerShell Pro Tools - PowerShell Module](https://www.powershellgallery.com/packages/PowerShellProTools)
 
 # Tools
 
-## PowerShell Tools for Visual Studio
-
-PowerShell tools for Visual Studio.
+## Visual Studio Extension
 
 - Syntax Highlight and IntelliSense
 - Script Analysis
@@ -27,7 +25,7 @@ PowerShell tools for Visual Studio.
 - Refactoring
 - Windows PowerShell and PowerShell 7 Support
 
-## PowerShell Pro Tools for Visual Studio Code
+## Visual Studio Code Extension
 
 PowerShell tools for Visual Studio Code.
 
@@ -47,8 +45,8 @@ PowerShell tools for Visual Studio Code.
 
 We are open to contributions via pull requests. We have contribution documentation at the following locations. 
 
-- [PowerShell Pro Tools for VS Code](https://github.com/ironmansoftware/powershell-pro-tools/wiki/Contribuing-to-PowerShell-Pro-Tools-for-Visual-Studio-Code)
-- [PowerShell Tools for Visual Studio](https://github.com/ironmansoftware/powershell-pro-tools/wiki/Contributing-to-PowerShell-Tools-for-Visual-Studio)
+- [Visual Studio Code Extension](https://github.com/ironmansoftware/powershell-pro-tools/wiki/Contribuing-to-PowerShell-Pro-Tools-for-Visual-Studio-Code)
+- [Visual Studio Extension](https://github.com/ironmansoftware/powershell-pro-tools/wiki/Contributing-to-PowerShell-Tools-for-Visual-Studio)
 
 ## Required Software 
 
@@ -62,3 +60,4 @@ We are open to contributions via pull requests. We have contribution documentati
 ## Signing 
 
 Code signing is provided by Ironman Software during the release process. Code will not be signed in development builds.
+
