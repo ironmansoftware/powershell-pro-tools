@@ -117,8 +117,6 @@
     <VSCTCompile Include="ReplWindow.vsct">
       <ResourceName>ReplWindow.ctmenu</ResourceName>
     </VSCTCompile>
-    <Resource Include="Resources\logo.png" />
-    <Resource Include="Resources\PoshToolsVsLogo.png" />
     <EmbeddedResource Include="Resources\completionset.bmp" />
     <Resource Include="Resources\DataIcon.png" />
     <Resource Include="Resources\Images.png" />
@@ -151,7 +149,6 @@
     <None Include="Resources\ModuleProject.pdn" />
     <None Include="Resources\Project.pdn" />
     <None Include="Resources\Thumbs.db" />
-    <Resource Include="Poshtools_128x.png" />
     <Resource Include="powershell-large.png" />
     <VSCTCompile Include="PowerShellTools.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
