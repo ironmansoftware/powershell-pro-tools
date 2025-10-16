@@ -201,16 +201,10 @@
     <Resource Include="Resources\IMSLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\ModuleIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Package.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\PoshToolsVsLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\PowerShell.ico" />
@@ -251,7 +245,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="powershell-large.png" />
-    <Resource Include="Poshtools_128x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
