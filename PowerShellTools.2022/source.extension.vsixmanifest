@@ -5,7 +5,7 @@
         <DisplayName>PowerShell Pro Tools 2022</DisplayName>
         <Description xml:space="preserve">A set of tools for developing and debugging PowerShell scripts and modules in Visual Studio.</Description>
         <MoreInfo>https://ironmansoftware.com/powershell-pro-tools</MoreInfo>
-        <Icon>poshtools.png</Icon>
+        <Icon>logo.png</Icon>
         <PreviewImage>preview.png</PreviewImage>
         <Tags>PowerShell</Tags>
     </Metadata>

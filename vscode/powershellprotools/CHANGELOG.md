@@ -1,3 +1,3 @@
 # Change Log
 
-See our [changelog](https://docs.poshtools.com/poshtools-vscode-changelog)
+See our [changelog](https://github.com/ironmansoftware/powershell-pro-tools)

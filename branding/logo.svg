@@ -1,0 +1,18 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+ <title id="title">PowerShell Pro Tools Logo</title>
+
+ <desc id="desc">Rounded terminal-like rectangle with abstract diagonal shapes and a purple plus symbol.</desc>
+ <!-- Outer rounded box -->
+ <!-- Left solid diagonal bar -->
+ <!-- Right diagonal outline -->
+ <!-- Purple plus symbol -->
+ <!-- Horizontal bar -->
+ <!-- Vertical bar -->
+ <g>
+  <title>Layer 1</title>
+  <rect x="21" y="26.99997" width="467.99998" height="453.99996" rx="64" fill="none" stroke-width="18" id="svg_1" stroke="#652D90"/>
+  <path d="m65,348l151.9375,-207l69.0625,0l-151.9375,207l-69.0625,0z" fill="#652D90" id="svg_2" stroke="null"/>
+  <path d="m171,347l152.98462,-207l73.01538,0l-152.98462,207l-73.01538,0z" fill="none" stroke-width="18" stroke-linejoin="round" stroke-linecap="round" id="svg_3" stroke="#652D90"/>
+  <rect x="303" y="335" width="100" height="18" rx="9" fill="#652D90" id="svg_4"/>
+ </g>
+</svg>

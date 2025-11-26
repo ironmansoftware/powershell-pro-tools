@@ -81,6 +81,10 @@
     <Resource Include="ToolWindows\Icons\Key_16x.png" />
     <Resource Include="ToolWindows\Icons\Link_16x.png" />
     <Resource Include="ToolWindows\Icons\Save_16x.png" />
+    <Content Include="..\branding\logo.png">
+      <Link>logo.png</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="PowerShellToolsColors.pkgdef">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -240,11 +244,6 @@
     <Content Include="License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="poshtools.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Resource Include="powershell-large.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
