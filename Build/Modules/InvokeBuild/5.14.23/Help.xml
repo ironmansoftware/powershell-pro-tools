@@ -1,0 +1,2131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems xmlns="http://msh" schema="maml">
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Invoke-Build.ps1</command:name>
+<maml:description>
+<maml:para>Invokes build script tasks.</maml:para>
+</maml:description>
+</command:details>
+<maml:description>
+<maml:para>The command invokes so called tasks defined in a PowerShell script.
+Let&apos;s call this process build and a script with tasks build script.
+
+A build script defines parameters, variables, and one or more tasks.
+Any code is invoked with the current location set to $BuildRoot,
+the script directory. $ErrorActionPreference is set to &apos;Stop&apos;.
+
+SCRIPT PARAMETERS
+
+Build scripts define parameters as usual using the param() block.
+On calling, specify them for Invoke-Build as if they are its own.
+
+Known issue #4. Specify script switches after Task and File.
+
+These parameters are reserved for Invoke-Build:
+Task, File, Result, Safe, Summary, WhatIf
+
+COMMANDS AND HELP
+
+Commands available for build scripts:
+
+    task      (Add-BuildTask)
+    exec      (Invoke-BuildExec)
+    assert    (Assert-Build)
+    equals    (Assert-BuildEquals)
+    remove    (Remove-BuildItem)
+    print     (Write-Build)
+    property  (Get-BuildProperty)
+    requires  (Test-BuildAsset)
+    use       (Use-BuildAlias)
+
+    Confirm-Build
+    Get-BuildError
+    Get-BuildFile
+    Get-BuildSynopsis
+    Get-BuildVersion
+    Resolve-MSBuild
+    Set-BuildFooter
+    Set-BuildHeader
+    Use-BuildEnv
+    Write-Warning [1]
+
+[1] Write-Warning is redefined internally in order to count warnings in
+a build script and others called. Warnings in modules are not counted.
+
+To get commands help, dot-source Invoke-Build and then call help:
+
+    PS&gt; . Invoke-Build
+    PS&gt; help task -full
+
+SPECIAL ALIASES
+
+    Invoke-Build
+    Build-Parallel
+    Build-Checkpoint
+
+Aliases are for scripts from the package. Use aliases for calling nested
+builds, i.e. omit &quot;.ps1&quot; extensions, to avoid accidentally calling other
+scripts with same names in the path.
+
+PUBLIC VARIABLES
+
+    $OriginalLocation - where the build is invoked
+    $WhatIf - WhatIf mode, Invoke-Build parameter
+    $BuildRoot - build script location, by default
+    $BuildFile - build script path
+    $BuildTask - initial tasks
+    $Task - current task
+    $Job - current job
+
+All variables except $BuildRoot are for reading and should not be changed.
+$BuildRoot may be changed on loading by top level script code, in order to
+alter the default build directory, and should not be changed after loading.
+
+$Task is available for script blocks defined by task parameters If, Inputs,
+Outputs, and Jobs and by blocks Enter|Exit-BuildTask, Enter|Exit-BuildJob,
+Set-BuildHeader, Set-BuildFooter.
+
+    $Task properties for reading:
+
+    - Name - [string], task name
+    - Jobs - [object[]], task jobs
+    - Started - [DateTime], task start time
+
+    And in Exit-BuildTask:
+
+    - Error - task error or null
+    - Elapsed - [TimeSpan], task duration
+
+    Other properties should not be used by scripts.
+
+$Task also exists in the script scope with the only property Name getting
+$BuildFile, the build script path.
+
+BUILD BLOCKS
+
+Scripts may define special build blocks invoked as:
+
+    Enter-Build {} - before the first task
+    Exit-Build {} - after the last task
+
+    Enter-BuildTask {} - before each task
+    Exit-BuildTask {} - after each task
+
+    Enter-BuildJob {} - before each task script job
+    Exit-BuildJob {} - after each task script job
+
+    Set-BuildHeader {param($Path)} - to write task headers
+    Set-BuildFooter {param($Path)} - to write task footers
+
+Blocks are not called on WhatIf.
+Nested builds do not inherit Enter/Exit blocks.
+Nested builds inherit Set-BuildHeader and Set-BuildFooter.
+If Enter-X is called then Exit-X is also called, even on failures.
+
+Enter-Build and Exit-Build are invoked in the script scope. Enter-Build is
+suitable for initialization and it may output text unlike top level code.
+
+Enter-BuildTask, Exit-BuildTask, Enter-BuildJob, and Exit-BuildJob are
+invoked in the same scope, the parent of task script blocks.
+
+PRIVATE STUFF
+
+Function and variable names starting with &apos;*&apos; are reserved for the engine.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Invoke-Build.ps1</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Task</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>File</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Result</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Safe</maml:name>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Summary</maml:name>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>WhatIf</maml:name>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Task</maml:name>
+<maml:description>
+<maml:para>One or more tasks to invoke. If it is omitted, empty, or equal to &apos;.&apos;
+then the task &apos;.&apos; is invoked if it exists, otherwise the first added
+task is invoked.
+
+Names with wildcard characters are reserved for special cases.
+
+SAFE REFERENCES
+
+If a task &apos;X&apos; is referenced as &apos;?X&apos; then it is allowed to fail without
+breaking the build, i.e. other tasks specified after X will be invoked.
+
+SPECIAL TASKS
+
+? - Tells to show tasks synopses, jobs, and check for issues.
+Task synopses are defined in preceding comments as
+
+    # Synopsis: ...
+
+or
+
+    &lt;#
+    .Synopsis
+    ...
+    #&gt;
+
+?? - Tells to collect and get all tasks as an ordered dictionary.
+It can be used by external tools for analysis, completion, etc.
+
+Tasks ? and ?? set $WhatIf to true. Properly designed build scripts
+should not perform anything significant if $WhatIf is set to true.
+
+* - Tells to invoke all tasks, e.g. tests, step sequences, etc.
+The dot-task and tasks added by other scripts are not included.
+
+** - Invokes * for all files *.test.ps1 found recursively in the
+current directory or a directory specified by the parameter File.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>File</maml:name>
+<maml:description>
+<maml:para>The build script adding tasks by &apos;task&apos; (Add-BuildTask).
+
+If File is omitted then Invoke-Build searches for the first like
+*.build.ps1 in the current location in Sort-Object order.
+
+If this file is not found then `$env:InvokeBuildGetFile` is called with
+a directory path argument in order to get its custom build script path.
+
+If the file is still not found then parent directories are searched.
+
+DIRECTORY PATH
+
+File accepts directory paths as well. The build script is resolved as
+described above for the specified directory without searching parents.
+
+INLINE SCRIPT
+
+File also accepts a script block composed as build script. In this
+case $BuildFile is a file defining the script block. $BuildRoot is
+its directory or $OriginalLocation when $BuildFile is null on
+[scriptblock]::Create() used instead of usual {...}.
+
+Script parameters, parallel, and persistent builds are not supported.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Result</maml:name>
+<maml:description>
+<maml:para>Tells to make the build result. Normally it is the name of a variable
+created in the calling scope. Or it is a hashtable which entry Value
+contains the result.
+
+Result properties:
+
+    All - all available tasks
+    Error - a terminating build error
+    Tasks - invoked tasks including nested
+    Errors - error objects including nested
+    Warnings - warning objects including nested
+    Redefined - list of original redefined tasks
+
+Tasks is a list of objects:
+
+    Name - task name
+    Jobs - task jobs
+    Error - task error
+    Started - start time
+    Elapsed - task duration
+    InvocationInfo - task location (.ScriptName, .ScriptLineNumber)
+
+Errors is a list of objects:
+
+    Error - original error
+    File - current $BuildFile
+    Task - current $Task or null for other errors
+
+Warnings is a list of objects:
+
+    Message - warning message
+    File - script emitting the warning
+    Task - current $Task or null for other warnings
+
+Do not change these data and do not use not documented members.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Safe</maml:name>
+<maml:description>
+<maml:para>Tells to catch a build failure, store an error as the property Error of
+Result and return quietly. A caller should use Result and check Error.
+
+Exceptions are still thrown if the build cannot start, for example:
+build script is missing, invalid, has no tasks.
+
+When Safe is used together with the special task ** (invoke *.test.ps1)
+then task failures stop current test scripts, not the whole testing.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Summary</maml:name>
+<maml:description>
+<maml:para>Tells to show summary information after the build. It includes task
+durations, names, locations, and error messages.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>WhatIf</maml:name>
+<maml:description>
+<maml:para>Tells to show tasks and jobs to be invoked and some analysis of used
+parameters and environment variables. See Show-TaskHelp.ps1 for more.
+
+If a script does anything but adding tasks then it should check for
+$WhatIf and skip actions on true. Consider using Enter-Build instead.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Text</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>Build log which includes task records and engine messages, warnings,
+errors, and output from build script tasks and special blocks.
+
+The script top level code should not output anything. Unexpected script
+outputs now emit warnings but in the future they may change to errors.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code>## How to call Invoke-Build in order to deal with build failures.
+## Use one of the below techniques or you may miss some failures.
+
+## (1/2) If you do not want to catch errors and just want the calling
+## script to stop on build failures then
+
+$ErrorActionPreference = &apos;Stop&apos;
+Invoke-Build ...
+
+## (2/2) If you want to catch build errors and proceed further depending
+## on them then use try/catch, $ErrorActionPreference does not matter:
+
+try {
+    Invoke-Build ...
+    # Build completed
+}
+catch {
+    # Build FAILED, $_ is the error
+}</dev:code>
+</command:example>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+<dev:code># Invoke tasks Build and Test from the default script with parameters.
+# The script defines parameters Output and WarningLevel by param().
+
+Invoke-Build Build, Test -Output log.txt -WarningLevel 4</dev:code>
+</command:example>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+<dev:code># Show tasks in the default script and the specified script
+
+Invoke-Build ?
+Invoke-Build ? Project.build.ps1
+
+# Custom formatting is possible, too
+
+Invoke-Build ? | Format-Table -AutoSize
+Invoke-Build ? | Format-List Name, Synopsis</dev:code>
+</command:example>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+<dev:code># Get task names without invoking for listing, TabExpansion, etc.
+
+$all = Invoke-Build ??
+$all.Keys</dev:code>
+</command:example>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
+<dev:code># Invoke all in Test1.test.ps1 and all in Tests\...\*.test.ps1
+
+Invoke-Build * Test1.test.ps1
+Invoke-Build ** Tests</dev:code>
+</command:example>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 6 --------------------------</maml:title>
+<dev:code># How to use build results, e.g. for summary
+
+try {
+    # Invoke build and get the variable Result
+    Invoke-Build -Result Result
+}
+finally {
+    # Show build error
+    &quot;Build error: $(if ($Result.Error) {$Result.Error} else {&apos;None&apos;})&quot;
+
+    # Show task summary
+    $Result.Tasks | Format-Table Elapsed, Name, Error -AutoSize
+}</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:uri>https://github.com/nightroman/Invoke-Build/blob/main/Docs/help/Invoke-Build.ps1.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Build-Checkpoint</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Build-Parallel</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>For other commands, at first invoke:</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>PS&gt; . Invoke-Build</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>task      (Add-BuildTask)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>exec      (Invoke-BuildExec)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>assert    (Assert-Build)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>equals    (Assert-BuildEquals)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>remove    (Remove-BuildItem)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>print     (Write-Build</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>property  (Get-BuildProperty)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>requires  (Test-BuildAsset)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>use       (Use-BuildAlias)</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Confirm-Build</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Get-BuildError</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Get-BuildSynopsis</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Resolve-MSBuild</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Set-BuildFooter</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Set-BuildHeader</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Build-Checkpoint.ps1</command:name>
+<maml:description>
+<maml:para>Invokes persistent builds with checkpoints.</maml:para>
+</maml:description>
+</command:details>
+<maml:description>
+<maml:para>This command invokes the build and saves build state checkpoints after each
+completed task. If the build is interrupted then it may be resumed later
+with the saved checkpoint file.
+
+The built-in Export-Clixml and Import-Clixml are used for saving checkpoints.
+Keep in mind that not all data types are suitable for this serialization.
+
+CUSTOM EXPORT AND IMPORT
+
+By default, the command saves and restores build tasks, script path, and
+all parameters declared by the build script. Tip: consider declaring some
+script variables as artificial parameters in order to make them persistent.
+
+If this is not enough for saving and restoring the build state then use
+custom export and import blocks. The export block is called on writing
+checkpoints, i.e. on each task. The import block is called on resuming
+once, before the task to be resumed.
+
+The export block is set by `Set-BuildData Checkpoint.Export`, e.g.
+
+    Set-BuildData Checkpoint.Export {
+        $script:var1
+        $script:var2
+    }
+
+The import block is set by `Set-BuildData Checkpoint.Import`, e.g.
+
+    Set-BuildData Checkpoint.Import {
+        param($data)
+        $var1, $var2 = $data
+    }
+
+The import block is called in the script scope. Thus, $var1 and $var2 are
+script variables right away. We may but do not have to use the prefix.
+
+The parameter $data is the output of Checkpoint.Export exported to clixml
+and then imported from clixml.
+
+OMITTED OR SCRIPT CHECKPOINT
+
+Omitted or script Checkpoint and no other parameters is the special
+case. The engine builds all tasks of the default or specified script
+with checkpoints.
+
+The checkpoint path is the script path with added &quot;.clixml&quot;. The persistent
+build starts if the checkpoint does not exist, otherwise resumes with the
+existing checkpoint.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Build-Checkpoint.ps1</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Checkpoint</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Build</maml:name>
+<command:parameterValue required="true">Hashtable</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Preserve</maml:name>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem>
+<maml:name>Build-Checkpoint.ps1</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Checkpoint</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Build</maml:name>
+<command:parameterValue required="true">Hashtable</command:parameterValue>
+</command:parameter>
+<command:parameter required="true" position="named" >
+<maml:name>Auto</maml:name>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Preserve</maml:name>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem>
+<maml:name>Build-Checkpoint.ps1</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Checkpoint</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Build</maml:name>
+<command:parameterValue required="true">Hashtable</command:parameterValue>
+</command:parameter>
+<command:parameter required="true" position="named" >
+<maml:name>Resume</maml:name>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Preserve</maml:name>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Checkpoint</maml:name>
+<maml:description>
+<maml:para>Specifies the checkpoint file (clixml). The checkpoint file is removed
+after successful builds unless the switch Preserve is specified.
+
+See DESCRIPTION / OMITTED OR SCRIPT CHECKPOINT for the special case.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Build</maml:name>
+<maml:description>
+<maml:para>Specifies the build and script parameters. WhatIf is not supported.
+
+When the build resumes by Resume or Auto then fields Task, File, and
+script parameters are ignored and restored from the checkpoint file.
+But fields Result, Safe, Summary are used as usual build parameters.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="true" position="named" >
+<maml:name>Auto</maml:name>
+<maml:description>
+<maml:para>Tells to start a new build if the checkpoint file is not found or
+resume the build from the found checkpoint file.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Preserve</maml:name>
+<maml:description>
+<maml:para>Tells to preserve the checkpoint file on successful builds.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="true" position="named" >
+<maml:name>Resume</maml:name>
+<maml:description>
+<maml:para>Tells to resume the build from the existing checkpoint file.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Text</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>Output of the invoked build.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Invoke a persistent sequence of steps defined as tasks.
+Build-Checkpoint temp.clixml @{Task = &apos;*&apos;; File = &apos;Steps.build.ps1&apos;}
+
+# Given the above failed, resume at the failed step.
+Build-Checkpoint temp.clixml -Resume</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Invoke-Build</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Build-Parallel.ps1</command:name>
+<maml:description>
+<maml:para>Invokes parallel builds by Invoke-Build.</maml:para>
+</maml:description>
+</command:details>
+<maml:description>
+<maml:para>This script invokes several build scripts simultaneously by Invoke-Build.
+Number of parallel builds is set to the number of processors by default.
+
+NOTE: Avoid using Build-Parallel in scenarios with PowerShell classes.
+Known issues: https://github.com/nightroman/Invoke-Build/issues/180
+
+VERBOSE STREAM
+
+Verbose messages are propagated to the caller if Verbose is set to true in
+build parameters. They are written all together before the build output.
+
+    Build-Parallel @(
+        @{File=...; Task=...; Verbose=$true}
+        ...
+    )
+
+INFORMATION STREAM
+
+Information messages are propagated to the caller if InformationAction is
+set to Continue in build parameters. They are written all together before
+the build output.
+
+    Build-Parallel @(
+        @{File=...; Task=...; InformationAction=&apos;Continue&apos;}
+        ...
+    )
+
+In addition or instead, information messages are collected in the variable
+specified by InformationVariable in build parameters.
+
+    Build-Parallel @(
+        @{File=...; Task=...; InformationVariable=&apos;info&apos;}
+        ...
+    )
+
+    # information messages
+    $info</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Build-Parallel.ps1</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Build</maml:name>
+<command:parameterValue required="true">Hashtable[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>MaximumBuilds</maml:name>
+<command:parameterValue required="true">Int32</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Result</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>ShowParameter</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Timeout</maml:name>
+<command:parameterValue required="true">Int32</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>FailHard</maml:name>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Build</maml:name>
+<maml:description>
+<maml:para>Build parameters defined as hashtables with these keys/data:
+
+    Task, File, ... - Invoke-Build.ps1 and script parameters
+    Log - Tells to write build output to the specified file
+
+Any number of builds is allowed, including 0 and 1. The maximum number
+of parallel builds is the number of processors by default. It can be
+changed by the parameter MaximumBuilds.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>FailHard</maml:name>
+<maml:description>
+<maml:para>Tells to abort all builds if any build fails.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>MaximumBuilds</maml:name>
+<maml:description>
+<maml:para>Maximum number of builds invoked at the same time.</maml:para>
+</maml:description>
+<dev:defaultValue>Number of processors.</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Result</maml:name>
+<maml:description>
+<maml:para>Tells to output build results using a variable. It is either a name of
+variable to be created for results or any object with the property
+Value to be assigned ([ref], [hashtable]).
+
+Result properties:
+
+    Tasks - tasks (*)
+    Errors - errors (*)
+    Warnings - warnings (*)
+    Started - start time
+    Elapsed - build duration
+
+(*) see: help Invoke-Build -Parameter Result</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>ShowParameter</maml:name>
+<maml:description>
+<maml:para>Tells to show the specified parameter values in build titles.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Timeout</maml:name>
+<maml:description>
+<maml:para>Maximum overall build time in milliseconds.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Text</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>Output of invoked builds and other log messages.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code>Build-Parallel @(
+    @{File=&apos;Project1.build.ps1&apos;}
+    @{File=&apos;Project2.build.ps1&apos;; Task=&apos;MakeHelp&apos;}
+    @{File=&apos;Project2.build.ps1&apos;; Task=&apos;Build&apos;, &apos;Test&apos;}
+    @{File=&apos;Project3.build.ps1&apos;; Log=&apos;C:\TEMP\Project3.log&apos;}
+    @{File=&apos;Project4.build.ps1&apos;; Configuration=&apos;Release&apos;}
+)</dev:code>
+<dev:remarks>
+<maml:para>Five parallel builds are invoked with various combinations of parameters.
+Note that it is fine to invoke the same build script more than once if
+build flows specified by different tasks do not conflict.</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Invoke-Build</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Add-BuildTask</command:name>
+<maml:description>
+<maml:para>(task) Defines and adds a task.</maml:para>
+</maml:description>
+<command:verb>Add</command:verb>
+<command:noun>BuildTask</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;task&apos;. It is normally used in the build script scope
+but it can be called from another script or function. Build scripts should
+have at least one task.
+
+This command is all that build scripts really need. Tasks are main build
+blocks. Other build commands are helpers, scripts do not have to use them.
+
+In addition to task parameters, you may use task help comments, synopses,
+preceding task definitions:
+
+    # Synopsis: ...
+    task ...
+
+Synopses are used in task help information returned by the command
+
+    Invoke-Build ?
+
+To get a task synopsis during a build, use Get-BuildSynopsis.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Add-BuildTask</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Name</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Jobs</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>After</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Before</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Data</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Done</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>If</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Inputs</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Outputs</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Source</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Partial</maml:name>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Name</maml:name>
+<maml:description>
+<maml:para>The task name. Wildcard characters are deprecated and &quot;?&quot; must not be
+the first character. Duplicated names are allowed, each added task
+overrides previously added with the same name.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Jobs</maml:name>
+<maml:description>
+<maml:para>Specifies one or more task jobs or a hashtable with actual parameters.
+Jobs are other task references and own actions, script blocks. Any
+number of jobs is allowed. Jobs are invoked in the specified order.
+
+Valid jobs are:
+
+    [string] - an existing task name, normal reference
+    [string] &quot;?Name&quot; - safe reference to a task allowed to fail
+    [scriptblock] - action, a script block invoked for this task
+
+Special value:
+
+    [hashtable] which contains the actual task parameters in addition
+    to the task name. This task definition is more convenient with
+    complex parameters, often typical for incremental tasks.
+
+    Example:
+        task Name @{
+            Inputs = {...}
+            Outputs = {...}
+            Partial = $true
+            Jobs = {
+                process {...}
+            }
+        }</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>After</maml:name>
+<maml:description>
+<maml:para>Tells to add this task to the end of jobs of the specified tasks.
+
+Altered tasks are defined as normal references (TaskName) or safe
+references (?TaskName). In the latter case this inserted task may
+fail without stopping a build.
+
+Parameters After and Before are used in order to alter task jobs
+in special cases when direct changes in task source code are not
+suitable. Use Jobs in order to define relations in usual cases.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Before</maml:name>
+<maml:description>
+<maml:para>Tells to insert this task to jobs of the specified tasks.
+It is inserted before the first action or added to the end.
+
+See After for details.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Data</maml:name>
+<maml:description>
+<maml:para>Any object attached to the task. It is not used by the engine.
+When the task is invoked this object is available as $Task.Data.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Done</maml:name>
+<maml:description>
+<maml:para>Specifies the command or a script block which is invoked after the
+task. Custom handlers should check for $Task.Error if it matters.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>If</maml:name>
+<maml:description>
+<maml:para>Specifies the optional condition to be evaluated. If the condition
+evaluates to false then the task is not invoked. The condition is
+defined in one of two ways depending on the requirements.
+
+Using standard Boolean notation (parenthesis) the condition is checked
+once when the task is defined. A use case for this notation might be
+evaluating a script parameter or another sort of global condition.
+
+    Example:
+        task Task1 -If ($Param1 -eq ...) {...}
+        task Task2 -If ($PSVersionTable.PSVersion.Major -ge 5) {...}
+
+Using script block notation (curly braces) the condition is evaluated
+on task invocation. If a task is referenced by several tasks then the
+condition is evaluated each time until it gets true and the task is
+invoked. The script block notation is normally used for a condition
+that may be defined or changed during the build or just expensive.
+
+    Example:
+        task SomeTask -If {...} {...}</maml:para>
+</maml:description>
+<dev:defaultValue>$true</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Inputs</maml:name>
+<maml:description>
+<maml:para>Specifies the input items, tells to process the task as incremental,
+and requires the parameter Outputs with the optional switch Partial.
+
+Inputs are file items or paths or a script block which gets them.
+
+Outputs are file paths or a script block which gets them.
+A script block is invoked with input paths piped to it.
+
+Automatic variables for incremental task actions:
+
+    $Inputs - full input paths, array of strings
+    $Outputs - result of the evaluated Outputs
+
+With the switch Partial the task is processed as partial incremental.
+There must be one-to-one correspondence between Inputs and Outputs.
+
+Partial task actions often contain &quot;process {}&quot; blocks.
+Two more automatic variables are available for them:
+
+    $_ - full path of an input item
+    $2 - corresponding output path
+
+See also docs about incremental tasks:
+https://github.com/nightroman/Invoke-Build/blob/main/Docs/README.md</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Outputs</maml:name>
+<maml:description>
+<maml:para>Specifies the output paths of the incremental task, either directly on
+task creation or as a script block invoked with the task. It is used
+together with Inputs. See Inputs for details.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Partial</maml:name>
+<maml:description>
+<maml:para>Tells to process the incremental task as partial incremental.
+It is used with Inputs and Outputs. See Inputs for details.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Source</maml:name>
+<maml:description>
+<maml:para>Specifies the task source. It is used by wrapper functions in order to
+provide the actual source for location messages and synopsis comments.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Dummy task with no jobs
+task Task1
+
+# Alias of another task
+task Task2 Task1
+
+# Combination of tasks
+task Task3 Task1, Task2
+
+# Simple action task
+task Task4 {
+    # action
+}
+
+# Typical complex task: referenced task(s) and one own action
+task Task5 Task1, Task2, {
+    # action after referenced tasks
+}
+
+# Possible complex task: actions and tasks in any required order
+task Task6 {
+    # action before Task1
+},
+Task1, {
+    # action after Task1 and before Task2
+},
+Task2</dev:code>
+<dev:remarks>
+<maml:para>This example shows various possible combinations of task jobs.</maml:para>
+<maml:para></maml:para>
+</dev:remarks>
+</command:example>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+<dev:code># Synopsis: Complex task with parameters as a hashtable.
+task TestAndAnalyse @{
+    If = !$SkipAnalyse
+    Inputs = {
+        Get-ChildItem . -Recurse -Include *.ps1, *.psm1
+    }
+    Outputs = {
+        &apos;Analyser.log&apos;
+    }
+    Jobs = &apos;Test&apos;, {
+        Invoke-ScriptAnalyzer . &gt; Analyser.log
+    }
+}
+
+# Synopsis: Simple task with usual parameters.
+task Test -If (!$SkipTest) {
+    Invoke-Pester
+}</dev:code>
+<dev:remarks>
+<maml:para>Tasks with complex parameters are often difficult to compose in a readable
+way. In such cases use a hashtable in order to specify task parameters in
+addition to the task name. Keys and values correspond to parameter names
+and values.</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Get-BuildError</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Get-BuildSynopsis</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Invoke-BuildExec</command:name>
+<maml:description>
+<maml:para>(exec) Invokes an application and checks $LastExitCode.</maml:para>
+</maml:description>
+<command:verb>Invoke</command:verb>
+<command:noun>BuildExec</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;exec&apos;. It invokes the script block which is supposed
+to call an executable. Then $LastExitCode is checked. If it does not match
+the specified codes (0 by default) an error is thrown.
+
+If you have any issues with standard error output of the invoked app, try
+using `exec` with -ErrorAction Continue, SilentlyContinue, or Ignore. This
+does not affect failures of `exec`, they still depend on the app exit code.
+This works around PowerShell standard errors issues.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Invoke-BuildExec</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Command</maml:name>
+<command:parameterValue required="true">ScriptBlock</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>ExitCode</maml:name>
+<command:parameterValue required="true">Int32[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="2" >
+<maml:name>ErrorMessage</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Echo</maml:name>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>StdErr</maml:name>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Command</maml:name>
+<maml:description>
+<maml:para>Command that invokes an executable which exit code is checked. It must
+invoke an application directly (.exe) or not (.cmd, .bat), otherwise
+$LastExitCode is not set and may contain the code of another command.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>ExitCode</maml:name>
+<maml:description>
+<maml:para>Valid exit codes (e.g. 0..3 for robocopy).</maml:para>
+</maml:description>
+<dev:defaultValue>@(0)</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" position="2" >
+<maml:name>ErrorMessage</maml:name>
+<maml:description>
+<maml:para>Specifies the text included to standard error messages.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Echo</maml:name>
+<maml:description>
+<maml:para>Tells to write the command and its used variable values.
+WARNING: With echo you may expose sensitive information.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>StdErr</maml:name>
+<maml:description>
+<maml:para>Tells to set $ErrorActionPreference to Continue, capture all output and
+write as strings. Then, if the exit code is failure, add the standard
+error output text to the error message.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Objects</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>Output of the specified command.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Call robocopy (0..3 are valid exit codes)
+
+exec { robocopy Source Target /mir } (0..3)</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Use-BuildAlias</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Use-BuildEnv</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Assert-Build</command:name>
+<maml:description>
+<maml:para>(assert) Checks for a condition.</maml:para>
+</maml:description>
+<command:verb>Assert</command:verb>
+<command:noun>Build</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;assert&apos;. This command checks for a condition and
+if it is not true throws an error with the default or specified message.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Assert-Build</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Condition</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Message</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Condition</maml:name>
+<maml:description>
+<maml:para>The condition.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Message</maml:name>
+<maml:description>
+<maml:para>An optional message describing the assertion condition.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Assert-BuildEquals</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Assert-BuildEquals</command:name>
+<maml:description>
+<maml:para>(equals) Verifies that two specified objects are equal.</maml:para>
+</maml:description>
+<command:verb>Assert</command:verb>
+<command:noun>BuildEquals</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;equals&apos;. This command verifies that two specified
+objects are equal using [Object]::Equals(). If objects are not equal the
+command fails with a message showing object values and types.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Assert-BuildEquals</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>A</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>B</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>A</maml:name>
+<maml:description>
+<maml:para>The first object.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>B</maml:name>
+<maml:description>
+<maml:para>The second object.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Assert-Build</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Remove-BuildItem</command:name>
+<maml:description>
+<maml:para>(remove) Removes specified items.</maml:para>
+</maml:description>
+<command:verb>Remove</command:verb>
+<command:noun>BuildItem</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;remove&apos;. This command removes existing items,
+ignores missing items, and fails if it cannot remove existing items.
+
+Use the switch Verbose in order to output messages about removing
+existing and skipping missing items or patterns specified by Path.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Remove-BuildItem</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Path</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" globbing="true" >
+<maml:name>Path</maml:name>
+<maml:description>
+<maml:para>Specifies the items to be removed. Wildcards are allowed.
+The parameter is mostly the same as Path of Remove-Item.
+For sanity, paths with only ., *, \, / are not allowed.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Remove some temporary items
+
+remove bin, obj, *.test.log</dev:code>
+</command:example>
+</command:examples>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Write-Build</command:name>
+<maml:description>
+<maml:para>(print) Writes text using colors if they are supported.</maml:para>
+</maml:description>
+<command:verb>Write</command:verb>
+<command:noun>Build</command:noun>
+</command:details>
+<maml:description>
+<maml:para>This function is used in order to output colored text in a console or other
+hosts with colors. Unlike Write-Host it is suitable for redirected output.
+
+Write-Build is designed for tasks and build blocks, not script functions.
+
+With PowerShell 7.2+ and $PSStyle.OutputRendering ANSI, Write-Build uses
+ANSI escape sequences.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Write-Build</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Color</maml:name>
+<command:parameterValue required="true">ConsoleColor</command:parameterValue>
+</command:parameter>
+<command:parameter required="true" position="1" >
+<maml:name>Text</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Color</maml:name>
+<maml:description>
+<maml:para>[System.ConsoleColor] value or its string representation.</maml:para>
+<maml:para>Values : Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="true" position="1" >
+<maml:name>Text</maml:name>
+<maml:description>
+<maml:para>Text written using colors if they are supported.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>String</maml:name>
+</dev:type>
+</command:returnValue>
+</command:returnValues>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Get-BuildProperty</command:name>
+<maml:description>
+<maml:para>(property) Gets the session or environment variable or the default.</maml:para>
+</maml:description>
+<command:verb>Get</command:verb>
+<command:noun>BuildProperty</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;property&apos;. The command returns:
+
+    - session variable value if it is not $null or &apos;&apos;
+    - environment variable if it is not $null or &apos;&apos;
+    - default value if it is not $null
+    - error</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Get-BuildProperty</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Name</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Value</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Boolean</maml:name>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Name</maml:name>
+<maml:description>
+<maml:para>Specifies the session or environment variable name.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Value</maml:name>
+<maml:description>
+<maml:para>Specifies the default value. If it is omitted or null then the variable
+must exist with a not empty value. Otherwise an error is thrown.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Boolean</maml:name>
+<maml:description>
+<maml:para>Treats values like 1 and 0 as $true and $false, including strings with
+extra spaces. Others are converted by [System.Convert]::ToBoolean().</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Object</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>Requested property value.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Inherit an existing value or throw an error
+
+$OutputPath = property OutputPath</dev:code>
+</command:example>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+<dev:code># Get an existing value or use the default
+
+$WarningLevel = property WarningLevel 4</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Test-BuildAsset</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Test-BuildAsset</command:name>
+<maml:description>
+<maml:para>(requires) Checks for required build assets.</maml:para>
+</maml:description>
+<command:verb>Test</command:verb>
+<command:noun>BuildAsset</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;requires&apos;. This command tests the specified assets.
+It fails if any is missing. It is used in script code (common assets) and
+in tasks (individual assets).</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Test-BuildAsset</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Variable</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Environment</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Path</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Property</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Variable</maml:name>
+<maml:description>
+<maml:para>Specifies the required session variable names and tells to fail if a
+variable is missing or its value is null or empty string.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Environment</maml:name>
+<maml:description>
+<maml:para>Specifies the required environment variable names.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Path</maml:name>
+<maml:description>
+<maml:para>Specifies literal paths to be tested by Test-Path. If the specified
+expression uses required assets then test these assets first by a
+separate command.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Property</maml:name>
+<maml:description>
+<maml:para>Specifies session or environment variable names and tells to fail if a
+variable is missing or its value is null or empty string.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Get-BuildProperty</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Use-BuildAlias</command:name>
+<maml:description>
+<maml:para>(use) Sets framework or directory tool aliases.</maml:para>
+</maml:description>
+<command:verb>Use</command:verb>
+<command:noun>BuildAlias</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Scripts use its alias &apos;use&apos;. Invoke-Build does not change the system path
+in order to make framework tools available by names. This is not suitable
+for using mixed framework tools (in different tasks, scripts, parallel
+builds). Instead, this function is used for setting tool aliases in the
+scope where it is called.
+
+This command may be used in the script scope to make aliases for all tasks.
+But it can be called from tasks in order to use more task specific tools.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Use-BuildAlias</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Path</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Name</maml:name>
+<command:parameterValue required="true">String[]</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Path</maml:name>
+<maml:description>
+<maml:para>Specifies the tools directory.
+
+If it is * or it starts with digits followed by a dot then the MSBuild
+path is resolved using the package script Resolve-MSBuild.ps1. Build
+scripts may invoke it directly by the provided alias Resolve-MSBuild.
+The optional suffix x86 tells to use 32-bit MSBuild.
+
+    For just MSBuild use Resolve-MSBuild instead:
+
+        Set-Alias MSBuild (Resolve-MSBuild ...)
+        MSBuild ...
+
+    or
+
+        $MSBuild = Resolve-MSBuild ...
+        &amp; $MSBuild ...
+
+If it is like Framework* then it is assumed to be a path relative to
+Microsoft.NET in the Windows directory.
+
+Otherwise it is a full or relative literal path of any directory.
+
+Examples: *, 4.0, Framework\v4.0.30319, .\Tools</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Name</maml:name>
+<maml:description>
+<maml:para>Specifies the tool names. They become aliases in the current scope.
+If it is a build script then the aliases are created for all tasks.
+If it is a task then the aliases are available just for this task.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Use .NET 4.0 tools MSBuild, csc, ngen. Then call MSBuild.
+
+use 4.0 MSBuild, csc, ngen
+exec { MSBuild Some.csproj /t:Build /p:Configuration=Release }</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Invoke-BuildExec</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Resolve-MSBuild</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Confirm-Build</command:name>
+<maml:description>
+<maml:para>Prompts to confirm an operation.</maml:para>
+</maml:description>
+<command:verb>Confirm</command:verb>
+<command:noun>Build</command:noun>
+</command:details>
+<maml:description>
+<maml:para>This function prints the prompt and options: [Y] Yes [N] No [S] Suspend.
+Choose Y to continue or N to skip. [S] enters the nested prompt, you may
+invoke some commands end then `exit`.
+
+Confirm-Build must not be called during non interactive builds. Scripts
+should take care of this. For example, add the switch $Quiet and define
+Confirm-Build as &quot;Yes to All&quot;:
+
+    if ($Quiet) {function Confirm-Build {$true}}</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Confirm-Build</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Query</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Caption</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Query</maml:name>
+<maml:description>
+<maml:para>The confirmation query. If it is omitted or empty, &quot;Continue with this operation?&quot; is used.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Caption</maml:name>
+<maml:description>
+<maml:para>The confirmation caption. If it is omitted, the current task or script name is used.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Boolean</maml:name>
+</dev:type>
+</command:returnValue>
+</command:returnValues>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Get-BuildError</command:name>
+<maml:description>
+<maml:para>Gets the specified task error.</maml:para>
+</maml:description>
+<command:verb>Get</command:verb>
+<command:noun>BuildError</command:noun>
+</command:details>
+<maml:description>
+<maml:para>The specified task is usually safe referenced in the build (?name) and a
+caller (usually a downstream task) gets its potential error for analysis.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Get-BuildError</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Task</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Task</maml:name>
+<maml:description>
+<maml:para>Name of the task which error is requested.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Error</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>An error or null if the task has not failed.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Add-BuildTask</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Get-BuildFile</command:name>
+<maml:description>
+<maml:para>Gets the found build script path.</maml:para>
+</maml:description>
+<command:verb>Get</command:verb>
+<command:noun>BuildFile</command:noun>
+</command:details>
+<maml:description>
+<maml:para>It gets the build script path for the specified or current location, the
+first like *.build.ps1 in Sort-Object order.
+
+    If this file is not found then `$env:InvokeBuildGetFile` is called with a
+    directory path argument in order to get its custom build script path.
+
+    If the file is still not found then parent directories are searched.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Get-BuildFile</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Path</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Here</maml:name>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Path</maml:name>
+<maml:description>
+<maml:para>Specifies the directory path, defaults to the current location.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="named" >
+<maml:name>Here</maml:name>
+<maml:description>
+<maml:para>Tells not to search in parent directories.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>String</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>The found build script path or null.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Get-BuildSynopsis</command:name>
+<maml:description>
+<maml:para>Gets the task synopsis.</maml:para>
+</maml:description>
+<command:verb>Get</command:verb>
+<command:noun>BuildSynopsis</command:noun>
+</command:details>
+<maml:description>
+<maml:para>Gets the specified task synopsis if it is available.
+
+Task synopses are defined in preceding comments as
+
+    # Synopsis: ...
+
+or
+
+    &lt;#
+    .Synopsis
+    ...
+    #&gt;
+
+This function may be used in Set-BuildHeader for printing task synopses.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Get-BuildSynopsis</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Task</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Hash</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Task</maml:name>
+<maml:description>
+<maml:para>The task object. During the build, the current task is available as the
+automatic variable $Task.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="false" position="1" >
+<maml:name>Hash</maml:name>
+<maml:description>
+<maml:para>The cache used by external tools. Scripts may omit this parameter.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>String</maml:name>
+</dev:type>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Headers: print task paths as usual and synopses in addition
+Set-BuildHeader {
+    param($Path)
+    print Cyan &quot;Task $Path : $(Get-BuildSynopsis $Task)&quot;
+}
+
+# Synopsis: This task prints its own synopsis.
+task Task1 {
+    &apos;My synopsis : &apos; + (Get-BuildSynopsis $Task)
+}</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Set-BuildFooter</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Set-BuildHeader</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Get-BuildVersion</command:name>
+<maml:description>
+<maml:para>Gets version string from file.</maml:para>
+</maml:description>
+<command:verb>Get</command:verb>
+<command:noun>BuildVersion</command:noun>
+</command:details>
+<maml:description>
+<maml:para>It finds the first file line matching Regex and returns its first capturing
+group string.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Get-BuildVersion</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Path</maml:name>
+<command:parameterValue required="true">String</command:parameterValue>
+</command:parameter>
+<command:parameter required="true" position="1" >
+<maml:name>Regex</maml:name>
+<command:parameterValue required="true">Object</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Path</maml:name>
+<maml:description>
+<maml:para>The file with version strings, like change log, release notes, etc.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="true" position="1" >
+<maml:name>Regex</maml:name>
+<maml:description>
+<maml:para>[string] or [regex] defining version as its first capturing group.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>String</maml:name>
+</dev:type>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Get version from file
+Get-BuildVersion Release-Notes.md &apos;##\s+v(\d+\.\d+\.\d+)&apos;</dev:code>
+</command:example>
+</command:examples>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Set-BuildFooter</command:name>
+<maml:description>
+<maml:para>Tells how to write task footers.</maml:para>
+</maml:description>
+<command:verb>Set</command:verb>
+<command:noun>BuildFooter</command:noun>
+</command:details>
+<maml:description>
+<maml:para>This build block is used in order to change the default task footer format.
+Use the automatic variable $Task in order to get the current task data.
+Use Write-Build (print) in order to write with colors.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Set-BuildFooter</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Script</maml:name>
+<command:parameterValue required="true">ScriptBlock</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Script</maml:name>
+<maml:description>
+<maml:para>The script like {param($Path) ...} which is used in order to write task
+footers. The parameter Path includes the parent and current task names.
+
+In order to omit task footers, set an empty block:
+
+    Set-BuildFooter {}</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Use the usual footer format but change the color
+Set-BuildFooter {
+    param($Path)
+    print DarkGray &quot;Done $Path $($Task.Elapsed)&quot;
+}
+
+# Synopsis: Data for footers in addition to $Path and $Task.Elapsed
+task Task1 {
+    &apos;Task name     : &apos; + $Task.Name
+    &apos;Start time    : &apos; + $Task.Started
+    &apos;Location path : &apos; + $Task.InvocationInfo.ScriptName
+    &apos;Location line : &apos; + $Task.InvocationInfo.ScriptLineNumber
+}</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Get-BuildSynopsis</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Set-BuildHeader</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Write-Build (print)</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Set-BuildHeader</command:name>
+<maml:description>
+<maml:para>Tells how to write task headers.</maml:para>
+</maml:description>
+<command:verb>Set</command:verb>
+<command:noun>BuildHeader</command:noun>
+</command:details>
+<maml:description>
+<maml:para>This build block is used in order to change the default task header format.
+Use the automatic variable $Task in order to get the current task data.
+Use Write-Build (print) in order to write with colors.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Set-BuildHeader</maml:name>
+<command:parameter required="false" position="0" >
+<maml:name>Script</maml:name>
+<command:parameterValue required="true">ScriptBlock</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="false" position="0" >
+<maml:name>Script</maml:name>
+<maml:description>
+<maml:para>The script like {param($Path) ...} which is used in order to write task
+headers. The parameter Path includes the parent and current task names.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Headers: write task paths as usual and synopses in addition
+Set-BuildHeader {
+    param($Path)
+    print Cyan &quot;Task $Path --- $(Get-BuildSynopsis $Task)&quot;
+}
+
+# Synopsis: Data for headers in addition to $Path and Get-BuildSynopsis
+task Task1 {
+    &apos;Task name     : &apos; + $Task.Name
+    &apos;Start time    : &apos; + $Task.Started
+    &apos;Location path : &apos; + $Task.InvocationInfo.ScriptName
+    &apos;Location line : &apos; + $Task.InvocationInfo.ScriptLineNumber
+}</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Get-BuildSynopsis</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Set-BuildFooter</maml:linkText>
+</maml:navigationLink>
+<maml:navigationLink>
+<maml:linkText>Write-Build (print)</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+<command:details>
+<command:name>Use-BuildEnv</command:name>
+<maml:description>
+<maml:para>Invokes script with temporary changed environment variables.</maml:para>
+</maml:description>
+<command:verb>Use</command:verb>
+<command:noun>BuildEnv</command:noun>
+</command:details>
+<maml:description>
+<maml:para>This command sets the specified environment variables and invokes the
+script. Then it restores the original values of specified variables.</maml:para>
+</maml:description>
+<command:syntax>
+<command:syntaxItem>
+<maml:name>Use-BuildEnv</maml:name>
+<command:parameter required="true" position="0" >
+<maml:name>Env</maml:name>
+<command:parameterValue required="true">Hashtable</command:parameterValue>
+</command:parameter>
+<command:parameter required="true" position="1" >
+<maml:name>Script</maml:name>
+<command:parameterValue required="true">ScriptBlock</command:parameterValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters>
+<command:parameter required="true" position="0" >
+<maml:name>Env</maml:name>
+<maml:description>
+<maml:para>The hashtable of environment variables used by the script.
+Keys and values correspond to variable names and values.</maml:para>
+</maml:description>
+</command:parameter>
+<command:parameter required="true" position="1" >
+<maml:name>Script</maml:name>
+<maml:description>
+<maml:para>The script invoked with the specified variables.</maml:para>
+</maml:description>
+</command:parameter>
+</command:parameters>
+<command:returnValues>
+<command:returnValue>
+<dev:type>
+<maml:name>Objects</maml:name>
+</dev:type>
+<maml:description>
+<maml:para>Output of the specified script.</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<command:examples>
+<command:example>
+<maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code># Invoke with temporary changed Port and Path
+Use-BuildEnv @{
+    Port = &apos;9780&apos;
+    Path = &quot;$PSScriptRoot\Scripts;$env:Path&quot;
+} {
+    exec { dotnet test }
+}</dev:code>
+</command:example>
+</command:examples>
+<maml:relatedLinks>
+<maml:navigationLink>
+<maml:linkText>Invoke-BuildExec</maml:linkText>
+</maml:navigationLink>
+</maml:relatedLinks>
+</command:command>
+</helpItems>
