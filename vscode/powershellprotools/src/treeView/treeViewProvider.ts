@@ -5,11 +5,12 @@ export abstract class TreeViewProvider implements vscode.TreeDataProvider<vscode
 
 	private _onDidChangeTreeData: vscode.EventEmitter<vscode.TreeItem | undefined> = new vscode.EventEmitter<vscode.TreeItem | undefined>();
 	readonly onDidChangeTreeData: vscode.Event<vscode.TreeItem | undefined> = this._onDidChangeTreeData.event;
+	private refreshCommandDisposable: vscode.Disposable;
 
 	constructor() {
 		let command = this.getRefreshCommand();
 		if (command)
-			vscode.commands.registerCommand(command, () => this.refresh());
+			this.refreshCommandDisposable = vscode.commands.registerCommand(command, () => this.refresh());
 	}
 
 	abstract requiresLicense(): boolean;
@@ -41,6 +42,12 @@ export abstract class TreeViewProvider implements vscode.TreeDataProvider<vscode
 	}
 
 	abstract getNodes(): Promise<vscode.TreeItem[]>;
+
+	dispose(): void {
+		if (this.refreshCommandDisposable) {
+			this.refreshCommandDisposable.dispose();
+		}
+	}
 
 	async getChildrenImpl(element?: vscode.TreeItem): Promise<vscode.TreeItem[]> {
 		if (element == null) {

@@ -26,6 +26,7 @@ import { SessionTreeViewProvider } from './treeView/sessionTreeView';
 import { JobTreeViewProvider } from './treeView/jobTreeView';
 import { PowerShellRenameProvider } from './services/renameProvider';
 import { registerWelcomeCommands } from './commands/welcomeCommand';
+import { TreeViewProvider } from './treeView/treeViewProvider';
 
 const version = "PowerShellProTools.Version";
 
@@ -105,6 +106,8 @@ async function finishActivation(context: vscode.ExtensionContext) {
 
     Container.Log("Finishing extension activation.");
 
+    const treeViewProviders = createTreeViews(context);
+
     let terminal = null;
     do {
         terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
@@ -120,20 +123,7 @@ async function finishActivation(context: vscode.ExtensionContext) {
     Container.Log("Connecting to PowerShell Editor Services.");
 
     powerShellService.Connect(() => {
-        Container.Log("Creating tree views.");
-
-        vscode.window.createTreeView<vscode.TreeItem>('astView', { treeDataProvider: new AstTreeViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('hostProcessView', { treeDataProvider: new HostProcessViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('moduleView', { treeDataProvider: new ModuleViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('providerView', { treeDataProvider: new ProviderViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('quickScriptView', { treeDataProvider: new QuickScriptViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('variableView', { treeDataProvider: new VariableViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('infoView', { treeDataProvider: new InfoViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('reflectionView', { treeDataProvider: new ReflectionViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('customView', { treeDataProvider: new CustomTreeViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('historyView', { treeDataProvider: new HistoryTreeViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('sessionsView', { treeDataProvider: new SessionTreeViewProvider() });
-        vscode.window.createTreeView<vscode.TreeItem>('jobView', { treeDataProvider: new JobTreeViewProvider() });
+        treeViewProviders.forEach(provider => provider.refresh());
 
         Container.Log("Starting code analysis.");
 
@@ -181,4 +171,30 @@ async function finishActivation(context: vscode.ExtensionContext) {
 
 
 
+}
+
+function createTreeViews(context: vscode.ExtensionContext): TreeViewProvider[] {
+    Container.Log("Creating tree views.");
+
+    return [
+        registerTreeView(context, 'astView', new AstTreeViewProvider()),
+        registerTreeView(context, 'hostProcessView', new HostProcessViewProvider()),
+        registerTreeView(context, 'moduleView', new ModuleViewProvider()),
+        registerTreeView(context, 'providerView', new ProviderViewProvider()),
+        registerTreeView(context, 'quickScriptView', new QuickScriptViewProvider()),
+        registerTreeView(context, 'variableView', new VariableViewProvider()),
+        registerTreeView(context, 'infoView', new InfoViewProvider()),
+        registerTreeView(context, 'reflectionView', new ReflectionViewProvider()),
+        registerTreeView(context, 'customView', new CustomTreeViewProvider()),
+        registerTreeView(context, 'historyView', new HistoryTreeViewProvider()),
+        registerTreeView(context, 'sessionsView', new SessionTreeViewProvider()),
+        registerTreeView(context, 'jobView', new JobTreeViewProvider())
+    ];
+}
+
+function registerTreeView(context: vscode.ExtensionContext, id: string, provider: TreeViewProvider): TreeViewProvider {
+    context.subscriptions.push(provider);
+    context.subscriptions.push(vscode.window.createTreeView<vscode.TreeItem>(id, { treeDataProvider: provider }));
+
+    return provider;
 }
