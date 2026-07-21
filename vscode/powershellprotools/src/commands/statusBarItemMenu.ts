@@ -10,7 +10,7 @@ export function statusBarItemMenu() {
         if (Container.PowerShellService.status === SessionStatus.Failed) {
             var retry = await vscode.window.showErrorMessage("PowerShell Pro Tools session failed to start. Please check the PowerShell Pro Tools extension output for more information.", "Retry");
             if (retry === "Retry") {
-                Container.PowerShellService.Reconnect(() => { });
+                Container.PowerShellService.Reconnect(() => { }).catch(error => Container.Log("Retry failed. " + error));
             }
             return;
         }

@@ -135,7 +135,8 @@ export default class VSCodeService {
         switch (msg.type) {
             case "Terminated":
                 Container.Log("PowerShell Extension has exited. Will attempt to reconnect.");
-                Container.PowerShellService.Reconnect(() => { });
+                Container.PowerShellService.Reconnect(() => { }).catch(error => Container.Log("Reconnect failed. " + error));
+                break;
             case "Out-GridView":
                 this.outDataGridView(msg.args, callback);
                 break;

@@ -37,6 +37,28 @@
             ],
             "label": "Build Cmdlets",
             "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\scripts\\Build-DebugModules.ps1"
+            ],
+            "label": "Build Debug Modules",
+            "problemMatcher": []
+        },
+        {
+            "label": "Watch with Debug Modules",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Build Debug Modules",
+                "npm: watch"
+            ],
+            "problemMatcher": []
         }
     ]
 }

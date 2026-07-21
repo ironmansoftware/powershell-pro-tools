@@ -92,14 +92,32 @@ export async function activate(context: vscode.ExtensionContext) {
         return;
     }
 
-    if (!extension.isActive) {
-        await extension.activate();
-        const powerShellExtensionClient = extension!.exports as IPowerShellExtensionClient;
-        const id = powerShellExtensionClient.registerExternalExtension(context.extension.id);
-        await powerShellExtensionClient.waitUntilStarted(id);
-    }
+    await extension.activate();
+    const powerShellExtensionClient = extension!.exports as IPowerShellExtensionClient;
+    const id = powerShellExtensionClient.registerExternalExtension(context.extension.id);
+    context.subscriptions.push({
+        dispose: () => powerShellExtensionClient.unregisterExternalExtension(id)
+    });
+    await powerShellExtensionClient.waitUntilStarted(id);
 
     await finishActivation(context);
+}
+
+function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function waitForPowerShellExtensionTerminal() {
+    for (let attempt = 0; attempt < 60; attempt++) {
+        const terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
+        if (terminal) {
+            return terminal;
+        }
+
+        await delay(1000);
+    }
+
+    return null;
 }
 
 async function finishActivation(context: vscode.ExtensionContext) {
@@ -108,11 +126,7 @@ async function finishActivation(context: vscode.ExtensionContext) {
 
     const treeViewProviders = createTreeViews(context);
 
-    let terminal = null;
-    do {
-        terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
-    } while (!terminal)
-
+    const terminal = await waitForPowerShellExtensionTerminal();
     if (terminal == null) {
         throw "PowerShell Extension not found.";
     }
@@ -122,7 +136,7 @@ async function finishActivation(context: vscode.ExtensionContext) {
 
     Container.Log("Connecting to PowerShell Editor Services.");
 
-    powerShellService.Connect(() => {
+    await powerShellService.Connect(() => {
         treeViewProviders.forEach(provider => provider.refresh());
 
         Container.Log("Starting code analysis.");
