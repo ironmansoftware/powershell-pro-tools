@@ -31,7 +31,70 @@ namespace PowerShellToolsPro.FormsDesigner
         public abstract string GetCodeFileName(TextReader codeStream);
         public abstract string GetCodeFileName(TextWriter codeStream);
 
-        public abstract void InsertIntoBeginningOfFile(string fileName, string text);
+        public void InsertAfterScriptPreamble(string fileName, string text)
+        {
+            var contents = File.ReadAllText(fileName);
+            InsertIntoFile(fileName, text, GetScriptPreambleInsertionOffset(contents));
+        }
+
+        public static string InsertTextAfterScriptPreamble(string contents, string text)
+        {
+            return contents.Insert(GetScriptPreambleInsertionOffset(contents), text);
+        }
+
+        public static int GetScriptPreambleInsertionOffset(string contents)
+        {
+            if (string.IsNullOrEmpty(contents))
+            {
+                return 0;
+            }
+
+            var insertionOffset = 0;
+            var ast = Parser.ParseInput(contents, out Token[] tokens, out ParseError[] parseErrors);
+            var scriptBlockAst = ast as ScriptBlockAst;
+
+            if (scriptBlockAst != null)
+            {
+                var usingStatements = scriptBlockAst.FindAll(m => m is UsingStatementAst, true).Cast<UsingStatementAst>();
+                foreach (var usingStatement in usingStatements)
+                {
+                    insertionOffset = Math.Max(insertionOffset, usingStatement.Extent.EndOffset);
+                }
+
+                if (scriptBlockAst.ParamBlock != null)
+                {
+                    insertionOffset = Math.Max(insertionOffset, scriptBlockAst.ParamBlock.Extent.EndOffset);
+                }
+            }
+
+            foreach (Match match in Regex.Matches(contents, @"^[ \t]*#requires\b[^\r\n]*(?:\r\n|\n|\r)?", RegexOptions.IgnoreCase | RegexOptions.Multiline))
+            {
+                insertionOffset = Math.Max(insertionOffset, match.Index + match.Length);
+            }
+
+            return AdvancePastLineEnding(contents, insertionOffset);
+        }
+
+        protected abstract void InsertIntoFile(string fileName, string text, int offset);
+
+        private static int AdvancePastLineEnding(string contents, int offset)
+        {
+            if (offset < contents.Length && contents[offset] == '\r')
+            {
+                offset++;
+
+                if (offset < contents.Length && contents[offset] == '\n')
+                {
+                    offset++;
+                }
+            }
+            else if (offset < contents.Length && contents[offset] == '\n')
+            {
+                offset++;
+            }
+
+            return offset;
+        }
 
         private readonly EventGenerationType _eventGenerationType;
 
@@ -264,9 +327,7 @@ namespace PowerShellToolsPro.FormsDesigner
                     var assignment = ast.Find(m => m is FunctionDefinitionAst fda && fda.Name.Equals(methodName, StringComparison.OrdinalIgnoreCase), true);
                     if (assignment == null)
                     {
-                        var contents = File.ReadAllText(_ps1FileName);
-                        contents = $"function {methodName} {{{Environment.NewLine}}}{Environment.NewLine}{contents}";
-                        File.WriteAllText(_ps1FileName, contents);
+                        powerShellCodeDomProvider.InsertAfterScriptPreamble(_ps1FileName, $"function {methodName} {{{Environment.NewLine}}}{Environment.NewLine}");
                     }
                 }
             }
@@ -280,9 +341,7 @@ namespace PowerShellToolsPro.FormsDesigner
                     var assignment = ast.Find(m => m is AssignmentStatementAst asa && asa.Left is VariableExpressionAst vea && vea.VariablePath.UserPath.Equals(methodName, StringComparison.OrdinalIgnoreCase), true);
                     if (assignment == null)
                     {
-                        var contents = File.ReadAllText(_ps1FileName);
-                        contents = $"${methodName} = {{{Environment.NewLine}}}{Environment.NewLine}{contents}";
-                        File.WriteAllText(_ps1FileName, contents);
+                        powerShellCodeDomProvider.InsertAfterScriptPreamble(_ps1FileName, $"${methodName} = {{{Environment.NewLine}}}{Environment.NewLine}");
                     }
                 }
             }
@@ -785,7 +844,7 @@ namespace PowerShellToolsPro.FormsDesigner
 
             if (functionExists) return;
 
-            powerShellCodeDomProvider.InsertIntoBeginningOfFile(_ps1FileName, $"${functionName} = {{\r\n\r\n}}\r\n\r\n");
+            powerShellCodeDomProvider.InsertAfterScriptPreamble(_ps1FileName, $"${functionName} = {{\r\n\r\n}}\r\n\r\n");
         }
 
         private void GenerateCodeFromField(CodeMemberField e, TextWriter w, CodeGeneratorOptions o)

@@ -60,9 +60,10 @@ namespace IM.CodeDom
             return _designerFileName;
         }
 
-        public override void InsertIntoBeginningOfFile(string fileName, string text)
+        protected override void InsertIntoFile(string fileName, string text, int offset)
         {
-            
+            var contents = File.ReadAllText(fileName);
+            File.WriteAllText(fileName, contents.Insert(offset, text));
         }
 
         protected override void Log(string message)

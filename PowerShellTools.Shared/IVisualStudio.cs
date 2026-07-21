@@ -41,6 +41,7 @@ namespace PowerShellToolsPro
         void ReplaceSelection(string text);
 	    void InsertAtCaret(string text);
         void InsertAtBeginningOfDocument(string text);
+        void InsertAtDocumentOffset(string text, int offset);
 		bool IsPowerShellScript { get; }
 	}
 }
