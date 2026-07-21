@@ -22,7 +22,7 @@
         "onView:hostProcessView",
         "onView:moduleView",
         "onView:providerView",
-        "onView:quickScriptsView",
+        "onView:quickScriptView",
         "onView:variableView",
         "onView:infoView",
         "onView:reflectionView",
