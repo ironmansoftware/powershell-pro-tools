@@ -11,6 +11,7 @@ using System.Text;
 using System.IO.Compression;
 using System.ServiceProcess;
 using System.Diagnostics;
+using System.Threading;
 using System.Security.Cryptography;
 using System.Configuration.Install;
 
@@ -19,8 +20,16 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 {
 	class Program
 	{
+        private const string CleanupArgument = "--poshtools-cleanup";
+
         static void Main(string[] args)
 		{
+            if (args.Length == 2 && args[0] == CleanupArgument)
+            {
+                DeleteModuleDirectory(args[1]);
+                return;
+            }
+
             string modulePath = string.Empty;
             try
             {
@@ -90,7 +99,7 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
             finally
             {
                 if (!string.IsNullOrEmpty(modulePath))
-                    DeleteModuleDirectory(modulePath);
+                    ScheduleModuleDirectoryCleanup(modulePath);
             }
         }
 
@@ -136,23 +145,50 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
             Environment.SetEnvironmentVariable("PSModulePath", pathvar);
         }
 
-        private static void DeleteModuleDirectory(string directory)
+        private static void ScheduleModuleDirectoryCleanup(string directory)
         {
             if (!Directory.Exists(directory))
             {
                 return;
             }
 
-            try
+            var cleanup = new Process();
+            cleanup.StartInfo = new ProcessStartInfo();
+            cleanup.StartInfo.UseShellExecute = false;
+            cleanup.StartInfo.CreateNoWindow = true;
+            cleanup.StartInfo.FileName = Process.GetCurrentProcess().MainModule.FileName;
+            cleanup.StartInfo.Arguments = CleanupArgument + " " + QuoteArgument(directory);
+            cleanup.Start();
+        }
+
+        private static void DeleteModuleDirectory(string directory)
+        {
+            for (var retry = 0; retry < 30; retry++)
             {
-                Directory.Delete(directory, true);
+                if (!Directory.Exists(directory))
+                {
+                    return;
+                }
+
+                try
+                {
+                    Directory.Delete(directory, true);
+                    return;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(1000);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(1000);
+                }
             }
-            catch (IOException)
-            {
-            }
-            catch (UnauthorizedAccessException)
-            {
-            }
+        }
+
+        private static string QuoteArgument(string argument)
+        {
+            return "\"" + argument.Replace("\"", "\\\"") + "\"";
         }
 
         public static string ReplaceString(string str, string oldValue, string newValue, StringComparison comparison)
