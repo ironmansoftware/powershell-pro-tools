@@ -146,7 +146,7 @@ namespace PowerShellToolsPro.Packager
         {
             if (string.IsNullOrEmpty(process.Config.Package.DotNetVersion)) return;
 
-            var dotNetVersion = process.Config.Package.DotNetVersion.Trim('v').Replace(".", string.Empty);
+            var dotNetVersion = NormalizeDotNetVersion(process.Config.Package.DotNetVersion);
 
             if (!dotNetVersion.StartsWith("net")) dotNetVersion = "net" + dotNetVersion;
 
@@ -181,6 +181,11 @@ namespace PowerShellToolsPro.Packager
             found = false;
             if (process.Config.Package.PowerShellVersion != null)
             {
+                if (IsDotNetFrameworkVersion(dotNetVersion) && process.Config.Package.PowerShellCore)
+                {
+                    throw new Exception($".NET Framework target '{process.Config.Package.DotNetVersion}' is not supported with PowerShell '{process.Config.Package.PowerShellVersion}'. Use Windows PowerShell with .NET Framework or select a .NET Core/.NET 5+ target for PowerShell 7+.");
+                }
+
                 foreach (var version in validNetVersionsForNew)
                 {
                     if (version == dotNetVersion) return;
@@ -191,6 +196,16 @@ namespace PowerShellToolsPro.Packager
                     WriteWarningMessage($"Unvalidated .NET Version specified for selected PowerShell version. Valid values are: {validNetVersionsForNew.Aggregate((x, y) => x + ", " + y)}");
                 }
             }
+        }
+
+        private static string NormalizeDotNetVersion(string dotNetVersion)
+        {
+            return dotNetVersion.Trim('v').Replace(".", string.Empty);
+        }
+
+        private static bool IsDotNetFrameworkVersion(string dotNetVersion)
+        {
+            return dotNetVersion.StartsWith("net4", StringComparison.OrdinalIgnoreCase);
         }
 
         private void ValidatePowerShellVersion(PackageProcess process)
@@ -487,4 +502,3 @@ namespace PowerShellToolsPro.Packager
 
     }
 }
-
