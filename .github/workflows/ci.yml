@@ -5,12 +5,24 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      sign_code:
+        description: Sign build outputs
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
     name: Build repository
     timeout-minutes: 120
     runs-on: windows-latest
+    env:
+      SIGNING_CODE: ${{ github.event_name == 'workflow_dispatch' && inputs.sign_code && secrets.SIGNING_CODE || '' }}
+      AZURE_CLIENT_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.sign_code && secrets.AZURE_CLIENT_ID || '' }}
+      AZURE_TENANT_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.sign_code && secrets.AZURE_TENANT_ID || '' }}
+      AZURE_CLIENT_SECRET: ${{ github.event_name == 'workflow_dispatch' && inputs.sign_code && secrets.AZURE_CLIENT_SECRET || '' }}
 
     steps:
     - name: Checkout
@@ -77,10 +89,6 @@ jobs:
       shell: pwsh
       run: |
         .\PowerShellToolsPro.Cmdlets\build.ps1
-      env:
-        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Build VS Code extension
       shell: pwsh
@@ -88,10 +96,6 @@ jobs:
         Import-Module .\Build\Modules\InvokeBuild\5.14.23\InvokeBuild.psd1 -Force
         Install-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1 -Scope CurrentUser -Force -AllowClobber
         Invoke-Build -File .\vscode\vscode.build.ps1
-      env:
-        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Upload Visual Studio extensions
       uses: actions/upload-artifact@v4
