@@ -36,7 +36,7 @@
         "onCommand:poshProTools.installModule",
         "onCommand:poshProTools.welcome"
     ],
-    "main": "./out/extension",
+    "main": "./out/extension.js",
     "contributes": {
         "commands": [
             {
@@ -865,9 +865,11 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
+        "compile": "npm run check-types && npm run bundle",
+        "check-types": "tsc -p ./ --noEmit",
+        "bundle": "esbuild ./src/extension.ts --bundle --external:vscode --platform=node --format=cjs --target=node12 --outfile=out/extension.js",
         "lint": "eslint src --ext ts",
-        "watch": "tsc -watch -p ./",
+        "watch": "esbuild ./src/extension.ts --bundle --external:vscode --platform=node --format=cjs --target=node12 --outfile=out/extension.js --watch",
         "pretest": "npm run compile && npm run lint",
         "test": "node ./out/test/runTest.js"
     },
