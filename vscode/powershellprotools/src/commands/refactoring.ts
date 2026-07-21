@@ -54,6 +54,7 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         context.subscriptions.push(this.RefactoringInfo());
         context.subscriptions.push(this.MoveLeft());
         context.subscriptions.push(this.MoveRight());
+        context.subscriptions.push(this.ConvertToSplat());
     }
 
     async Move(direction: string) {
@@ -132,6 +133,18 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
             }
 
             vscode.window.showInformationMessage(`Available refactorings: ${validRefactors.map(m => m.Name).join(", ")}`);
+        })
+    }
+
+    ConvertToSplat() {
+        return vscode.commands.registerCommand('poshProTools.convertToSplat', async () => {
+            if (!Container.IsInitialized()) return;
+
+            var request = this.getRefactorRequest();
+            if (!request) return;
+
+            request.type = RefactorType.convertToSplat;
+            await this.requestRefactor(request);
         })
     }
 

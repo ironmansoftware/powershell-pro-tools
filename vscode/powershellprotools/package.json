@@ -34,6 +34,7 @@
         "onCommand:powershell.showWinFormDesigner",
         "onCommand:powershell.generateWinForm",
         "onCommand:poshProTools.refactoringInfo",
+        "onCommand:poshProTools.convertToSplat",
         "onCommand:poshProTools.statusBarMenu",
         "onCommand:poshProTools.installModule",
         "onCommand:poshProTools.welcome"
@@ -49,6 +50,11 @@
             {
                 "command": "poshProTools.refactoringInfo",
                 "title": "Refactoring Info",
+                "category": "PowerShell Pro Tools"
+            },
+            {
+                "command": "poshProTools.convertToSplat",
+                "title": "Convert to Splat",
                 "category": "PowerShell Pro Tools"
             },
             {
