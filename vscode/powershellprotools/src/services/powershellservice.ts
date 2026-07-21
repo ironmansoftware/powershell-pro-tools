@@ -23,6 +23,7 @@ export class PowerShellService {
     private logger: net.Socket;
     private sessionStatus: SessionStatus;
     private reconnectDepth: number = 0;
+    private reconnectPromise: Promise<void>;
 
     get status() {
         return this.sessionStatus;
@@ -51,17 +52,47 @@ export class PowerShellService {
             context.subscriptions.push(this.statusBarItem)
         }
 
-        if (pipeName) {
-            this.pipeName = pipeName;
-        }
-        else {
-            this.pipeName = randomstring.generate({
-                length: 12,
-                charset: 'alphabetic'
-            }).toLowerCase();
-        }
+        this.pipeName = pipeName || this.generatePipeName();
 
         this.setSessionStatus(SessionStatus.Initializing);
+    }
+
+    private generatePipeName(): string {
+        return randomstring.generate({
+            length: 12,
+            charset: 'alphabetic'
+        }).toLowerCase();
+    }
+
+    private resetPipeName(): void {
+        this.pipeName = this.generatePipeName();
+        Container.Log(`Generated new PowerShell Pro Tools pipe name: ${this.pipeName}`);
+    }
+
+    private getPipePath(pipeName: string, suffix: string = ""): string {
+        if (process.platform === "win32") {
+            return `\\\\.\\pipe\\${pipeName}${suffix}`;
+        }
+
+        return path.join(os.tmpdir(), `CoreFxPipe_${pipeName}${suffix}`);
+    }
+
+    private delay(ms: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    private async waitForPowerShellExtensionTerminal(): Promise<vscode.Terminal> {
+        for (let attempt = 0; attempt < 60; attempt++) {
+            const terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
+            if (terminal) {
+                return terminal;
+            }
+
+            Container.Log("PowerShell Extension terminal is not available yet.");
+            await this.delay(1000);
+        }
+
+        throw "PowerShell Extension not found.";
     }
 
     setSessionStatus(status: SessionStatus): void {
@@ -94,37 +125,60 @@ export class PowerShellService {
         this.sessionStatus = status;
     }
 
-    Reconnect(callback) {
-        this.reconnectDepth++;
+    Reconnect(callback): Promise<void> {
+        if (this.status === SessionStatus.Disabled) {
+            return Promise.reject("PowerShell Pro Tools is disabled.");
+        }
+
+        if (this.reconnectPromise) {
+            Container.Log("Reconnect already in progress.");
+            return this.reconnectPromise.then(() => callback());
+        }
+
+        this.reconnectPromise = this.reconnect(callback).then(() => {
+            this.reconnectPromise = null;
+        }, (error) => {
+            this.reconnectPromise = null;
+            throw error;
+        });
+
+        return this.reconnectPromise;
+    }
+
+    private async reconnect(callback): Promise<void> {
         this.setSessionStatus(SessionStatus.Initializing);
         this.logger?.destroy();
 
-        if (this.reconnectDepth > 10) {
-            Container.Log("Reconnect depth exceeded. Connection failed.");
-            this.setSessionStatus(SessionStatus.Failed);
-            return;
-        }
-
-        const handle = setInterval(async () => {
-            var terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
-            if (terminal == null) {
-                Container.Log("Terminal has not restarted.");
+        for (this.reconnectDepth = 1; this.reconnectDepth <= 10; this.reconnectDepth++) {
+            try {
+                Container.Log(`Reconnect attempt ${this.reconnectDepth}.`);
+                await this.Connect(callback, true);
+                this.reconnectDepth = 0;
                 return;
             }
+            catch (error) {
+                Container.Log(`Reconnect attempt ${this.reconnectDepth} failed. ${error}`);
+                await this.delay(5000);
+            }
+        }
 
-            Container.Log("PowerShell Extension has restarted. Connecting.");
-
-            clearInterval(handle);
-            this.Connect(callback);
-        }, 5000);
+        Container.Log("Reconnect depth exceeded. Connection failed.");
+        this.setSessionStatus(SessionStatus.Failed);
+        throw "Reconnect depth exceeded.";
     }
 
-    Connect(callback) {
+    async Connect(callback, refreshPipeName: boolean = false): Promise<void> {
         if (this.status === SessionStatus.Connected) {
             Container.Log("Already connected to PowerShell process.");
             callback();
             return;
         }
+
+        if (refreshPipeName) {
+            this.resetPipeName();
+        }
+
+        this.setSessionStatus(SessionStatus.Initializing);
 
         var cmdletPath = path.join(vscode.extensions.getExtension("ironmansoftware.powershellprotools").extensionPath, "Modules", "PowerShellProTools.VSCode", "PowerShellProTools.VSCode.psd1");
         if (!fs.existsSync(cmdletPath)) {
@@ -135,34 +189,66 @@ export class PowerShellService {
             poshToolsModulePath = path.join(vscode.extensions.getExtension("ironmansoftware.powershellprotools").extensionPath, "src", "Modules", "PowerShellProTools", "PowerShellProTools.psd1");
         }
 
-        var terminal = vscode.window.terminals.find(x => x.name.startsWith("PowerShell Extension"));
-        if (terminal != null) {
-            Container.Log("Importing module in PowerShell and starting server.");
-            terminal.sendText(`Import-Module '${cmdletPath}'`, true);
-            terminal.sendText(`Import-Module '${poshToolsModulePath}'`, true);
-            terminal.sendText(`Start-PoshToolsServer -PipeName '${this.pipeName}'`, true);
+        const terminal = await this.waitForPowerShellExtensionTerminal();
+        Container.Log("Importing module in PowerShell and starting server.");
+        terminal.sendText(`Import-Module '${cmdletPath}'`, true);
+        terminal.sendText(`Import-Module '${poshToolsModulePath}'`, true);
+        terminal.sendText(`Start-PoshToolsServer -PipeName '${this.pipeName}'`, true);
 
-            const settings = load();
+        const settings = load();
 
-            if (settings.clearScreenAfterLoad) {
-                terminal.sendText('Clear-Host', true);
-            }
-
-        } else {
-            Container.Log("PowerShell Extension not found.");
-            this.setSessionStatus(SessionStatus.Failed);
-            throw ("PowerShell Extension not found.");
+        if (settings.clearScreenAfterLoad) {
+            terminal.sendText('Clear-Host', true);
         }
 
-        setTimeout(() => {
-            Container.Log("Connecting named pipe to PoshTools server.");
-            var pipePath = path.join(os.tmpdir(), `CoreFxPipe_${this.pipeName}_log`);
-            if (process.platform === "win32") {
-                pipePath = `\\\\.\\pipe\\${this.pipeName}_log`;
-            }
+        await this.connectLogger(this.pipeName);
+        await this.invokeMethodWithRetry("Connect", []);
 
-            this.logger = net.connect(pipePath);
-            this.logger.on('data', (data) => {
+        this.reconnectDepth = 0;
+        this.setSessionStatus(SessionStatus.Connected);
+        Container.FinishInitialize();
+        Container.Log("Connected to PowerShell process.")
+        callback();
+    }
+
+    private async connectLogger(pipeName: string): Promise<void> {
+        let lastError = null;
+        for (let attempt = 0; attempt < 60; attempt++) {
+            try {
+                await this.connectLoggerPipe(pipeName);
+                return;
+            }
+            catch (error) {
+                lastError = error;
+                await this.delay(500);
+            }
+        }
+
+        throw lastError || `Timed out connecting to log pipe for ${pipeName}.`;
+    }
+
+    private connectLoggerPipe(pipeName: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            Container.Log("Connecting log pipe to PoshTools server.");
+
+            const pipePath = this.getPipePath(pipeName, "_log");
+            const logger = net.connect(pipePath);
+            let connected = false;
+            const timeout = setTimeout(() => {
+                if (!connected) {
+                    logger.destroy();
+                    reject(`Timed out connecting to log pipe ${pipePath}.`);
+                }
+            }, 30000);
+
+            logger.once("connect", () => {
+                connected = true;
+                clearTimeout(timeout);
+                this.logger = logger;
+                resolve();
+            });
+
+            logger.on('data', (data) => {
                 try {
                     let buff = Buffer.from(data.toString(), 'base64');
                     let text = buff.toString('utf-8');
@@ -173,17 +259,32 @@ export class PowerShellService {
                 }
             });
 
-            this.invokeMethod("Connect", []).then((result) => {
-                this.reconnectDepth = 0;
-                this.setSessionStatus(SessionStatus.Connected);
-                Container.FinishInitialize();
-                Container.Log("Connected to PowerShell process.")
-                callback();
-            }).catch(x => {
-                Container.Log("Failed to connect to PowerShell process." + x);
-                this.setSessionStatus(SessionStatus.Failed);
+            logger.on("error", (e) => {
+                if (!connected) {
+                    clearTimeout(timeout);
+                    logger.destroy();
+                    reject(e);
+                    return;
+                }
+
+                Container.Log(`Log pipe error. ${e}`);
             });
-        }, 1000);
+        });
+    }
+
+    private async invokeMethodWithRetry(method: string, args: Array<any>): Promise<any> {
+        let lastError = null;
+        for (let attempt = 0; attempt < 60; attempt++) {
+            try {
+                return await this.invokeMethod(method, args, false);
+            }
+            catch (error) {
+                lastError = error;
+                await this.delay(500);
+            }
+        }
+
+        throw lastError || `Timed out invoking ${method}.`;
     }
 
     InvokePowerShell(command: string): Promise<any> {
@@ -201,14 +302,28 @@ export class PowerShellService {
         });
     }
 
-    invokeMethod(method: string, args: Array<any>): Promise<any> {
+    invokeMethod(method: string, args: Array<any>, retryOnFailure: boolean = true): Promise<any> {
         return new Promise((resolve, reject) => {
-            var pipePath = path.join(os.tmpdir(), `CoreFxPipe_${this.pipeName}`);
-            if (process.platform === "win32") {
-                pipePath = `\\\\.\\pipe\\${this.pipeName}`;
+            if (this.status === SessionStatus.Failed || this.status === SessionStatus.Disabled) {
+                reject(`PowerShell Pro Tools is not connected. Status: ${this.status}.`);
+                return;
             }
 
-            var client = net.connect(pipePath, function () {
+            var pipePath = this.getPipePath(this.pipeName);
+            var client: net.Socket;
+            var settled = false;
+            const connectTimeout = setTimeout(() => {
+                settled = true;
+                client?.destroy();
+                reject(`Timed out connecting to named pipe ${pipePath} for ${method}.`);
+            }, 30000);
+
+            client = net.connect(pipePath, function () {
+                if (settled) {
+                    return;
+                }
+
+                clearTimeout(connectTimeout);
                 const request = {
                     method,
                     args
@@ -222,22 +337,44 @@ export class PowerShellService {
             });
 
             client.on("error", (e) => {
+                if (settled) {
+                    return;
+                }
+
+                settled = true;
+                clearTimeout(connectTimeout);
                 Container.Log(`Invoke method: ${method} Error sending data on named pipe. ${e}`);
                 client.destroy();
-                setTimeout(async () => {
-                    await this.Reconnect(() => this.invokeMethod(method, args).then(any => resolve(any)));
-                }, 1000);
+                if ((e as any).code === "ETIMEDOUT") {
+                    reject(e);
+                    return;
+                }
+
+                if (!retryOnFailure) {
+                    reject(e);
+                    return;
+                }
+
+                this.Reconnect(() => { }).then(() => {
+                    return this.invokeMethod(method, args, false);
+                }).then(any => resolve(any), error => reject(error));
             });
 
             client.on('data', (data) => {
+                if (settled) {
+                    return;
+                }
+
+                settled = true;
+                clearTimeout(connectTimeout);
                 try {
                     let buff = Buffer.from(data.toString(), 'base64');
                     let text = buff.toString('utf-8');
                     var response = JSON.parse(text);
                     resolve(response);
                 }
-                catch {
-
+                catch (error) {
+                    reject(error);
                 }
 
                 client.destroy();

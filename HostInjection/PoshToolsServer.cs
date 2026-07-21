@@ -150,7 +150,7 @@ namespace PowerShellToolsPro
                     {
                         WriteLog("Exception in server: " + ex.ToString());
                         Server.Dispose();
-                        Server = new NamedPipeServerStream("PPTPipe", PipeDirection.InOut);
+                        Server = new NamedPipeServerStream(pipeName, PipeDirection.InOut);
                         streamReader = new StreamReader(Server);
                         streamWriter = new StreamWriter(Server);
                     }

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { Container } from '../container';
 import { load } from '../settings';
+import { SessionStatus } from './powershellservice';
 
 export class PerformanceService {
     private statusBarItem: vscode.StatusBarItem;
@@ -34,8 +35,17 @@ export class PerformanceService {
         const refreshInterval = settings.statusBar.performanceRefreshInterval * 1000;
 
         const interval = setInterval(async () => {
-            const performance = await Container.PowerShellService.GetPerformance();
-            perfService.statusBarItem.text = `$(dashboard) MEM ${performance.Memory}, CPU ${performance.Cpu}`
+            if (Container.PowerShellService.status !== SessionStatus.Connected) {
+                return;
+            }
+
+            try {
+                const performance = await Container.PowerShellService.GetPerformance();
+                perfService.statusBarItem.text = `$(dashboard) MEM ${performance.Memory}, CPU ${performance.Cpu}`
+            }
+            catch (error) {
+                Container.Log("Failed to update PowerShell performance. " + error);
+            }
         }, refreshInterval);
 
         this.statusBarItem.tooltip = "PowerShell Performance";

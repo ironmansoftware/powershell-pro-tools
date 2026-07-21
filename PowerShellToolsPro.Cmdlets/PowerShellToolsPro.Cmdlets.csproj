@@ -66,10 +66,9 @@
   <Target Name="GetCopyToOutputDirectoryItems" />
   <Target Name="SatelliteDllsProjectOutputGroup" />
   <Target Name="DebugSymbolsProjectOutputGroup" />
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(SkipPowerShellProToolsPostBuild)' != 'true'">
     <Exec Command="pwsh -ExecutionPolicy Unrestricted -Command &quot;&amp; $(ProjectDir)post-build.ps1&quot;" />
   </Target>
 
 </Project>
-
 
