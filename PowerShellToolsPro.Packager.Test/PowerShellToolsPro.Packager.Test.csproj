@@ -55,6 +55,7 @@
     <Compile Include="BundlerTests.cs" />
     <Compile Include="ConfigDeserializerTests.cs" />
     <Compile Include="CSharpCodeGeneratorTest.cs" />
+    <Compile Include="HostTemplateTests.cs" />
     <Compile Include="ModuleCompilerTests.cs" />
     <Compile Include="OldCompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
