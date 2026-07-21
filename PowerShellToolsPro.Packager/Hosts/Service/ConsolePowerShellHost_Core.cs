@@ -122,11 +122,21 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 
         private static void DeleteModuleDirectory(string directory)
         {
-            var powershell = new Process();
-            powershell.StartInfo = new ProcessStartInfo();
-            powershell.StartInfo.FileName = "powershell";
-            powershell.StartInfo.Arguments = $"-WindowStyle Hidden -NoProfile -NonInteractive -Command \"Start-Sleep 2; Remove-Item '{directory}' -Force -Recurse\"";
-            powershell.Start();
+            if (!Directory.Exists(directory))
+            {
+                return;
+            }
+
+            try
+            {
+                Directory.Delete(directory, true);
+            }
+            catch (IOException)
+            {
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
         }
 
         public static string ReplaceString(string str, string oldValue, string newValue, StringComparison comparison)

@@ -61,7 +61,6 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 
                 var myArgs = new List<string>();
                 //Arguments
-                myArgs.AddRange(new[] { "-ExecutionPolicy", "Unrestricted" }); //, "-Command", $"& {{ {contents.TrimEnd('\r', '\n')} }}" });
                 myArgs.AddRange(new[] { "-Command", contents.TrimEnd('\r', '\n') });
                 myArgs.AddRange(arguments);
                 myArgs.AddRange(new[] { "-PoshToolsRoot", "\"" + AssemblyDirectory + "\"" });
@@ -115,20 +114,21 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 
         private static void DeleteModuleDirectory(string directory)
         {
+            if (!Directory.Exists(directory))
+            {
+                return;
+            }
+
             try
             {
-                if (Directory.Exists(directory))
-                {
-                    var powershell = new Process();
-                    powershell.StartInfo = new ProcessStartInfo();
-                    powershell.StartInfo.CreateNoWindow = true;
-                    powershell.StartInfo.FileName = "pwsh";
-                    powershell.StartInfo.Arguments = $"-NoProfile -NonInteractive -Command \"Start-Sleep 2; Remove-Item '{directory}' -Force -Recurse\"";
-                    powershell.Start();
-                }
+                Directory.Delete(directory, true);
             }
-            catch { }
-
+            catch (IOException)
+            {
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
         }
 
         public static string AssemblyDirectory

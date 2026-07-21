@@ -40,6 +40,7 @@
         public string[] Resources { get; set; } = new string[0];
         public string DotNetSdk { get; set; }
         public string Certificate { get; set; }
+        public string TimestampServer { get; set; }
         public string OutputName { get; set; }
         public PowerShellHosts Host { get; set; }
         public bool Lightweight { get; set; }
