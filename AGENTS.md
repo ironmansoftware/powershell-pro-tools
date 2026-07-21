@@ -49,7 +49,7 @@ Prefer targeted validation for the component you changed.
   ```
 - Build the VS Code extension as CI does:
   ```powershell
-  Install-Module InvokeBuild -Scope CurrentUser -Force
+  Import-Module .\Build\Modules\InvokeBuild\5.14.23\InvokeBuild.psd1 -Force
   Install-Module PlatyPS -Scope CurrentUser -Force
   Invoke-Build -File .\vscode\vscode.build.ps1
   ```

@@ -1,0 +1,54 @@
+TOPIC
+    about_InvokeBuild
+
+SHORT DESCRIPTION
+    Build and test automation in PowerShell
+
+LONG DESCRIPTION
+    The module provides the following commands:
+
+        Invoke-Build
+            The alias of Invoke-Build.ps1
+            It invokes build scripts, this is the build engine.
+
+        Build-Checkpoint
+            The alias of Build-Checkpoint.ps1
+            It invokes persistent builds using the engine.
+
+        Build-Parallel
+            The alias of Build-Parallel.ps1
+            It invokes parallel builds using the engine.
+
+    Import the installed module:
+
+        Import-Module InvokeBuild
+        $ModuleBase = (Get-Module InvokeBuild).ModuleBase # for help
+
+    Or import from the specified location:
+
+        $ModuleBase = <folder with Invoke-Build.ps1> # for import and help
+        Import-Module $ModuleBase
+
+    Get help for Invoke-Build and see available build commands:
+
+        help $ModuleBase\Invoke-Build.ps1 -full
+
+    Get help for build commands:
+
+        . $ModuleBase\Invoke-Build.ps1
+        help task -full
+        help exec -full
+        ...
+
+HELPER SCRIPTS
+
+    The helper scripts Resolve-MSBuild.ps1 and Show-TaskHelp.ps1 are included
+    to the package but not exposed as aliases. Call them directly. Either add
+    the folder to the path or use the folder path $ModuleBase, see above.
+
+MORE HELPERS
+
+    The repository provides more helper scripts and tools, see README.
+    On Windows you can open README.html from the package like this:
+
+        Invoke-Item $ModuleBase\README.html

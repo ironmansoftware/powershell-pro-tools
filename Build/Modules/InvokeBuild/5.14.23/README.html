@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<p><a href="https://www.powershellgallery.com/packages/InvokeBuild"><img
+src="https://img.shields.io/powershellgallery/v/InvokeBuild"
+alt="PSGV" /><img
+src="https://img.shields.io/powershellgallery/dt/InvokeBuild"
+alt="PSGD" /></a> <a
+href="https://www.nuget.org/packages/Invoke-Build"><img
+src="https://img.shields.io/nuget/v/Invoke-Build" alt="NGV" /><img
+src="https://img.shields.io/nuget/dt/Invoke-Build" alt="NGD" /></a>
+<img src="https://raw.githubusercontent.com/nightroman/Invoke-Build/main/ib.png" align="right"/></p>
+<h2 id="build-automation-in-powershell">Build Automation in
+PowerShell</h2>
+<p>Invoke-Build is a build and test automation tool which invokes tasks
+defined in PowerShell v3.0+ scripts. It is similar to psake but arguably
+easier to use and more powerful. It is complete, bug free, well covered
+by tests.</p>
+<p>In addition to basic task processing the engine supports</p>
+<ul>
+<li>Incremental tasks with effectively processed inputs and
+outputs.</li>
+<li>Persistent builds which can be resumed after interruptions.</li>
+<li>Parallel builds in separate workspaces with common stats.</li>
+<li>Batch invocation of tests composed as tasks.</li>
+<li>Ability to define new classes of tasks.</li>
+</ul>
+<p>Invoke-Build v3.0.1+ is cross-platform with PowerShell Core.</p>
+<p>Invoke-Build can be effectively used in VSCode and ISE.</p>
+<p>Several <em>PowerShell Team</em> projects use Invoke-Build.</p>
+<h2 id="the-package">The package</h2>
+<p>The package includes the engine, helpers, and help:</p>
+<ul>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Invoke-Build.ps1">Invoke-Build.ps1</a>
+- invokes build scripts, this is the build engine</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Build-Checkpoint.ps1">Build-Checkpoint.ps1</a>
+- invokes persistent builds using the engine</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Build-Parallel.ps1">Build-Parallel.ps1</a>
+- invokes parallel builds using the engine</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Resolve-MSBuild.ps1">Resolve-MSBuild.ps1</a>
+- finds the specified or latest MSBuild</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Show-TaskHelp.ps1">Show-TaskHelp.ps1</a>
+- shows task help, used on WhatIf calls</li>
+<li><code>about_InvokeBuild.help.txt</code> - module help file</li>
+<li><code>Help.xml</code> - content for Get-Help</li>
+</ul>
+<p>Extra scripts, see PSGallery and the repository:</p>
+<ul>
+<li><a
+href="https://www.powershellgallery.com/packages/Invoke-Build.ArgumentCompleters">Invoke-Build.ArgumentCompleters</a>
+- completers for v5 native, TabExpansion2.ps1</li>
+<li><a
+href="https://www.powershellgallery.com/packages/Invoke-TaskFromVSCode">Invoke-TaskFromVSCode</a>
+- invokes a task from a build script opened in VSCode</li>
+<li><a
+href="https://www.powershellgallery.com/packages/Show-BuildGraph">Show-BuildGraph</a>
+- shows task graph by Graphviz Viz.js or dot</li>
+<li><a
+href="https://www.powershellgallery.com/packages/New-VSCodeTask">New-VSCodeTask</a>
+- generates VSCode tasks bound to build script tasks</li>
+<li><a
+href="https://www.powershellgallery.com/packages/Invoke-TaskFromISE">Invoke-TaskFromISE</a>
+- invokes a task from a script opened in ISE</li>
+</ul>
+<p>And some more tools, see the repository:</p>
+<ul>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/ib.cmd">ib.cmd</a>,
+<a
+href="https://github.com/nightroman/Invoke-Build/blob/main/ib.sh">ib.sh</a>
+- cmd and bash helpers</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Build-JustTask.ps1">Build-JustTask.ps1</a>
+- invokes tasks without references</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Convert-psake.ps1">Convert-psake.ps1</a>
+- converts psake build scripts</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Show-BuildTree.ps1">Show-BuildTree.ps1</a>
+- shows task trees as text</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Show-BuildDgml.ps1">Show-BuildDgml.ps1</a>
+- shows task graph as DGML</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Show-BuildMermaid.ps1">Show-BuildMermaid.ps1</a>
+- shows task graph by Mermaid</li>
+</ul>
+<h2 id="install-as-module">Install as module</h2>
+<p>Invoke-Build is published as PSGallery module <a
+href="https://www.powershellgallery.com/packages/InvokeBuild">InvokeBuild</a>.
+You can install it by one of these commands:</p>
+<pre><code>Install-Module InvokeBuild</code></pre>
+<p>To install the module with Chocolatey, run the following command:</p>
+<pre><code>choco install invoke-build</code></pre>
+<p>NOTE: The Chocolatey package is maintained by its owner.</p>
+<h2 id="install-as-scripts">Install as scripts</h2>
+<p>Invoke-Build is also published as <a
+href="https://www.nuget.org/packages/Invoke-Build">nuget.org/packages/Invoke-Build</a>.</p>
+<p>If you use <a href="https://github.com/lukesampson/scoop">scoop</a>
+then invoke:</p>
+<pre><code>scoop install invoke-build</code></pre>
+<p>and you are done, scripts are downloaded and their directory is added
+to the path. You may need to start a new PowerShell session with the
+updated path.</p>
+<p>Otherwise, download the package manually, rename it to zip, extract
+its <em>tools</em> and rename to <em>InvokeBuild</em>. Consider
+including this directory to the path for invoking scripts by names. Or
+copy to any PowerShell module directory in order to use it as
+module.</p>
+<h2 id="install-as-dotnet-tool">Install as dotnet tool</h2>
+<p><a href="https://www.nuget.org/packages/ib">nuget.org/packages/ib</a>
+provides Invoke-Build as the dotnet tool <code>ib</code> which may be
+installed as global or local.</p>
+<p>To install the global tool:</p>
+<pre><code>dotnet tool install --global ib</code></pre>
+<p>To install the local tool:</p>
+<pre><code>dotnet new tool-manifest # once on setting up a repo with tools
+dotnet tool install --local ib</code></pre>
+<p>See <a
+href="https://github.com/nightroman/Invoke-Build/blob/main/ib/README.md">ib/README</a>
+for more details about <code>ib</code> commands.</p>
+<h2 id="getting-help">Getting help</h2>
+<p>If you use the module (known issue <a
+href="https://github.com/PowerShell/PowerShell/issues/2899">#2899</a>)
+or the script is not in the path, use the full path
+<code>help .../Invoke-Build.ps1</code> instead of
+<code>help Invoke-Build</code>.</p>
+<p>In order to get help for the engine, invoke:</p>
+<pre><code>help Invoke-Build -full</code></pre>
+<p>In order to get help for internal commands:</p>
+<pre><code>. Invoke-Build
+help task -full
+help exec -full
+...</code></pre>
+<p>See also online <a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/help/README.md">Invoke-Build
+Help</a></p>
+<h2 id="online-resources">Online resources</h2>
+<ul>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/Concepts.md">Basic
+Concepts</a> Why build scripts may have advantages over normal
+scripts.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/Script-Tutorial.md">Script
+Tutorial</a> Take a look in order to get familiar with build
+scripts.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/tree/main/Tasks/01-step-by-step-tutorial">Step
+by Step Tutorial</a> From "Hello world" to featured scripts.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build.template">Invoke-Build.template</a>
+Create scripts by <code>dotnet new ib</code>.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/Build-Scripts-in-Projects.md">Examples</a>
+Build scripts used in various projects.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/tree/main/Tasks">Tasks</a>
+Samples, patterns, and various techniques.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/Design-Notes.md">Design
+Notes</a> Technical details for contributors.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/README.md">Invoke-Build
+Docs</a> Full documentation.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/help/README.md">Invoke-Build
+Help</a> Commands help.</li>
+<li><a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Release-Notes.md">Release
+Notes</a></li>
+</ul>
+<p>Questions, suggestions, and reports are welcome at <a
+href="https://github.com/nightroman/Invoke-Build/discussions">discussions</a>
+and <a
+href="https://github.com/nightroman/Invoke-Build/issues">issues</a>.</p>
+<h2 id="credits">Credits</h2>
+<ul>
+<li>The project was inspired by <a
+href="https://github.com/psake/psake">psake</a>, see <a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/Comparison-with-psake.md">Comparison
+with psake</a></li>
+<li>Some concepts came from <a
+href="https://github.com/Microsoft/msbuild">MSBuild</a>, see <a
+href="https://github.com/nightroman/Invoke-Build/blob/main/Docs/Comparison-with-MSBuild.md">Comparison
+with MSBuild</a></li>
+</ul>
+</body>
+</html>

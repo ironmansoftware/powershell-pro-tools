@@ -1,0 +1,113 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>Microsoft.PowerShell.Commands.PSRepositoryItemInfo</T>
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">InvokeBuild</S>
+      <S N="Version">5.14.23</S>
+      <S N="Type">Module</S>
+      <S N="Description">Build and test automation in PowerShell</S>
+      <S N="Author">Roman Kuzmin</S>
+      <S N="CompanyName">nightroman</S>
+      <S N="Copyright">(c) Roman Kuzmin</S>
+      <DT N="PublishedDate">2026-01-28T12:51:49-06:00</DT>
+      <Nil N="InstalledDate" />
+      <Nil N="UpdatedDate" />
+      <URI N="LicenseUri">http://www.apache.org/licenses/LICENSE-2.0</URI>
+      <URI N="ProjectUri">https://github.com/nightroman/Invoke-Build</URI>
+      <URI N="IconUri">https://raw.githubusercontent.com/nightroman/Invoke-Build/main/ib.png</URI>
+      <Obj N="Tags" RefId="1">
+        <TN RefId="1">
+          <T>System.Object[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>Build</S>
+          <S>Test</S>
+          <S>Automation</S>
+          <S>PSModule</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="2">
+        <TN RefId="2">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">Function</S>
+            <Obj N="Value" RefId="3">
+              <TNRef RefId="1" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">Command</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">DscResource</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+        </DCT>
+      </Obj>
+      <Nil N="PowerShellGetFormatVersion" />
+      <S N="ReleaseNotes">https://github.com/nightroman/Invoke-Build/blob/main/Release-Notes.md</S>
+      <Obj N="Dependencies" RefId="4">
+        <TNRef RefId="1" />
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <S N="PackageManagementProvider">NuGet</S>
+      <Obj N="AdditionalMetadata" RefId="5">
+        <TN RefId="3">
+          <T>System.Management.Automation.PSCustomObject</T>
+          <T>System.Object</T>
+        </TN>
+        <MS>
+          <S N="copyright">(c) Roman Kuzmin</S>
+          <S N="description">Build and test automation in PowerShell</S>
+          <S N="requireLicenseAcceptance">False</S>
+          <S N="releaseNotes">https://github.com/nightroman/Invoke-Build/blob/main/Release-Notes.md</S>
+          <S N="isLatestVersion">True</S>
+          <S N="isAbsoluteLatestVersion">True</S>
+          <S N="versionDownloadCount">264463</S>
+          <S N="downloadCount">2999721</S>
+          <S N="packageSize">42600</S>
+          <S N="published">2026-01-28 12:51:49 PM -06:00</S>
+          <S N="created">2026-01-28 12:51:49 PM -06:00</S>
+          <S N="lastUpdated">2026-07-21 5:41:50 PM -05:00</S>
+          <S N="tags">Build Test Automation PSModule</S>
+          <S N="developmentDependency">False</S>
+          <S N="updated">2026-07-21T17:41:50Z</S>
+          <S N="NormalizedVersion">5.14.23</S>
+          <S N="Authors">Roman Kuzmin</S>
+          <S N="IsPrerelease">false</S>
+          <S N="ItemType">Module</S>
+          <S N="FileList">InvokeBuild.nuspec|about_InvokeBuild.help.txt|Build-Checkpoint.ps1|Build-Parallel.ps1|Help.xml|Invoke-Build.ps1|InvokeBuild.psd1|InvokeBuild.psm1|LICENSE|README.html|Resolve-MSBuild.ps1|Show-TaskHelp.ps1</S>
+          <S N="GUID">a0319025-5f1f-47f0-ae8d-9c7e151a5aae</S>
+          <S N="PowerShellVersion">3.0</S>
+          <S N="CompanyName">Roman Kuzmin</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">D:\copilot\copilot-worktrees\powershell-pro-tools\adamdriscoll-ubiquitous-waddle\Build\Modules\InvokeBuild\5.14.23</S>
+    </MS>
+  </Obj>
+</Objs>
