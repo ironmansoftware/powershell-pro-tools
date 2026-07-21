@@ -1,45 +1,28 @@
 ---
 document type: cmdlet
-external help file: PowerShellToolsPro.Cmdlets.dll-Help.xml
+external help file: PowerShellProTools.VSCode.dll-Help.xml
 HelpUri: ''
 Locale: en-US
-Module Name: PowerShellProTools
+Module Name: PowerShellProTools.VSCode
 ms.date: 07-21-2026
 PlatyPS schema version: 2024-05-01
-title: Merge-Script
+title: Show-VSCodeInputBox
 ---
 
-# Merge-Script
+# Show-VSCodeInputBox
 
 ## SYNOPSIS
 
-Packages, bundles, or obfuscates PowerShell scripts.
+Shows an input box in Visual Studio Code.
 
 ## SYNTAX
 
-### Parameters
+### __AllParameterSets
 
 ```
-Merge-Script -Script <string> [-OutputPath <string>] [-Bundle] [-Package] [-Obfuscate]
- [<CommonParameters>]
-```
-
-### Config
-
-```
-Merge-Script -Config <hashtable> [<CommonParameters>]
-```
-
-### ConfigFile
-
-```
-Merge-Script -ConfigFile <string> [<CommonParameters>]
-```
-
-### PackageConfig
-
-```
-Merge-Script -SerializedPackageConfig <string> [<CommonParameters>]
+Show-VSCodeInputBox [-IgnoreFocusOut] [-Password] [-PlaceHolder <string>] [-Prompt <string>]
+ [-Value <string>] [-StartValueSelection <int>] [-EndValueSelection <int>] [-Wait]
+ [-ResponseTimeout <int>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -48,30 +31,51 @@ This cmdlet has no aliases.
 
 ## DESCRIPTION
 
-Packages, bundles, or obfuscates scripts. Packaging and bundling can be used together, and obfuscation requires packaging.
+Shows a Visual Studio Code input box and returns the value entered by the user.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Merge-Script -Script .\MyScript.ps1 -OutputPath .\out -Bundle -Package
+Show-VSCodeInputBox -Prompt 'Enter a server name' -PlaceHolder 'localhost'
 ```
-Bundles a script and packages it as an executable in the output directory.
+Prompts the user for a server name.
 
 ## PARAMETERS
 
-### -Bundle
+### -EndValueSelection
 
-Bundles the script with dot sourced scripts found in the script.
+The ending character index for the selected input text.
+
+```yaml
+Type: System.Int32
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -IgnoreFocusOut
+
+Keeps the picker or input box open when focus moves away.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: Parameters
+- Name: (All)
   Position: Named
   IsRequired: false
   ValueFromPipeline: false
@@ -82,61 +86,17 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -Config
+### -Password
 
-A hashtable to specify the config for the cmdlet.
-See about_MergeScriptConfig.
-
-```yaml
-Type: System.Collections.Hashtable
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Config
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -ConfigFile
-
-A config file to specify for the cmdlet.
- See about_MergeScriptConfig.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: ConfigFile
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Obfuscate
-
-Obfuscate the .NET executable and PowerShell script.
+Masks the input box value.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: Parameters
+- Name: (All)
   Position: Named
   IsRequired: false
   ValueFromPipeline: false
@@ -147,73 +107,9 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -OutputPath
+### -PlaceHolder
 
-The output path for the resulting script or executable.
-This should be a directory.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Package
-
-Package the script as a .NET executable.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Script
-
-The script to package in an executable and optionally bundle with other scripts.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -SerializedPackageConfig
-
-A serialized package configuration JSON string.
+Placeholder text shown before input or selection.
 
 ```yaml
 Type: System.String
@@ -221,9 +117,114 @@ DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: PackageConfig
+- Name: (All)
   Position: Named
-  IsRequired: true
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Prompt
+
+Prompt text shown in the input box.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ResponseTimeout
+
+The number of milliseconds to wait for a response from Visual Studio Code.
+
+```yaml
+Type: System.Int32
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -StartValueSelection
+
+The starting character index for the selected input text.
+
+```yaml
+Type: System.Int32
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Value
+
+The default value shown in the input box.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Wait
+
+Waits for the VS Code command response before returning.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -249,8 +250,7 @@ This command returns objects described by the section heading.
 
 ## NOTES
 
-
-
+This command is intended for use with PowerShell Pro Tools automation.
 
 ## RELATED LINKS
 

@@ -50,7 +50,7 @@ Prefer targeted validation for the component you changed.
 - Build the VS Code extension as CI does:
   ```powershell
   Import-Module .\Build\Modules\InvokeBuild\5.14.23\InvokeBuild.psd1 -Force
-  Install-Module PlatyPS -Scope CurrentUser -Force
+  Install-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1 -Scope CurrentUser -Force -AllowClobber
   Invoke-Build -File .\vscode\vscode.build.ps1
   ```
 - For VS Code-only TypeScript changes, use the lighter commands from `vscode\powershellprotools`:

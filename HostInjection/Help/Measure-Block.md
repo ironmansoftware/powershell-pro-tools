@@ -1,45 +1,34 @@
 ---
 document type: cmdlet
-external help file: PowerShellToolsPro.Cmdlets.dll-Help.xml
+external help file: PowerShellProTools.VSCode.dll-Help.xml
 HelpUri: ''
 Locale: en-US
-Module Name: PowerShellProTools
+Module Name: PowerShellProTools.VSCode
 ms.date: 07-21-2026
 PlatyPS schema version: 2024-05-01
-title: Merge-Script
+title: Measure-Block
 ---
 
-# Merge-Script
+# Measure-Block
 
 ## SYNOPSIS
 
-Packages, bundles, or obfuscates PowerShell scripts.
+Measures execution timing for an instrumented script block.
 
 ## SYNTAX
 
-### Parameters
+### file
 
 ```
-Merge-Script -Script <string> [-OutputPath <string>] [-Bundle] [-Package] [-Obfuscate]
+Measure-Block -StartOffset <int> -EndOffset <int> [-ScriptBlock <scriptblock>] [-FileName <string>]
  [<CommonParameters>]
 ```
 
-### Config
+### module
 
 ```
-Merge-Script -Config <hashtable> [<CommonParameters>]
-```
-
-### ConfigFile
-
-```
-Merge-Script -ConfigFile <string> [<CommonParameters>]
-```
-
-### PackageConfig
-
-```
-Merge-Script -SerializedPackageConfig <string> [<CommonParameters>]
+Measure-Block -ModuleName <string> -CommandName <string> -PipelineMethod <string>
+ [-ScriptBlock <scriptblock>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -48,172 +37,22 @@ This cmdlet has no aliases.
 
 ## DESCRIPTION
 
-Packages, bundles, or obfuscates scripts. Packaging and bundling can be used together, and obfuscation requires packaging.
+Measures timing information for a section of PowerShell code. It can target a script block or a named command or pipeline segment in a script file.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Merge-Script -Script .\MyScript.ps1 -OutputPath .\out -Bundle -Package
+Measure-Block -ScriptBlock { Get-ChildItem }
 ```
-Bundles a script and packages it as an executable in the output directory.
+Measures the supplied script block.
 
 ## PARAMETERS
 
-### -Bundle
+### -CommandName
 
-Bundles the script with dot sourced scripts found in the script.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Config
-
-A hashtable to specify the config for the cmdlet.
-See about_MergeScriptConfig.
-
-```yaml
-Type: System.Collections.Hashtable
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Config
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -ConfigFile
-
-A config file to specify for the cmdlet.
- See about_MergeScriptConfig.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: ConfigFile
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Obfuscate
-
-Obfuscate the .NET executable and PowerShell script.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -OutputPath
-
-The output path for the resulting script or executable.
-This should be a directory.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Package
-
-Package the script as a .NET executable.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Script
-
-The script to package in an executable and optionally bundle with other scripts.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -SerializedPackageConfig
-
-A serialized package configuration JSON string.
+The command name to measure within the script.
 
 ```yaml
 Type: System.String
@@ -221,7 +60,133 @@ DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: PackageConfig
+- Name: module
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -EndOffset
+
+The ending offset of the measured block.
+
+```yaml
+Type: System.Int32
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: file
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -FileName
+
+The file name to open or use as context.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: file
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ModuleName
+
+The module name to measure within the script.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: module
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -PipelineMethod
+
+The pipeline method to measure.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: module
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ScriptBlock
+
+The script block to profile or measure.
+
+```yaml
+Type: System.Management.Automation.ScriptBlock
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -StartOffset
+
+The starting offset of the measured block.
+
+```yaml
+Type: System.Int32
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: file
   Position: Named
   IsRequired: true
   ValueFromPipeline: false
@@ -249,8 +214,7 @@ This command returns objects described by the section heading.
 
 ## NOTES
 
-
-
+This command is intended for use with PowerShell Pro Tools automation.
 
 ## RELATED LINKS
 

@@ -6,40 +6,43 @@ Locale: en-US
 Module Name: PowerShellProTools
 ms.date: 07-21-2026
 PlatyPS schema version: 2024-05-01
-title: Merge-Script
+title: ConvertTo-WinForm
 ---
 
-# Merge-Script
+# ConvertTo-WinForm
 
 ## SYNOPSIS
 
-Packages, bundles, or obfuscates PowerShell scripts.
+Generates Windows Forms scripts from PowerShell commands or functions.
 
 ## SYNTAX
 
-### Parameters
+### filePath
 
 ```
-Merge-Script -Script <string> [-OutputPath <string>] [-Bundle] [-Package] [-Obfuscate]
+ConvertTo-WinForm [-Path <string>] [-OutputPath <string>] [-PackageAsExecutable]
  [<CommonParameters>]
 ```
 
-### Config
+### def
 
 ```
-Merge-Script -Config <hashtable> [<CommonParameters>]
+ConvertTo-WinForm [-FunctionDefinition <scriptblock>] [-OutputPath <string>] [-PackageAsExecutable]
+ [<CommonParameters>]
 ```
 
-### ConfigFile
+### functionInfo
 
 ```
-Merge-Script -ConfigFile <string> [<CommonParameters>]
+ConvertTo-WinForm -Function <FunctionInfo> [-OutputPath <string>] [-PackageAsExecutable]
+ [<CommonParameters>]
 ```
 
-### PackageConfig
+### cmdletInfo
 
 ```
-Merge-Script -SerializedPackageConfig <string> [<CommonParameters>]
+ConvertTo-WinForm -Cmdlet <CmdletInfo> [-OutputPath <string>] [-PackageAsExecutable]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -48,55 +51,33 @@ This cmdlet has no aliases.
 
 ## DESCRIPTION
 
-Packages, bundles, or obfuscates scripts. Packaging and bundling can be used together, and obfuscation requires packaging.
+Creates a Windows Forms designer script and companion logic script from a function, cmdlet, script block, or script file. The generated files can be edited with the Windows Forms designer and optionally packaged as an executable.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Merge-Script -Script .\MyScript.ps1 -OutputPath .\out -Bundle -Package
+ConvertTo-WinForm -Path .\Get-UserInput.ps1 -OutputPath .\Get-UserInput.form.ps1
 ```
-Bundles a script and packages it as an executable in the output directory.
+Generates a Windows Forms designer script and logic script from a PowerShell script file.
 
 ## PARAMETERS
 
-### -Bundle
+### -Cmdlet
 
-Bundles the script with dot sourced scripts found in the script.
+A cmdlet whose parameters are used to generate a form.
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
+Type: System.Management.Automation.CmdletInfo
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Config
-
-A hashtable to specify the config for the cmdlet.
-See about_MergeScriptConfig.
-
-```yaml
-Type: System.Collections.Hashtable
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Config
+- Name: cmdletInfo
   Position: Named
   IsRequired: true
-  ValueFromPipeline: false
+  ValueFromPipeline: true
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
 DontShow: false
@@ -104,21 +85,20 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -ConfigFile
+### -Function
 
-A config file to specify for the cmdlet.
- See about_MergeScriptConfig.
+A function whose parameters are used to generate a form.
 
 ```yaml
-Type: System.String
-DefaultValue: None
+Type: System.Management.Automation.FunctionInfo
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: ConfigFile
+- Name: functionInfo
   Position: Named
   IsRequired: true
-  ValueFromPipeline: false
+  ValueFromPipeline: true
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
 DontShow: false
@@ -126,17 +106,17 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -Obfuscate
+### -FunctionDefinition
 
-Obfuscate the .NET executable and PowerShell script.
+A script block whose parameters are used to generate a form.
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
+Type: System.Management.Automation.ScriptBlock
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: Parameters
+- Name: def
   Position: Named
   IsRequired: false
   ValueFromPipeline: false
@@ -149,71 +129,7 @@ HelpMessage: ''
 
 ### -OutputPath
 
-The output path for the resulting script or executable.
-This should be a directory.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Package
-
-Package the script as a .NET executable.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Script
-
-The script to package in an executable and optionally bundle with other scripts.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -SerializedPackageConfig
-
-A serialized package configuration JSON string.
+The output file or directory path.
 
 ```yaml
 Type: System.String
@@ -221,9 +137,51 @@ DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: PackageConfig
+- Name: (All)
   Position: Named
-  IsRequired: true
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -PackageAsExecutable
+
+Packages the generated form script as an executable.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Path
+
+The path to the input file or host variable.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: filePath
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -241,6 +199,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.Management.Automation.FunctionInfo
+
+This command returns objects described by the section heading.
+
+### System.Management.Automation.CmdletInfo
+
+This command returns objects described by the section heading.
+
 ## OUTPUTS
 
 ### System.Object
@@ -249,8 +215,7 @@ This command returns objects described by the section heading.
 
 ## NOTES
 
-
-
+This command is intended for use with PowerShell Pro Tools automation.
 
 ## RELATED LINKS
 
