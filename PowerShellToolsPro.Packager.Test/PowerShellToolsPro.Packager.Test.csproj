@@ -58,6 +58,7 @@
     <Compile Include="ModuleCompilerTests.cs" />
     <Compile Include="OldCompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidateStageTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PowerShellToolsPro.Packager.Test.TestModule\PowerShellToolsPro.Packager.Test.TestModule.csproj">
