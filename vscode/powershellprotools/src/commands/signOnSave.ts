@@ -21,6 +21,9 @@ export function signOnSave() {
                 const configuration: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration(PowerShellLanguageId);
                 await configuration.update('signOnSaveCertificate', selectedCert);
             }
+            else {
+                return;
+            }
         }
 
         await Container.PowerShellService.SignScript(x.fileName, selectedCert);

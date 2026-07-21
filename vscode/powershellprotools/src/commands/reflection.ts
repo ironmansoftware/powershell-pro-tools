@@ -36,7 +36,7 @@ export class ReflectionCommands implements ICommand {
         return vscode.commands.registerCommand('poshProTools.loadAssembly', async () => {
             if (!Container.IsInitialized()) return;
 
-            const result = await vscode.window.showOpenDialog({
+            const assemblies = await vscode.window.showOpenDialog({
                 canSelectFiles: true,
                 canSelectFolders: false,
                 canSelectMany: true,
@@ -45,9 +45,11 @@ export class ReflectionCommands implements ICommand {
                 }
             });
 
-            result.forEach(async x => {
-                Container.PowerShellService.LoadAssembly(x.fsPath);
-            });
+            if (!assemblies || assemblies.length === 0) return;
+
+            for (const assembly of assemblies) {
+                await Container.PowerShellService.LoadAssembly(assembly.fsPath);
+            }
 
             await vscode.commands.executeCommand('reflectionView.refresh')
         })

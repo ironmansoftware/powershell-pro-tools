@@ -33,6 +33,7 @@
         "onView:jobView",
         "onCommand:powershell.showWinFormDesigner",
         "onCommand:powershell.generateWinForm",
+        "onCommand:poshProTools.refactoringInfo",
         "onCommand:poshProTools.statusBarMenu",
         "onCommand:poshProTools.installModule",
         "onCommand:poshProTools.welcome"

@@ -6,9 +6,9 @@ import { RefactorInfo, RefactoringProperty, RefactorProperty, RefactorRequest, R
 
 export class RefactoringCommands implements ICommand, vscode.CodeActionProvider {
     async provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): Promise<(vscode.CodeAction | vscode.Command)[]> {
-        if (!Container.IsInitialized(false)) return;
+        if (!Container.IsInitialized(false)) return [];
 
-        var request = this.getRefactorRequest();
+        var request = this.createRefactorRequest(range, document);
 
         var validRefactors = await Container.PowerShellService.GetValidRefactors(request);
         var codeActions = new Array<vscode.CodeAction>();
@@ -51,12 +51,15 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         );
 
         context.subscriptions.push(this.Refactor());
+        context.subscriptions.push(this.RefactoringInfo());
         context.subscriptions.push(this.MoveLeft());
         context.subscriptions.push(this.MoveRight());
     }
 
     async Move(direction: string) {
         var request = this.getRefactorRequest();
+        if (!request) return;
+
         request.type = RefactorType.reorder
         request.properties = [{
             type: RefactorProperty.name,
@@ -87,9 +90,12 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
             if (!Container.IsInitialized()) return;
 
             var request = this.getRefactorRequest();
+            if (!request) return;
 
             var validRefactors = await Container.PowerShellService.GetValidRefactors(request);
             var refactorName = await vscode.window.showQuickPick(validRefactors.map(m => m.Name));
+            if (!refactorName) return;
+
             var refactor = validRefactors.find(m => m.Name === refactorName);
 
             if (!refactor) return;
@@ -112,7 +118,24 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         })
     }
 
-    createRefactorRequest(selection: vscode.Selection, document: vscode.TextDocument): RefactorRequest {
+    RefactoringInfo() {
+        return vscode.commands.registerCommand('poshProTools.refactoringInfo', async () => {
+            if (!Container.IsInitialized()) return;
+
+            var request = this.getRefactorRequest();
+            if (!request) return;
+
+            var validRefactors = await Container.PowerShellService.GetValidRefactors(request);
+            if (!validRefactors || validRefactors.length === 0) {
+                vscode.window.showInformationMessage("No refactorings are available for the current selection.");
+                return;
+            }
+
+            vscode.window.showInformationMessage(`Available refactorings: ${validRefactors.map(m => m.Name).join(", ")}`);
+        })
+    }
+
+    createRefactorRequest(selection: vscode.Range | vscode.Selection, document: vscode.TextDocument): RefactorRequest {
         var request = new RefactorRequest();
         request.editorState = new TextEditorState();
         request.editorState.content = document.getText()
@@ -126,14 +149,19 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         var startColumn = selection.start.character;
         var startLine = selection.start.line;
 
-        do {
+        while (startLine < document.lineCount) {
             var line = document.lineAt(startLine);
             if (!line.isEmptyOrWhitespace && line.text[line.firstNonWhitespaceCharacterIndex] != '#') {
                 break;
             }
             startColumn = 0;
             startLine++;
-        } while (startLine < document.lineCount);
+        }
+
+        if (startLine >= document.lineCount) {
+            startLine = selection.start.line;
+            startColumn = selection.start.character;
+        }
 
         request.editorState.selectionStart = {
             Line: startLine,
@@ -160,15 +188,19 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         return request;
     }
 
-    getRefactorRequest(): RefactorRequest {
-        var selection = vscode.window.activeTextEditor.selection;
-        return this.createRefactorRequest(selection, vscode.window.activeTextEditor.document);
+    getRefactorRequest(): RefactorRequest | undefined {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) return undefined;
+
+        return this.createRefactorRequest(editor.selection, editor.document);
     }
 
     async extractVariable(request: RefactorRequest) {
         const name = await vscode.window.showInputBox({
             prompt: "Enter variable name"
         });
+
+        if (!name) return;
 
         request.properties = [{ type: RefactorProperty.name, value: name }];
         request.type = RefactorType.ExtractVariable
@@ -181,6 +213,8 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
             prompt: "Enter function name"
         });
 
+        if (!name) return;
+
         request.properties = [{ type: RefactorProperty.name, value: name }];
         request.type = RefactorType.extractFunction
 
@@ -191,6 +225,8 @@ export class RefactoringCommands implements ICommand, vscode.CodeActionProvider 
         const fileName = await vscode.window.showInputBox({
             prompt: "Enter file name"
         });
+
+        if (!fileName) return;
 
         request.properties = [{ type: RefactorProperty.fileName, value: fileName }];
         request.type = RefactorType.extractFile
