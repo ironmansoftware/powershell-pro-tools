@@ -182,7 +182,7 @@ namespace PowerShellToolsPro.Packager
             if (!string.IsNullOrEmpty(config.Certificate))
             {
                 OnBuildOutput($"Signing assembly with certificate {config.Certificate}");
-                SignAssembly(config.Certificate, resultingAssembly);
+                SignAssembly(config.Certificate, config.TimestampServer, resultingAssembly);
             }
 
             return resultingAssembly;
@@ -193,7 +193,7 @@ namespace PowerShellToolsPro.Packager
             return str.Replace("'", "%27");
         }
 
-        private void SignAssembly(string certificate, string path)
+        private void SignAssembly(string certificate, string timestampServer, string path)
         {
             X509Certificate2 cert = null;
             using (var ps = PowerShell.Create())
@@ -208,9 +208,14 @@ namespace PowerShellToolsPro.Packager
 
             using (var ps = PowerShell.Create())
             {
-                ps.AddCommand("Set-AuthenticodeSignature")
+                var command = ps.AddCommand("Set-AuthenticodeSignature")
                     .AddParameter("FilePath", path)
                     .AddParameter("Certificate", cert);
+                if (!string.IsNullOrEmpty(timestampServer))
+                {
+                    command.AddParameter("TimestampServer", timestampServer);
+                }
+
                 var result = ps.Invoke().First();
 
                 if (ps.HadErrors)

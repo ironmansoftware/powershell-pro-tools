@@ -16,6 +16,8 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 {
     class Program
     {
+        private const string CleanupArgument = "--poshtools-cleanup";
+
         [DllImport("user32.dll")]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         [DllImport("kernel32")]
@@ -33,6 +35,12 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 
         static int Main(string[] args)
         {
+            if (args.Length == 2 && args[0] == CleanupArgument)
+            {
+                DeleteModuleDirectory(args[1]);
+                return 0;
+            }
+
             // License
 
             var arguments = new List<string>();
@@ -91,7 +99,7 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
             finally
             {
                 _console?.Kill();
-                DeleteModuleDirectory(modulePath);
+                ScheduleModuleDirectoryCleanup(modulePath);
             }
         }
 
@@ -137,18 +145,50 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
             Environment.SetEnvironmentVariable("PSModulePath", pathvar);
         }
 
+        private static void ScheduleModuleDirectoryCleanup(string directory)
+        {
+            if (!Directory.Exists(directory))
+            {
+                return;
+            }
+
+            var cleanup = new Process();
+            cleanup.StartInfo = new ProcessStartInfo();
+            cleanup.StartInfo.UseShellExecute = false;
+            cleanup.StartInfo.CreateNoWindow = true;
+            cleanup.StartInfo.FileName = Process.GetCurrentProcess().MainModule.FileName;
+            cleanup.StartInfo.Arguments = CleanupArgument + " " + QuoteArgument(directory);
+            cleanup.Start();
+        }
+
         private static void DeleteModuleDirectory(string directory)
         {
-            if (Directory.Exists(directory))
+            for (var retry = 0; retry < 30; retry++)
             {
-                var powershell = new Process();
-                powershell.StartInfo = new ProcessStartInfo();
-                powershell.StartInfo.UseShellExecute = false;
-                powershell.StartInfo.CreateNoWindow = true;
-                powershell.StartInfo.FileName = "powershell";
-                powershell.StartInfo.Arguments = $"-WindowStyle Hidden -NoProfile -NonInteractive -Command \"Start-Sleep 2; Remove-Item '{directory}' -Force -Recurse\"";
-                powershell.Start();
+                if (!Directory.Exists(directory))
+                {
+                    return;
+                }
+
+                try
+                {
+                    Directory.Delete(directory, true);
+                    return;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(1000);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(1000);
+                }
             }
+        }
+
+        private static string QuoteArgument(string argument)
+        {
+            return "\"" + argument.Replace("\"", "\\\"") + "\"";
         }
 
         public static string AssemblyDirectory

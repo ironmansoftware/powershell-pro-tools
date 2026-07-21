@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Text;
 using System.IO.Compression;
 using System.Diagnostics;
+using System.Threading;
 using System.Security.Cryptography;
 
 #pragma warning disable SYSLIB0021, SYSLIB0012
@@ -17,6 +18,8 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 {
     class Program
     {
+        private const string CleanupArgument = "--poshtools-cleanup";
+
         [DllImport("Kernel32.dll")]
         public static extern bool AllocConsole();
         [DllImport("user32.dll")]
@@ -28,6 +31,12 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 
         static int Main(string[] args)
         {
+            if (args.Length == 2 && args[0] == CleanupArgument)
+            {
+                DeleteModuleDirectory(args[1]);
+                return 0;
+            }
+
             // License
 
             var arguments = new List<string>();
@@ -77,7 +86,6 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
 
                 var myArgs = new List<string>();
                 //Arguments
-                myArgs.AddRange(new[] { "-ExecutionPolicy", "Unrestricted" }); //, "-Command", $"& {{ {contents.TrimEnd('\r', '\n')} }}" });
                 myArgs.AddRange(new[] { "-Command", contents.TrimEnd('\r', '\n') });
                 myArgs.AddRange(arguments);
                 myArgs.AddRange(new[] { "-PoshToolsRoot", "\"" + AssemblyDirectory + "\"" });
@@ -85,7 +93,7 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
             }
             finally
             {
-                DeleteModuleDirectory(modulePath);
+                ScheduleModuleDirectoryCleanup(modulePath);
             }
         }
 
@@ -140,22 +148,50 @@ namespace PowerShellToolsPro.Packager.ConsoleHost
             Environment.SetEnvironmentVariable("PSModulePath", path);
         }
 
+        private static void ScheduleModuleDirectoryCleanup(string directory)
+        {
+            if (!Directory.Exists(directory))
+            {
+                return;
+            }
+
+            var cleanup = new Process();
+            cleanup.StartInfo = new ProcessStartInfo();
+            cleanup.StartInfo.UseShellExecute = false;
+            cleanup.StartInfo.CreateNoWindow = true;
+            cleanup.StartInfo.FileName = Process.GetCurrentProcess().MainModule.FileName;
+            cleanup.StartInfo.Arguments = CleanupArgument + " " + QuoteArgument(directory);
+            cleanup.Start();
+        }
+
         private static void DeleteModuleDirectory(string directory)
         {
-            try
+            for (var retry = 0; retry < 30; retry++)
             {
-                if (Directory.Exists(directory))
+                if (!Directory.Exists(directory))
                 {
-                    var powershell = new Process();
-                    powershell.StartInfo = new ProcessStartInfo();
-                    powershell.StartInfo.CreateNoWindow = true;
-                    powershell.StartInfo.FileName = "powershell";
-                    powershell.StartInfo.Arguments = $"-NoProfile -NonInteractive -Command \"Start-Sleep 2; Remove-Item '{directory}' -Force -Recurse\"";
-                    powershell.Start();
+                    return;
+                }
+
+                try
+                {
+                    Directory.Delete(directory, true);
+                    return;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(1000);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(1000);
                 }
             }
-            catch { }
+        }
 
+        private static string QuoteArgument(string argument)
+        {
+            return "\"" + argument.Replace("\"", "\\\"") + "\"";
         }
 
         public static string AssemblyDirectory

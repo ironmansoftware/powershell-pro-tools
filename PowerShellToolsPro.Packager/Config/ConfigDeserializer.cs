@@ -55,6 +55,7 @@ namespace PowerShellToolsPro.Packager.Config
                 config.Package.Resources = ReadScalarValue<string[]>(packagerHashtable, "Resources");
                 config.Package.DotNetSdk = ReadScalarValue<string>(packagerHashtable, "DotNetSdk");
                 config.Package.Certificate = ReadScalarValue<string>(packagerHashtable, "Certificate");
+                config.Package.TimestampServer = ReadScalarValue<string>(packagerHashtable, "TimestampServer");
                 config.Package.OutputName = ReadScalarValue<string>(packagerHashtable, "OutputName");
                 config.Package.Lightweight = ReadScalarValue<bool>(packagerHashtable, "Lightweight");
             }
