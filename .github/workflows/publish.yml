@@ -108,6 +108,15 @@ jobs:
       env:
         VSCE: ${{ secrets.VSCODE_MARKETPLACE_KEY }}
 
+    - name: Publish VS Code extension to Open VSX
+      shell: pwsh
+      run: |
+        Set-Location .\vscode\powershellprotools
+        $Version = (ConvertFrom-Json (Get-Content -Raw .\package.json)).Version
+        npx --yes ovsx publish ".\kit\powershellprotools-$($Version).vsix"
+      env:
+        OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
     - name: Publish Windows Form Designer
       shell: pwsh
       run: |
