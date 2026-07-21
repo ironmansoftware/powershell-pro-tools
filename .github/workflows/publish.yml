@@ -1,0 +1,161 @@
+name: Publish
+
+on: [workflow_dispatch]
+
+jobs:
+  publish:
+    name: Build and publish repository
+    timeout-minutes: 120
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: nuget/setup-nuget@v1
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - uses: actions/cache@v4
+      id: cache
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+    - uses: actions/cache@v4
+      id: cache2
+      with:
+        path: .\packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
+
+    - name: Restore
+      shell: pwsh
+      run: |
+        dotnet restore PowerShellTools.sln
+        nuget restore PowerShellTools.sln
+
+    - name: Image Manifest
+      shell: pwsh
+      run: |
+        $Xml = [Xml](Get-Content .\Build\Common.Build.settings)
+        $Version = $Xml.Project.PropertyGroup[1].appveyor_build_version
+        .\PowerShellTools\prebuild.ps1 -Version $Version
+        .\PowerShellTools.2022\prebuild.ps1 -Version $Version
+
+    - name: Build Ironman Host
+      shell: pwsh
+      run: |
+        Push-Location IronmanPowerShellHost
+        dotnet publish -f net472 -c Release .\IronmanPowerShellHost.csproj
+        Pop-Location
+
+    - name: Build Visual Studio extensions
+      shell: pwsh
+      run: |
+        $devenv = .\Build\vswhere.exe -latest -property productPath | Split-Path
+        msbuild PowerShellTools.sln -p:Configuration=Release -p:Platform="Any CPU" -p:DevEnvDir="$devenv"
+
+    - name: Build Windows Form Designer
+      shell: pwsh
+      run: |
+        $Version = Get-Content .\WinFormDesigner\version.txt -Raw
+        msbuild PowerShellTools.sln -t:rebuild -p:Configuration=Release -p:Platform=x64 -p:Version=$Version
+      env:
+        SIGNING_CODE: ${{ secrets.SIGNING_CODE }}
+
+    - name: Build Cmdlets
+      shell: pwsh
+      run: |
+        .\PowerShellToolsPro.Cmdlets\build.ps1
+      env:
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+    - name: Build VS Code extension
+      shell: pwsh
+      run: |
+        Import-Module .\Build\Modules\InvokeBuild\5.14.23\InvokeBuild.psd1 -Force
+        Install-Module PlatyPS -Scope CurrentUser -Force
+        Invoke-Build -File .\vscode\vscode.build.ps1
+      env:
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+    - name: Publish Cmdlets
+      shell: pwsh
+      run: |
+        Rename-Item .\PowerShellToolsPro.Cmdlets\out PowerShellProTools
+        Publish-Module -Path .\PowerShellToolsPro.Cmdlets\PowerShellProTools -NuGetApiKey $ENV:PSGALLERY
+      env:
+        PSGALLERY: ${{ secrets.PSGALLERY }}
+
+    - name: Publish VS Code extension
+      shell: pwsh
+      run: |
+        Set-Location .\vscode\powershellprotools
+        $Version = (ConvertFrom-Json (Get-Content -Raw .\package.json)).Version
+        vsce publish --pat $ENV:VSCE --packagePath ".\kit\powershellprotools-$($Version).vsix"
+      env:
+        VSCE: ${{ secrets.VSCODE_MARKETPLACE_KEY }}
+
+    - name: Publish Windows Form Designer
+      shell: pwsh
+      run: |
+        $Version = Get-Content .\WinFormDesigner\version.txt
+        azcopy copy .\FormDesigner.Host\version.txt "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+
+        $Item = (Get-ChildItem .\WinFormDesigner\bin\x64\Release\*.exe).FullName
+        azcopy copy $Item "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+
+        Compress-Archive -Path $Item -DestinationPath .\WinFormDesigner.zip
+        Compress-Archive -Path $Item -DestinationPath ".\WinFormDesigner.$Version.zip"
+        azcopy copy ".\WinFormDesigner.$Version.zip" "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+        azcopy copy .\WinFormDesigner.zip "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+
+        Rename-Item $Item "WinFormDesigner.$Version.exe"
+        $VersionedItem = (Get-ChildItem .\WinFormDesigner\bin\x64\Release\WinFormDesigner.$Version.exe).FullName
+        azcopy copy $VersionedItem "https://imsreleases.blob.core.windows.net/psscriptpad?$($env:SAS)"
+      env:
+        SAS: ${{ secrets.PSSCRIPTPAD_SAS }}
+
+    - name: Upload Visual Studio extensions
+      uses: actions/upload-artifact@v4
+      with:
+        name: PowerShellTools.VisualStudio
+        path: bin\Release\PowerShellTools.*.vsix
+
+    - name: Upload Ironman Host
+      uses: actions/upload-artifact@v4
+      with:
+        name: PowerShellTools.Host
+        path: IronmanPowerShellHost\bin\Release
+
+    - name: Upload Cmdlets
+      uses: actions/upload-artifact@v4
+      with:
+        name: PowerShellTools.Cmdlets
+        path: PowerShellToolsPro.Cmdlets\PowerShellProTools
+
+    - name: Upload VS Code extension
+      uses: actions/upload-artifact@v4
+      with:
+        name: PowerShellTools.VSCode
+        path: vscode\powershellprotools\kit\powershellprotools-*.vsix
+
+    - name: Upload Windows Form Designer
+      uses: actions/upload-artifact@v4
+      with:
+        name: PowerShellTools.WinFormDesigner
+        path: |
+          WinFormDesigner\bin\x64\Release\*.exe
+          WinFormDesigner*.zip
