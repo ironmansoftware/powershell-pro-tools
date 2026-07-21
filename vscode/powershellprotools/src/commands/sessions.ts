@@ -54,7 +54,10 @@ export class SessionCommands implements ICommand {
 
     UnpinSession() {
         return vscode.commands.registerCommand('poshProTools.unpinSession', async () => {
-            this._pinnedTextEditors.delete(vscode.window.activeTextEditor.document.uri);
+            const editor = vscode.window.activeTextEditor;
+            if (!editor) return;
+
+            this._pinnedTextEditors.delete(editor.document.uri);
             this._statusBarItem.hide();
         });
     }
@@ -67,16 +70,22 @@ export class SessionCommands implements ICommand {
             if (!Container.IsInitialized()) return;
 
             const sessions = await Container.PowerShellService.GetSessions();
+            const editor = vscode.window.activeTextEditor;
 
             if (sessions.length === 0 || (sessions.length === 1 && sessions[0] == null)) {
                 vscode.window.showWarningMessage("No sessions to pin.");
                 return;
             }
 
-            const result = await vscode.window.showQuickPick(sessions.map(x => x.Name));
-            const session = sessions.find(x => x.Name === result);
+            if (!editor) return;
 
-            this._pinnedTextEditors.set(vscode.window.activeTextEditor.document.uri, session);
+            const result = await vscode.window.showQuickPick(sessions.map(x => x.Name));
+            if (!result) return;
+
+            const session = sessions.find(x => x.Name === result);
+            if (!session) return;
+
+            this._pinnedTextEditors.set(editor.document.uri, session);
 
             if (this._runspacePushed) {
                 this._runspacePushed = false;
@@ -89,6 +98,8 @@ export class SessionCommands implements ICommand {
             this._statusBarItem.show();
 
             vscode.window.onDidChangeActiveTextEditor(async (editor) => {
+                if (!editor) return;
+
                 if (this._runspacePushed) {
                     this._runspacePushed = false;
                     await Container.PowerShellService.ExitSession();
