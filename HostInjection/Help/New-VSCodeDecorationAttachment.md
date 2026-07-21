@@ -1,45 +1,29 @@
 ---
 document type: cmdlet
-external help file: PowerShellToolsPro.Cmdlets.dll-Help.xml
+external help file: PowerShellProTools.VSCode.dll-Help.xml
 HelpUri: ''
 Locale: en-US
-Module Name: PowerShellProTools
+Module Name: PowerShellProTools.VSCode
 ms.date: 07-21-2026
 PlatyPS schema version: 2024-05-01
-title: Merge-Script
+title: New-VSCodeDecorationAttachment
 ---
 
-# Merge-Script
+# New-VSCodeDecorationAttachment
 
 ## SYNOPSIS
 
-Packages, bundles, or obfuscates PowerShell scripts.
+Creates attachment styling for a Visual Studio Code decoration.
 
 ## SYNTAX
 
-### Parameters
+### __AllParameterSets
 
 ```
-Merge-Script -Script <string> [-OutputPath <string>] [-Bundle] [-Package] [-Obfuscate]
- [<CommonParameters>]
-```
-
-### Config
-
-```
-Merge-Script -Config <hashtable> [<CommonParameters>]
-```
-
-### ConfigFile
-
-```
-Merge-Script -ConfigFile <string> [<CommonParameters>]
-```
-
-### PackageConfig
-
-```
-Merge-Script -SerializedPackageConfig <string> [<CommonParameters>]
+New-VSCodeDecorationAttachment [-BackgroundColor <string>] [-Border <string>]
+ [-BorderColor <string>] [-Color <string>] [-ContentText <string>] [-FontStyle <string>]
+ [-FontWeight <string>] [-Height <string>] [-Margin <string>] [-TextDecoration <string>]
+ [-Width <string>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -48,172 +32,22 @@ This cmdlet has no aliases.
 
 ## DESCRIPTION
 
-Packages, bundles, or obfuscates scripts. Packaging and bundling can be used together, and obfuscation requires packaging.
+Creates before or after attachment styling that can be assigned to a Visual Studio Code text editor decoration.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Merge-Script -Script .\MyScript.ps1 -OutputPath .\out -Bundle -Package
+$after = New-VSCodeDecorationAttachment -ContentText ' <- review' -Color '#888888'
 ```
-Bundles a script and packages it as an executable in the output directory.
+Creates attachment styling for text displayed after a decorated range.
 
 ## PARAMETERS
 
-### -Bundle
+### -BackgroundColor
 
-Bundles the script with dot sourced scripts found in the script.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Config
-
-A hashtable to specify the config for the cmdlet.
-See about_MergeScriptConfig.
-
-```yaml
-Type: System.Collections.Hashtable
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Config
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -ConfigFile
-
-A config file to specify for the cmdlet.
- See about_MergeScriptConfig.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: ConfigFile
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Obfuscate
-
-Obfuscate the .NET executable and PowerShell script.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -OutputPath
-
-The output path for the resulting script or executable.
-This should be a directory.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Package
-
-Package the script as a .NET executable.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-DefaultValue: False
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Script
-
-The script to package in an executable and optionally bundle with other scripts.
-
-```yaml
-Type: System.String
-DefaultValue: None
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: Parameters
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -SerializedPackageConfig
-
-A serialized package configuration JSON string.
+The CSS background color to apply.
 
 ```yaml
 Type: System.String
@@ -221,9 +55,219 @@ DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: PackageConfig
+- Name: (All)
   Position: Named
-  IsRequired: true
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Border
+
+The CSS border value to apply.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -BorderColor
+
+The CSS border color to apply.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Color
+
+The CSS foreground color to apply.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ContentText
+
+The text displayed by a decoration attachment.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -FontStyle
+
+The CSS font style to apply.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -FontWeight
+
+The CSS font weight to apply.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Height
+
+The CSS height for the decoration attachment.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Margin
+
+The CSS margin for the decoration attachment.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -TextDecoration
+
+The CSS text-decoration value to apply.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Width
+
+The CSS width for the decoration attachment.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -249,8 +293,7 @@ This command returns objects described by the section heading.
 
 ## NOTES
 
-
-
+This command is intended for use with PowerShell Pro Tools automation.
 
 ## RELATED LINKS
 

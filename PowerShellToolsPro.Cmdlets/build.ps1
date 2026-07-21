@@ -2,10 +2,10 @@
 
 Push-Location $PSScriptRoot
 
-$platyps = Import-Module PlatyPS -PassThru -ErrorAction SilentlyContinue
+$platyps = Import-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1 -PassThru -ErrorAction SilentlyContinue
 if ($platyps -eq $null) {
-	Install-Module PlatyPS -Force -Scope CurrentUser
-	Import-Module PlatyPS
+	Install-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1 -Force -Scope CurrentUser -AllowClobber
+	Import-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1
 }
 
 dotnet publish -f netstandard2.0 -c $Configuration

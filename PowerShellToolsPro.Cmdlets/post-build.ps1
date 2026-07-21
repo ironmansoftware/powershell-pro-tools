@@ -30,6 +30,5 @@ New-ModuleManifest $ManifestPath @Arguments
 
 Import-Module $ManifestPath -Force
 
-New-ExternalHelp -Path (Join-Path $PSScriptRoot "help") -OutputPath (Join-Path $PSScriptRoot "en-US") -Force
-
+& (Join-Path $PSScriptRoot "CreateHelp.ps1") -HelpPath (Join-Path $PSScriptRoot "Help") -OutputPath (Join-Path $PSScriptRoot "en-US")
 

@@ -86,7 +86,7 @@ jobs:
       shell: pwsh
       run: |
         Import-Module .\Build\Modules\InvokeBuild\5.14.23\InvokeBuild.psd1 -Force
-        Install-Module PlatyPS -Scope CurrentUser -Force
+        Install-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1 -Scope CurrentUser -Force -AllowClobber
         Invoke-Build -File .\vscode\vscode.build.ps1
       env:
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}

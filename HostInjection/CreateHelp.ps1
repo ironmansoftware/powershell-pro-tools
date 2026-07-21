@@ -9,10 +9,7 @@ if ($null -eq $platyps) {
     Import-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1
 }
 
-$commandHelpPaths = Get-ChildItem $HelpPath -Filter "*.md" |
-    Where-Object { $_.Name -notlike "about_*.md" } |
-    Select-Object -ExpandProperty FullName
-$commandHelp = Import-MarkdownCommandHelp -Path $commandHelpPaths
+$commandHelp = Import-MarkdownCommandHelp -Path (Join-Path $HelpPath "*.md")
 $externalHelpFiles = $commandHelp | Select-Object -ExpandProperty ExternalHelpFile -Unique
 Export-MamlCommandHelp -CommandHelp $commandHelp -OutputFolder $OutputPath -Force | Out-Null
 
