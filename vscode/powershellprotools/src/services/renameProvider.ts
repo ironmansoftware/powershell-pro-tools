@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import path = require("path");
 import { Container } from '../container';
 import { RefactorRequest, TextEditorState, TextEditType } from '../types';
 
@@ -11,8 +12,9 @@ export class PowerShellRenameProvider implements vscode.RenameProvider {
         const request = this.createRefactorRequest(position, document);
 
         const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+        const workspaceRoot = workspaceFolder ? workspaceFolder.uri.fsPath : path.dirname(document.uri.fsPath);
 
-        var result = await Container.PowerShellService.RenameSymbol(newName, workspaceFolder.uri.fsPath, request);
+        var result = await Container.PowerShellService.RenameSymbol(newName, workspaceRoot, request);
 
         let we = new vscode.WorkspaceEdit();
 
