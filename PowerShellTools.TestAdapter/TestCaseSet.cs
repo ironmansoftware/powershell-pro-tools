@@ -23,6 +23,23 @@ namespace PowerShellTools.TestAdapter
 		public List<TestCase> TestCases { get; }
 		public IEnumerable<TestResult> TestResults { get { return _testResults; } }
 
+		public void ProcessTestResults(IEnumerable<PesterTestResult> results)
+		{
+			_testResults = new List<TestResult>();
+
+			foreach (var result in results)
+			{
+				var testCase = TestCases.FirstOrDefault(m => m.FullyQualifiedName == result.FullName);
+				if (testCase == null) continue;
+
+				var testResult = new TestResult(testCase);
+				testResult.Outcome = GetOutcome(result.Result);
+				testResult.ErrorMessage = result.ErrorMessage;
+				testResult.ErrorStackTrace = result.ErrorStackTrace;
+				_testResults.Add(testResult);
+			}
+		}
+
 		public void ProcessTestResults(IEnumerable<PSObject> results, bool pester5)
 		{
 			_testResults = new List<TestResult>();
@@ -145,5 +162,13 @@ namespace PowerShellTools.TestAdapter
 			}
 			return TestOutcome.Failed;
 		}
+	}
+
+	public class PesterTestResult
+	{
+		public string FullName { get; set; }
+		public string Result { get; set; }
+		public string ErrorMessage { get; set; }
+		public string ErrorStackTrace { get; set; }
 	}
 }
