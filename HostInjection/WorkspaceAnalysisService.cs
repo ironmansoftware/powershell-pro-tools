@@ -175,11 +175,19 @@ namespace PowerShellProTools.Host
             return workspace.FunctionDefinitions.Where(m => m.FileName.Equals(file, StringComparison.OrdinalIgnoreCase));
         }
 
-        public void AddWorkspace(string root)
+        public Workspace AddWorkspace(string root)
         {
-            var workspace = new Workspace(root);
+            var workspace = GetWorkspace(root);
+            if (workspace != null)
+            {
+                return workspace;
+            }
+
+            workspace = new Workspace(root);
             workspaces.Add(workspace);
             AnalyzeWorkspace(root);
+
+            return workspace;
         }
 
         public void AnalyzeFile(string file)

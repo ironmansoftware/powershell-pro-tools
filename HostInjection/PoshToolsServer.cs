@@ -948,6 +948,11 @@ $RS.Events.SubscribeEvent($null, 'PowerShell.OnIdle',  'PowerShell.OnIdle', $nul
             var renameSymbol = new RenameSymbol();
 
             var workspace = _workspaceAnalysisService.GetWorkspace(workspaceRoot);
+            if (workspace == null && Directory.Exists(workspaceRoot))
+            {
+                workspace = _workspaceAnalysisService.AddWorkspace(workspaceRoot);
+            }
+
             if (workspace == null)
             {
                 return new TextEdit[0];
