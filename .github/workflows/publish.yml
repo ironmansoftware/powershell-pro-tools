@@ -76,6 +76,7 @@ jobs:
       run: |
         .\PowerShellToolsPro.Cmdlets\build.ps1
       env:
+        SIGNING_CODE: ${{ secrets.SIGNING_CODE }}
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -87,6 +88,7 @@ jobs:
         Install-Module Microsoft.PowerShell.PlatyPS -RequiredVersion 1.0.1 -Scope CurrentUser -Force -AllowClobber
         Invoke-Build -File .\vscode\vscode.build.ps1
       env:
+        SIGNING_CODE: ${{ secrets.SIGNING_CODE }}
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
