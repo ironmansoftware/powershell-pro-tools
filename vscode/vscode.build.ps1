@@ -31,6 +31,18 @@ task Init {
     }
 }
 
+task InstallExtensionDependencies {
+    Push-Location $RootDir
+    npm install
+    Pop-Location
+}
+
+task GenerateVSCodeApi InstallExtensionDependencies, {
+    Push-Location $RootDir
+    npm run generate:vscode-api
+    Pop-Location
+}
+
 task BuildWinFormDesigner {
     $instance = Get-VSSetupInstance -All -Prerelease | Select-VSSetupInstance -Require 'Microsoft.Component.MSBuild' -Latest
     $installDir = $instance.installationPath
@@ -64,7 +76,6 @@ task BuildExtension {
         npm install -g npm
         npm install -g typescript@latest
         npm install -g @vscode/vsce
-        npm install
 
         vsce package
 
@@ -73,7 +84,7 @@ task BuildExtension {
     Pop-Location
 }
 
-task Build BuildHost, BuildWinFormDesigner, BuildCmdlets, BuildExtension
+task Build GenerateVSCodeApi, BuildHost, BuildWinFormDesigner, BuildCmdlets, BuildExtension
 
 task . Init, Clean, Build
 

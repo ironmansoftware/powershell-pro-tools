@@ -3,14 +3,17 @@ import net = require('net');
 import { Container } from '../container';
 var fs = require('fs')
 import * as path from 'path';
+import { VSCodeApiDispatcher } from './vscodeApiDispatcher';
 
 export default class VSCodeService {
 
     server: net.Server;
     decorations: any;
+    apiDispatcher: VSCodeApiDispatcher;
 
     init() {
         this.decorations = {}
+        this.apiDispatcher = new VSCodeApiDispatcher();
         var _this = this;
 
         var data = '';
@@ -32,6 +35,14 @@ export default class VSCodeService {
 
                 try {
                     const msg = JSON.parse(data);
+                    if (msg.protocol === 'vscode-api' || msg.Protocol === 'vscode-api') {
+                        _this.apiDispatcher.dispatch(_this.normalizeApiRequest(msg)).then(response => {
+                            stream.write(JSON.stringify(response));
+                            stream.end();
+                        });
+                        return;
+                    }
+
                     _this.processMsg(msg, (s) => {
                         if (s && s !== '') {
                             stream.write(s);
@@ -62,6 +73,29 @@ export default class VSCodeService {
 
             this.server.listen(pipePath);
         });
+    }
+
+    normalizeApiRequest(msg: any): any {
+        const target = msg.target || msg.Target;
+        const args = msg.arguments || msg.Arguments;
+
+        return {
+            protocol: msg.protocol || msg.Protocol,
+            id: msg.id || msg.Id,
+            operation: msg.operation || msg.Operation,
+            target: target ? {
+                path: target.path || target.Path,
+                handle: target.handle || target.Handle,
+                typeName: target.typeName || target.TypeName
+            } : undefined,
+            member: msg.member || msg.Member,
+            arguments: args ? args.map(arg => ({
+                kind: arg.kind || arg.Kind,
+                value: arg.value === undefined ? arg.Value : arg.value,
+                handle: arg.handle || arg.Handle,
+                path: arg.path || arg.Path
+            })) : []
+        };
     }
 
     convertToPosition(position) {
@@ -347,6 +381,12 @@ export default class VSCodeService {
 
                 terminal.sendText(msg.args.text, msg.args.addNewLine);
                 callback('{}');
+                break;
+            default:
+                callback(JSON.stringify({
+                    success: false,
+                    error: `Unsupported VS Code bridge message: ${msg.type || msg.Protocol || msg.protocol || '<missing type>'}`
+                }));
                 break;
         }
     }
