@@ -94,7 +94,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     await extension.activate();
     const powerShellExtensionClient = extension!.exports as IPowerShellExtensionClient;
-    const id = powerShellExtensionClient.registerExternalExtension(context.extension.id);
+    const id = powerShellExtensionClient.registerExternalExtension("ironmansoftware.powershellprotools");
     context.subscriptions.push({
         dispose: () => powerShellExtensionClient.unregisterExternalExtension(id)
     });

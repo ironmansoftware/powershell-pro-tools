@@ -6,7 +6,17 @@
         {
             "type": "npm",
             "script": "watch",
-            "problemMatcher": "$tsc-watch",
+            "problemMatcher": {
+                "owner": "esbuild",
+                "pattern": {
+                    "regexp": "^(?!)"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*esbuild .*--watch.*$",
+                    "endsPattern": "^\\[watch\\] build finished, watching for changes\\.\\.\\.$"
+                }
+            },
             "isBackground": true,
             "presentation": {
                 "reveal": "never"
