@@ -67,10 +67,10 @@ namespace PowerShellToolsPro.FormDesigner
             return doc.GetFileName();
         }
 
-        public override void InsertIntoBeginningOfFile(string fileName, string text)
+        protected override void InsertIntoFile(string fileName, string text, int offset)
         {
             var file = _visualStudio.GetFile(fileName);
-            file.InsertAtBeginningOfDocument(text);
+            file.InsertAtDocumentOffset(text, offset);
         }
 
         [ImportingConstructor]

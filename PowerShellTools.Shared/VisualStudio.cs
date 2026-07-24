@@ -183,6 +183,15 @@ namespace PowerShellToolsPro
 			_projectItem.Document.Save();
 		}
 
+        public void InsertAtDocumentOffset(string text, int offset)
+        {
+            var textDoc = (TextDocument)_projectItem.Document.Object("TextDocument");
+            var editPoint = textDoc.StartPoint.CreateEditPoint();
+            editPoint.CharRight(offset);
+            editPoint.Insert(text);
+            _projectItem.Document.Save();
+        }
+
         public void ReplaceSelection(string text)
         {
             var textDoc = (TextDocument)_projectItem.Document.Object("TextDocument");
