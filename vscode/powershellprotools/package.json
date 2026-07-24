@@ -2,7 +2,7 @@
     "name": "powershellprotools",
     "displayName": "PowerShell Pro Tools",
     "description": "Powerful extensions for PowerShell development.",
-    "version": "2025.11.0",
+    "version": "2026.2.1",
     "publisher": "ironmansoftware",
     "license": "MIT",
     "repository": {

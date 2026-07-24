@@ -11,6 +11,6 @@ using System.Runtime.InteropServices;
 // (See also AssemblyInfoCommon.cs in this same directory.)
 
 // These are used only on the local dev builds.  
-[assembly: AssemblyVersion("2022.7.0.0")] 
-[assembly: AssemblyFileVersion("2022.7.0.0")] 
-[assembly: AssemblyInformationalVersion("2022.7.0.0")]
+[assembly: AssemblyVersion("2026.2.1.0")]
+[assembly: AssemblyFileVersion("2026.2.1.0")]
+[assembly: AssemblyInformationalVersion("2026.2.1")]
