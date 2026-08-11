@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"name": "PS Pro Tools",
+			"path": "..\\powershell-pro-tools"
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			".vs/": true,
+			"bin/": true,
+			"obj/": true,
+			"node_modules/": false,
+		},
+		"powershell.cwd": "PS Pro Tools",
+		"powershell.developer.editorServicesLogLevel": "Information",
+		"powershell.trace.server": "messages",
+		"dotnet.defaultSolution": "Source/powershell-pro-tools",
+		"dotnet.preferCSharpExtension": false,
+		"xml.fileAssociations": [
+			{
+				"pattern": "**/*.csproj",
+				"systemId": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Microsoft.Build.xsd",
+				// "systemId": "https://github.com/dotnet/msbuild/raw/refs/heads/main/src/MSBuild/Microsoft.Build.xsd"
+			}
+		],
+		"xml.codeLens.enabled": true,
+		"xml.format.joinContentLines": true,
+		"xml.trace.server": "messages",
+	}
+}
