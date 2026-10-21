@@ -89,7 +89,8 @@ namespace PowerShellTools.Shared.Project.PropertyPages
                 "7.4.5",
                 "7.4.6",
                 "7.4.7",
-                "7.5.0"
+                "7.5.0",
+                "7.6.7"
             };
 
             NetVersions = new[]
@@ -105,7 +106,8 @@ namespace PowerShellTools.Shared.Project.PropertyPages
                 "net6.0",
                 "net7.0",
                 "net8.0",
-                "net9.0"
+                "net9.0",
+                "net10.0"
             };
 
             OutputTypes = new[]
@@ -273,6 +275,11 @@ namespace PowerShellTools.Shared.Project.PropertyPages
                     NetVersion = "net9.0";
                     DotNetVersionEnabled = false;
                 }
+                if (Version.TryParse(value, out Version version6) && version6.Major == 7 && version6.Minor == 6)
+                {
+                    NetVersion = "net10.0";
+                    DotNetVersionEnabled = false;
+                }              
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PowerShellVersion)));
             }
