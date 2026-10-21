@@ -904,7 +904,7 @@ namespace PowerShellToolsPro.Packager
 
         private bool IsDotNetFrameworkInstalled(string version)
         {
-            if (version.StartsWith("netcoreapp") || version == "net5.0" || version == "net6.0" || version == "net7.0" || version == "net8.0" || version == "net9.0") return true;
+            if (version.StartsWith("netcoreapp") || version == "net5.0" || version == "net6.0" || version == "net7.0" || version == "net8.0" || version == "net9.0" || version == "net10.0" ) return true;
 
             var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
             var referenceAssemblies = Path.Combine(programFiles, @"Reference Assemblies\Microsoft\Framework\.NETFramework");
